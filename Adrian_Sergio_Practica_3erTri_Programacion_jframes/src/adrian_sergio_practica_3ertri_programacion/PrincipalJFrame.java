@@ -5,7 +5,6 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 
-import java.util.Map;
 import java.util.HashMap;
 
 
@@ -41,6 +40,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         BotonGesC = new javax.swing.JButton();
         BotonGesA = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        botonFicherosyBBDD = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -97,6 +97,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ImgCentroEstudios.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
 
+        botonFicherosyBBDD.setText("GESTION FICHEROS Y BBDD");
+        botonFicherosyBBDD.setPreferredSize(new java.awt.Dimension(1, 1));
+        botonFicherosyBBDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFicherosyBBDDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,7 +118,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BotonGesA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BotonGesC, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)))
+                            .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)))
                     .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -118,17 +127,19 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BotonGesA, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotonGesA, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonGesC, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotonGesC, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonMat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonMat, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -173,6 +184,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         this.dispose();
         System.exit( 0 );
     }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void botonFicherosyBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDDActionPerformed
+        FicherosYBBDD fYBBDD = new FicherosYBBDD(listaAlumnos,listaCursos);
+        fYBBDD.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botonFicherosyBBDDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +246,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonGesA;
     private javax.swing.JButton BotonGesC;
+    private javax.swing.JButton botonFicherosyBBDD;
     private javax.swing.JButton botonMat;
     private javax.swing.JButton botonSalir;
     private javax.swing.JLabel jLabel2;

@@ -14,7 +14,7 @@ public class Curso {
     private String nombre ;
     private String descripcion ;
     private int numHoras;
-    ArrayList <Alumno> alumnosInscritos; 
+    private ArrayList <Alumno> alumnosInscritos; 
 
     public Curso(String nombre, String descripcion, int numHoras) {
         this.nombre = nombre;
