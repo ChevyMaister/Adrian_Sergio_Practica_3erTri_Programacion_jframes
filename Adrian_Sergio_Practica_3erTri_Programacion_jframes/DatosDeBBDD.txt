@@ -1,5 +1,5 @@
 ip = localhost
 puerto = 3306
-db = Sergio_Adrian_centroFormacion
+db = 
 usuario = root
 password = 

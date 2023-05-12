@@ -17,7 +17,10 @@ public class Main {
      */
     //HOLA SERGIO GOMEZ
     public static void main(String[] args) {
-
+        PersistenciaBD baseDatos = new PersistenciaBD();
+        baseDatos.Datos("DatosDeBBDD.txt");
+       // baseDatos.crearDB();
+        
         HashMap<String, Alumno> listaAlumnos = new HashMap();
         HashMap<String, Curso> listaCursos = new HashMap();
 

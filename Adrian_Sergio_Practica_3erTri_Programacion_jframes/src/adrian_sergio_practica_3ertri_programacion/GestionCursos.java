@@ -13,7 +13,7 @@ import java.util.Map;
  * @author 34603
  */
 public class GestionCursos extends javax.swing.JFrame {
-
+    PersistenciaBD tablaCursos = new PersistenciaBD();
     HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos;
     Utiles util = new Utiles();
@@ -331,7 +331,8 @@ public class GestionCursos extends javax.swing.JFrame {
                 } else if (util.existeCurso(Nombre.getText().trim(), listaCursos)) {
                     textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
                 } else {
-                    listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
+                    //listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
+                    tablaCursos.insertarCurso(Nombre.getText().trim(), textoDesc.getText().trim(), NumH.getText().trim());
                     textoInfo.setText("Se ha añadido el Curso Correctamente");
                     for (Curso curso : listaCursos.values()) {
                         System.out.println(curso.getNombre());
@@ -348,18 +349,19 @@ public class GestionCursos extends javax.swing.JFrame {
                 }
                 break;
             case 2://BORRAR
-                textoInfo.setText("Por favor, Introduzca un DNI registrado");
-                if (!util.validarDNI(Nombre.getText().trim().toUpperCase())) {
-                    textoInfo.setText("Por favor, introduzca DNI valido, 8 num y 1 letra");
-                } else if (!listaCursos.containsKey(Nombre.getText().trim().toUpperCase())) {
-                    textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                textoInfo.setText("Por favor, Introduzca un nombre de curso registrado");
+                if (!util.validarLongitud(Nombre.getText().trim().toUpperCase(), 1)) {
+                    textoInfo.setText("Por favor, introduzca nombre valido , minimo una letra");
+                } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase() , "CURSOS" , "Nombre")) {
+                    textoInfo.setText("Nombre no encontrado, por favor, introduzca uno registrado");
                 } else {
-                    listaCursos.remove(Nombre.getText().trim().toUpperCase());
-                    textoInfo.setText("Alumno Eliminado");
+                    //listaCursos.remove(Nombre.getText().trim().toUpperCase());
+                    tablaCursos.borrarCurso(Nombre.getText().trim().toUpperCase());
+                    textoInfo.setText("Curso Eliminado");
                     System.out.println(listaCursos);
                 }
                 break;
-            case 3:
+            case 3://HACER MODIFICAR CURSOS
                 if (!util.validarDNI(Nombre.getText().trim().toUpperCase())) {
                     textoInfo.setText("Por favor, introduzca DNI valido, 8 num y 1 letra");
                 } else if (!listaCursos.containsKey(Nombre.getText().trim().toUpperCase())) {
