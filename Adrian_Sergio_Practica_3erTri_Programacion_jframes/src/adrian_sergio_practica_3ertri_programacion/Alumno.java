@@ -1,12 +1,13 @@
 package adrian_sergio_practica_3ertri_programacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Clase que representa a un alumno.
  */
 
-public class Alumno {
+public class Alumno implements Serializable{
 
     private String dni; // DNI del alumno
     private String nombre; // Nombre del alumno
