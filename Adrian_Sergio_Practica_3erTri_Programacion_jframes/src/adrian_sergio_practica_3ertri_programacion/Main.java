@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         PersistenciaBD baseDatos = new PersistenciaBD();
         baseDatos.Datos("DatosDeBBDD.txt");
-       // baseDatos.crearDB();
+        baseDatos.crearDB();
         
         HashMap<String, Alumno> listaAlumnos = new HashMap();
         HashMap<String, Curso> listaCursos = new HashMap();

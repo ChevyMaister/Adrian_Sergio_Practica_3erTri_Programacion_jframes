@@ -135,12 +135,13 @@ public class PersistenciaBD {
                     + ");");
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS INSCRIPCIONES("
                     + "   dniAlumno CHAR(9),"
-                    + "  nombreCurso VARCHAR(20), "
+                    + "   nombreCurso VARCHAR(20), "
                     + "   FOREIGN KEY(dniAlumno) REFERENCES ALUMNOS(dni),"
                     + "   FOREIGN KEY(nombreCurso) REFERENCES CURSOS(Nombre),"
                     + "   PRIMARY KEY ( dniAlumno , nombreCurso ),"
                     + "   fechaInicio DATE NOT NULL,"
-                    + "   fechaFin DATE NOT NULL"                 
+                    + "   fechaFin DATE"
+                    + "   calificacion FLOAT(4,2)"                 
                     + ");");
             this.conn.commit();
             

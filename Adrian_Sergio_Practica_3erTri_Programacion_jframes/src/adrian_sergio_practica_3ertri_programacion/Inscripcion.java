@@ -8,20 +8,12 @@ import java.util.Date;
 
 public class Inscripcion {
 
-    private int idInscripcion;
     private String dni;
     private String nombre_curso;
     private Date fechaInicio;
     private Date fechaFin;
     private int calificacion;
 
-    public int getIdInscripcion() {
-        return idInscripcion;
-    }
-
-    public void setIdInscripcion(int idInscripcion) {
-        this.idInscripcion = idInscripcion;
-    }
 
     public String getDni() {
         return dni;
