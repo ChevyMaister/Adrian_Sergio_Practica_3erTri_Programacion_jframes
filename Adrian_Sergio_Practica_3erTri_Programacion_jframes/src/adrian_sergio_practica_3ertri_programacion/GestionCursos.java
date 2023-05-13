@@ -13,6 +13,7 @@ import java.util.Map;
  * @author 34603
  */
 public class GestionCursos extends javax.swing.JFrame {
+    String auxNombre = "";
     PersistenciaBD tablaCursos = new PersistenciaBD();
     HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos;
@@ -319,6 +320,7 @@ public class GestionCursos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
+       
         switch (opcion) {
             case 1://CREAR
 
@@ -327,8 +329,10 @@ public class GestionCursos extends javax.swing.JFrame {
                 } else if (!util.validarLongitud(textoDesc.getText().trim(), 5)) {
                     textoInfo.setText("Por favor, introduzca una descripcion de 5 caracteres minimo");
                 } else if (!util.esNumeroC(NumH.getText().trim())) {
+                    
                     textoInfo.setText("Debe ser un numero mayor que 0 ");
-                } else if (util.existeCurso(Nombre.getText().trim(), listaCursos)) {
+                
+                } else if (tablaCursos.buscar(Nombre.getText().trim(),"CURSOS" , "Nombre")) {
                     textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
                 } else {
                     //listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
@@ -358,31 +362,29 @@ public class GestionCursos extends javax.swing.JFrame {
                     //listaCursos.remove(Nombre.getText().trim().toUpperCase());
                     tablaCursos.borrarCurso(Nombre.getText().trim().toUpperCase());
                     textoInfo.setText("Curso Eliminado");
-                    System.out.println(listaCursos);
+                    //System.out.println(listaCursos);
                 }
                 break;
             case 3://HACER MODIFICAR CURSOS
-                if (!util.validarDNI(Nombre.getText().trim().toUpperCase())) {
-                    textoInfo.setText("Por favor, introduzca DNI valido, 8 num y 1 letra");
-                } else if (!listaCursos.containsKey(Nombre.getText().trim().toUpperCase())) {
-                    textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+               
+                if (!util.validarLongitud(Nombre.getText().trim(), 1)) {
+                    textoInfo.setText("Por favor, introduzca nombre valido , minimo 1 letra");
+                } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase() , "CURSOS" , "Nombre")) {
+                    textoInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
                 } else {
-                    textoInfo.setText("Alumno encontrado: " + listaCursos.get(Nombre.getText().trim().toUpperCase()).toString() + "\n Rellena los campos que quieres cambiar, si alguno no quieres cambiarlo, dejalo en blanco");
-                    String dni = Nombre.getText().trim().toUpperCase();
-                    for (Component component : panelDatos.getComponents()) {
-                        component.setEnabled(true);
-                    }
-                    //////////////////
-                    /////////////////
-                    /////////////////
-                    /////////////////
-                    System.out.println(listaCursos);
+                    Nombre.setText("");
+                    auxNombre = Nombre.getText().trim();
+                   
                 }
+               
+                  modificarCampos();  
+                
                 break;
             default:
                 textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
                 break;
         }
+
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
@@ -421,7 +423,7 @@ public class GestionCursos extends javax.swing.JFrame {
             component.setEnabled(false);
         }
 
-        textoInfo.setText("Ponga el DNI para BORRAR el alumno y pulse HACER GESTION");
+        textoInfo.setText("Ponga el Nombre para BORRAR el Curso y pulse HACER GESTION");
         Nombre.setEnabled(true);
         labelNombreC.setEnabled(true);
 
@@ -436,10 +438,10 @@ public class GestionCursos extends javax.swing.JFrame {
         for (Component component : panelDatos.getComponents()) {
             component.setEnabled(false);
         }
-
+        
         Nombre.setEnabled(true);
         labelNombreC.setEnabled(true);
-        textoInfo.setText("Ponga el DNI para modificar el alumno y pulse HACER GESTION");
+        textoInfo.setText("Ponga el nombre del curso para modificar y pulse HACER GESTION");
         opcion = 3;
     }//GEN-LAST:event_modificarActionPerformed
 
@@ -507,6 +509,35 @@ public class GestionCursos extends javax.swing.JFrame {
     public void setListaCursos(HashMap<String, Curso> listaCursos) {
         this.listaCursos = listaCursos;
     }
+    public void modificarCampos(){
+        
+        
+         textoInfo.setText("Curso : " + auxNombre + " encontrado. " + "\n Rellena los campos que quieres cambiar, si alguno no quieres cambiarlo, dejalo en blanco");
+                    
+                    
+                    
+                   for (Component component : panelDatos.getComponents()) {
+                       component.setEnabled(true);
+                   }
+                        if (!Nombre.getText().trim().equalsIgnoreCase("")){
+                        tablaCursos.modificarCurso(auxNombre, "Nombre", Nombre.getText().trim());
 
+                    }else{
+                    }
+                    if (!textoDesc.getText().trim().equalsIgnoreCase("")){
+                       tablaCursos.modificarCurso(auxNombre, "Descripcion", textoDesc.getText().trim());
+
+                    }else{
+                    }
+                    if (!NumH.getText().trim().equalsIgnoreCase("")){
+                       tablaCursos.modificarCurso(auxNombre, "NumeroHoras", NumH.getText().trim());
+
+                    }else{
+                    }
+                    Nombre.setText("");
+                    NumH.setText("");
+                    textoDesc.setText("");
+                    
+    }
 
 }

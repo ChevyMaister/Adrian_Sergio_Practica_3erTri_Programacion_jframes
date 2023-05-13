@@ -279,5 +279,83 @@ public class PersistenciaBD {
     return encontrado ; 
 }
     
+    //METODO PARA MODIFICAR CURSOS
+    public void modificarCurso ( String nombreCurso , String columna , String datoNuevo){       
+         String curso = "";
+      
+    Statement stmt = null;
+   // ResultSet rs = null;
+    switch(columna){
+        
+        case "Descripcion" :
+        try {
+            stmt = this.conn.createStatement();
+           
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            stmt.executeUpdate("UPDATE cursos SET "+columna+" = '"+datoNuevo+"' WHERE Nombre = '"+nombreCurso+"';");
+   
+          
+            this.conn.commit();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+          try{
+             stmt.close(); 
+             //rs.close();
+          }catch(Exception e){
+              
+             e.printStackTrace();
+          }  
+        }break;
+        case "Nombre" :
+        try {
+            stmt = this.conn.createStatement();
+           
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            
+               stmt.executeUpdate("UPDATE cursos SET "+columna+" = '"+datoNuevo+"' WHERE Nombre = '"+nombreCurso+"';");
+   
     
+            this.conn.commit();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+          try{
+             stmt.close(); 
+             //rs.close();
+          }catch(Exception e){
+              
+             e.printStackTrace();
+          }  
+        }break;
+        case "NumeroHoras" :
+        try {
+            stmt = this.conn.createStatement();
+           
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            
+                       stmt.executeUpdate("UPDATE cursos SET "+columna+" = '"+datoNuevo+"' WHERE Nombre = '"+nombreCurso+"';");
+   
+            this.conn.commit();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }finally{
+          try{
+             stmt.close(); 
+             //rs.close();
+          }catch(Exception e){
+              
+             e.printStackTrace();
+          }  
+        }break;
+        default :
+    
+    }
+       
+        
+        
+    }    
 }
