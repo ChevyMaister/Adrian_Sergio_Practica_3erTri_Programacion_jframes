@@ -140,7 +140,7 @@ public class PersistenciaBD {
                     + "   FOREIGN KEY(nombreCurso) REFERENCES CURSOS(Nombre),"
                     + "   PRIMARY KEY ( dniAlumno , nombreCurso ),"
                     + "   fechaInicio DATE NOT NULL,"
-                    + "   fechaFin DATE"
+                    + "   fechaFin DATE,"
                     + "   calificacion FLOAT(4,2)"                 
                     + ");");
             this.conn.commit();
