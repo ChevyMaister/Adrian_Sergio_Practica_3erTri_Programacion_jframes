@@ -5,9 +5,7 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.io.FileOutputStream;
-
 import java.io.ObjectOutputStream;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;

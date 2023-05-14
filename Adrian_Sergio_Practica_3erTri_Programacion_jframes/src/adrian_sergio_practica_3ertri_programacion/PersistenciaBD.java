@@ -4,11 +4,13 @@
  */
 package adrian_sergio_practica_3ertri_programacion;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.sql.*;
+import java.sql.Date;
 
 /**
  *
@@ -40,7 +42,7 @@ public class PersistenciaBD {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             //System.out.println("jdbc:mariadb://"+this.ip+":"+this.puerto+"/"+this.db+" "+this.usuario+" "+this.passw);
-            this.conn = DriverManager.getConnection("jdbc:mariadb://" + this.ip + ":" + this.puerto + "/" + this.db , this.usuario, this.passw);
+            this.conn = DriverManager.getConnection("jdbc:mariadb://" + this.ip + ":" + this.puerto + "/" + this.db, this.usuario, this.passw);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -141,38 +143,39 @@ public class PersistenciaBD {
                     + "   PRIMARY KEY ( dniAlumno , nombreCurso ),"
                     + "   fechaInicio DATE NOT NULL,"
                     + "   fechaFin DATE,"
-                    + "   calificacion FLOAT(4,2)"                 
+                    + "   calificacion FLOAT(4,2)"
                     + ");");
             this.conn.commit();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-            try{
-            stmt.close();
-            }catch(Exception e){
-               
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+
                 e.printStackTrace();
             }
-            
+
         }
     }
+
     //METODOS PARA DAR DE ALTA EN LA BASE DE DATOS
-    public void insertarCurso( String nombre, String descripcion, String numHoras) {
-        Statement stmt = null ;
+    public void insertarCurso(String nombre, String descripcion, String numHoras) {
+        Statement stmt = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
             stmt.executeUpdate("insert into CURSOS values ('" + nombre + "','" + descripcion + "','" + numHoras + "')");
 
             this.conn.commit();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-            try{
-            stmt.close();
-            }catch(Exception e){
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -181,181 +184,251 @@ public class PersistenciaBD {
     public void insertarAlumno(String dni, String nombre, String apellido, String correo, String telefono) {
         Statement stmt = null;
         try {
-            
+
             stmt = this.conn.createStatement();
-            
+
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            stmt.executeUpdate("insert into ALUMNOS values ('" + dni + "','" + nombre + "','" + apellido + "','" + telefono + "')");
+            stmt.executeUpdate("insert into ALUMNOS values ('" + dni + "','" + nombre + "','" + apellido + "','" + correo + "','" + telefono + "')");
 
             this.conn.commit();
-           
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-            try{
-               stmt.close();
-            }catch (Exception e){
-                
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+
                 e.printStackTrace();
             }
         }
 
     }
 
-    public void insertarInscripcion() {// para insertar los datos de la tabla inscripcion 
+    public void insertarInscripcion(String nombreCurso, String dniAlumno) {// para insertar los datos de la tabla inscripcion 
+        Statement stmt = null;
+        long miliseconds = System.currentTimeMillis();
+        Date date = new Date(miliseconds);
+
+        try {
+
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            stmt.executeUpdate("insert into INSCRIPCIONES values ('" + dniAlumno + "','" + nombreCurso + "','" + date + "','" + null + "','" + null + "')");
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
 
     }
+
     //METODOS PARA DAR DE BAJA EN LA BASE DE DATOS
-    public void borrarCurso( String nombre) {
-        
+    public void borrarCurso(String nombre) {
+
         Statement stmt = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            stmt.executeUpdate("delete from CURSOS where Nombre='"+nombre+"' ;");
+            stmt.executeUpdate("delete from CURSOS where Nombre='" + nombre + "' ;");
 
             this.conn.commit();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-            try{
-              stmt.close();  
-                 
-            }catch(Exception e ){
-                
-              e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
             }
-            
+
         }
     }
-    
-    public void borrarAlumno( String dni ) {
-        
-        
-        
+
+    public void borrarAlumno(String dni) {
+        Statement stmt = null;
+        try {
+            stmt = this.conn.createStatement();
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            stmt.executeUpdate("delete from ALUMNOS where dni='" + dni + "' ;");
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+        }
     }
+
     /**
-     * 
+     *
      * @param dato - parametro para introducir el dato que buscas
      * @param nombreTabla - parametro para concretar la tabla donde buscar
-     * @param nombreColumna - parametro para concretar la columna de la tabla donde buscar el dato
-     * @return 
+     * @param nombreColumna - parametro para concretar la columna de la tabla
+     * donde buscar el dato
+     * @return
      */
     //METODO PARA BUSCAR DATOS DENTRO DE LA BASE DE DATOS
-    public boolean buscar (String dato , String nombreTabla , String nombreColumna){//devuelve true si el dato introducido en la tabla introducida existe
-       String campo = "";
-        boolean encontrado = false ;
-    Statement stmt = null;
-    ResultSet rs = null;
+    public boolean buscar(String dato, String nombreTabla, String nombreColumna) {//devuelve true si el dato introducido en la tabla introducida existe
+        String campo = "";
+        boolean encontrado = false;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
-           
+
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            rs = stmt.executeQuery("SELECT * FROM "+nombreTabla);
-            
-          while (rs.next()) {
-          campo = rs.getString(nombreColumna);
-          if ( campo.equalsIgnoreCase(dato)){
-              encontrado = true;
-          }else{
-              encontrado = false;
-          }
-    }
+            rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+
+            while (rs.next()) {
+                campo = rs.getString(nombreColumna);
+                if (campo.equalsIgnoreCase(dato)) {
+                    encontrado = true;
+                } else {
+                    encontrado = false;
+                }
+            }
             this.conn.commit();
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }finally{
-          try{
-             stmt.close(); 
-             rs.close();
-          }catch(Exception e){
-              
-             e.printStackTrace();
-          }  
-   
+        } finally {
+            try {
+                stmt.close();
+                rs.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
         }
-    return encontrado ; 
-}
-    
-    //METODO PARA MODIFICAR CURSOS
-    public void modificarCurso ( String nombreCurso , String columna , String datoNuevo){       
-         String curso = "";
-      
-    Statement stmt = null;
-   // ResultSet rs = null;
-    switch(columna){
-        
-        case "Descripcion" :
-        try {
-            stmt = this.conn.createStatement();
-           
-            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            stmt.executeUpdate("UPDATE cursos SET "+columna+" = '"+datoNuevo+"' WHERE Nombre = '"+nombreCurso+"';");
-   
-          
-            this.conn.commit();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }finally{
-          try{
-             stmt.close(); 
-             //rs.close();
-          }catch(Exception e){
-              
-             e.printStackTrace();
-          }  
-        }break;
-        case "Nombre" :
-        try {
-            stmt = this.conn.createStatement();
-           
-            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            
-               stmt.executeUpdate("UPDATE cursos SET "+columna+" = '"+datoNuevo+"' WHERE Nombre = '"+nombreCurso+"';");
-   
-    
-            this.conn.commit();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }finally{
-          try{
-             stmt.close(); 
-             //rs.close();
-          }catch(Exception e){
-              
-             e.printStackTrace();
-          }  
-        }break;
-        case "NumeroHoras" :
-        try {
-            stmt = this.conn.createStatement();
-           
-            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            
-                       stmt.executeUpdate("UPDATE cursos SET "+columna+" = '"+datoNuevo+"' WHERE Nombre = '"+nombreCurso+"';");
-   
-            this.conn.commit();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }finally{
-          try{
-             stmt.close(); 
-             //rs.close();
-          }catch(Exception e){
-              
-             e.printStackTrace();
-          }  
-        }break;
-        default :
-    
+        return encontrado;
     }
-       
-        
-        
-    }    
+
+    //METODO PARA MODIFICAR CURSOS
+    public void modificarCurso(String nombreCurso, String columna, String datoNuevo) {
+        String curso = "";
+
+        Statement stmt = null;
+        // ResultSet rs = null;
+        switch (columna) {
+
+            case "Descripcion":
+        try {
+                stmt = this.conn.createStatement();
+
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+                stmt.executeUpdate("UPDATE cursos SET " + columna + " = '" + datoNuevo + "' WHERE Nombre = '" + nombreCurso + "';");
+
+                this.conn.commit();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    stmt.close();
+                    //rs.close();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+            break;
+            case "Nombre":
+        try {
+                stmt = this.conn.createStatement();
+
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+                stmt.executeUpdate("UPDATE cursos SET " + columna + " = '" + datoNuevo + "' WHERE Nombre = '" + nombreCurso + "';");
+
+                this.conn.commit();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    stmt.close();
+                    //rs.close();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+            break;
+            case "NumeroHoras":
+        try {
+                stmt = this.conn.createStatement();
+
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+                stmt.executeUpdate("UPDATE cursos SET " + columna + " = '" + datoNuevo + "' WHERE Nombre = '" + nombreCurso + "';");
+
+                this.conn.commit();
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                try {
+                    stmt.close();
+                    //rs.close();
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+            }
+            break;
+            default:
+
+        }
+
+    }
+
+    public void modificar(String clave, String columnaClave, String nombreTabla, String columnaCambio, String nuevoValor) {
+        String campo = "";
+        boolean encontrado = false;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = this.conn.createStatement();
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+
+            stmt.executeUpdate("UPDATE " + nombreTabla + " SET " + columnaCambio + " = '" + nuevoValor + "' WHERE " + columnaClave + " = '" + clave + "';");
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                rs.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
 }
