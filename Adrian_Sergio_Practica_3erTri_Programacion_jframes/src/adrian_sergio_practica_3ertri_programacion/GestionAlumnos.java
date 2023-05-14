@@ -7,7 +7,6 @@ package adrian_sergio_practica_3ertri_programacion;
 import java.awt.Component;
 import java.util.HashMap;
 
-
 /**
  *
  * @author Chevy
@@ -16,14 +15,13 @@ public class GestionAlumnos extends javax.swing.JFrame {
 
     HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos;
-    PersistenciaBD bd = new PersistenciaBD ();
-
+    PersistenciaBD bd = new PersistenciaBD();
 
     Utiles util = new Utiles();
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
 
-    public GestionAlumnos(HashMap <String, Alumno>listaAlumnos, HashMap <String,Curso>listaCursos) {
-        this.listaAlumnos=listaAlumnos;
+    public GestionAlumnos(HashMap<String, Alumno> listaAlumnos, HashMap<String, Curso> listaCursos) {
+        this.listaAlumnos = listaAlumnos;
 
         initComponents();
         for (Component component : panelDatos.getComponents()) {
@@ -442,8 +440,8 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 } else if (!util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
                     textoInfo.setText("Por favor, introduzca Telefono valido, 9 digitos");
                 } else {
-                   // listaAlumnos.put(textoDni.getText().trim().toUpperCase(), new Alumno(textoDni.getText().trim().toUpperCase(), textoNombre.getText().trim().toUpperCase(), textoApellido.getText().trim().toUpperCase(), textoCorreo.getText().trim().toUpperCase(), textoTlfn.getText().trim().toUpperCase()));
-                    
+                    // listaAlumnos.put(textoDni.getText().trim().toUpperCase(), new Alumno(textoDni.getText().trim().toUpperCase(), textoNombre.getText().trim().toUpperCase(), textoApellido.getText().trim().toUpperCase(), textoCorreo.getText().trim().toUpperCase(), textoTlfn.getText().trim().toUpperCase()));
+
                     bd.insertarAlumno(textoDni.getText().trim().toUpperCase(), textoNombre.getText().trim().toUpperCase(), textoApellido.getText().trim().toUpperCase(), textoCorreo.getText().trim().toUpperCase(), textoTlfn.getText().trim().toUpperCase());
                     textoInfo.setText("Se ha añadido el Alumno Correctamente");
 
@@ -470,7 +468,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 } else {
                     bd.borrarAlumno(textoDni.getText().trim().toUpperCase());
                     textoInfo.setText("ELIMINADO " + textoDni.getText().trim().toUpperCase());
-                    
+
                     //listaAlumnos.remove(textoDni.getText().trim().toUpperCase());
                     //System.out.println(listaAlumnos);
                     opcion = 0;
@@ -489,7 +487,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                     }
                     textoDni.setEnabled(false);
                     labelDni.setEnabled(false);
-                    
+
                     opcion = 4;
                 }
                 break;
@@ -497,36 +495,56 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 String texto = "Alumno con DNI: " + dni + "\n";
                 textoInfo.setText("");
                 if (!textoNombre.getText().equals("")) {
-                    System.out.println("No hay nada");
+
                     //listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setNombre(textoNombre.getText().trim().toUpperCase());
                     //texto = texto + "Nuevo Nombre: " + textoNombre.getText().trim().toUpperCase() + "\n";
-                    if(bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")){
+                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
                         System.out.println("Encuentro en bbdd");
                         bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "nombre", textoNombre.getText().trim().toUpperCase());
+                    } else {
+                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
                     }
                 } else {
                     texto = texto + "No se ha cambiado el nombre\n";
                 }
                 if (!textoApellido.getText().equals("")) {
-                    listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setApellido(textoApellido.getText().trim().toUpperCase());
-                    texto = texto + "Nuevo Apellido: " + textoApellido.getText().trim().toUpperCase() + "\n";
+                    //listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setApellido(textoApellido.getText().trim().toUpperCase());
+                    //texto = texto + "Nuevo Apellido: " + textoApellido.getText().trim().toUpperCase() + "\n";
+                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
+                        System.out.println("Encuentro en bbdd");
+                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "apellido", textoApellido.getText().trim().toUpperCase());
+                    } else {
+                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                    }
                 } else {
                     texto = texto + "No se ha cambiado el apellido\n";
                 }
                 if (util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {
-                    listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setCorreo(textoCorreo.getText().trim().toUpperCase());
-                    texto = texto + "Nuevo Correo: " + textoCorreo.getText().trim().toUpperCase() + "\n";
+                    //listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setCorreo(textoCorreo.getText().trim().toUpperCase());
+                    //texto = texto + "Nuevo Correo: " + textoCorreo.getText().trim().toUpperCase() + "\n";
+                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
+                        System.out.println("Encuentro en bbdd");
+                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "correo", textoCorreo.getText().trim().toUpperCase());
+                    } else {
+                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                    }
                 } else {
                     texto = texto + "No se ha cambiado el correo\n";
                 }
                 if (util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
-                    listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setTelefono(textoTlfn.getText().trim().toUpperCase());
-                    texto = texto + "Nuevo Telefono: " + textoTlfn.getText().trim().toUpperCase() + "\n";
+                    //listaAlumnos.get(textoDni.getText().trim().toUpperCase()).setTelefono(textoTlfn.getText().trim().toUpperCase());
+                    //texto = texto + "Nuevo Telefono: " + textoTlfn.getText().trim().toUpperCase() + "\n";
+                    if(bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")){
+                        System.out.println("Encuentro en bbdd");
+                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "telefono", textoTlfn.getText().trim().toUpperCase());
+                    }else{
+                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                    }
                 } else {
                     texto = texto + "No se ha cambiado el telefono\n";
                 }
                 textoInfo.setText(texto);
-                System.out.println(listaAlumnos);
+                
                 break;
             default:
                 textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
@@ -643,6 +661,5 @@ public class GestionAlumnos extends javax.swing.JFrame {
     public void setListaAlumnos(HashMap<String, Alumno> listaAlumnos) {
         this.listaAlumnos = listaAlumnos;
     }
-
 
 }
