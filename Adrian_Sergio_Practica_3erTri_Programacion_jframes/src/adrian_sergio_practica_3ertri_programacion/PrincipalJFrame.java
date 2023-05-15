@@ -5,7 +5,11 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -17,10 +21,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     HashMap <String,Alumno> listaAlumnos;
     HashMap <String,Curso> listaCursos;
     Main main = new Main ();
-
+    static boolean mensajeReadme=false;
     public PrincipalJFrame() {
         initComponents();
-
+        if(mensajeReadme==false)
+        JOptionPane.showMessageDialog(this, "ANTES DE USAR LA APLICACION, SE RECOMIENDA LEER EL ARCHIVO README\nSITUADO EN \\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
+        mensajeReadme = true;
     }
     
     /**
@@ -204,6 +210,24 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     private void botonFicherosyBBDD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDD1ActionPerformed
         // TODO add your handling code here:
+        GestionesDeBD bd = new GestionesDeBD();
+        ArrayList<String> informe = bd.informesAlumnosNotas();
+        String archivo = "Ficheros/InformeDeAlumnosCursosyNotas.txt";
+
+        try {
+            FileWriter writer = new FileWriter(archivo);
+
+            for (String fila : informe) {
+                writer.write(fila);
+                writer.write(System.lineSeparator()); // Agrega un salto de línea después de cada cadena
+            }
+
+            writer.close();
+            System.out.println("Archivo generado correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al generar el archivo");
+        }
+    JOptionPane.showMessageDialog(this, "                       INFORME TIPO TXT CREADO EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
     }//GEN-LAST:event_botonFicherosyBBDD1ActionPerformed
 
     /**

@@ -462,8 +462,8 @@ public class GestionesDeBD {
     }
 
     public String[] imprimir(String dato, String nombreTabla, String nombreColumnaBuscar, String nombreColumnaImprimir) {
-        if(nombreColumnaImprimir.equals("")){
-            nombreColumnaImprimir="*";
+        if (nombreColumnaImprimir.equals("")) {
+            nombreColumnaImprimir = "*";
         }
         ArrayList<String> registroCompleto = new ArrayList();
         String registroIndividual = "";
@@ -474,9 +474,9 @@ public class GestionesDeBD {
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
             if (!dato.equals("*")) {
-                rs = stmt.executeQuery("SELECT "+nombreColumnaImprimir+" FROM " + nombreTabla + " WHERE " + nombreColumnaBuscar + " = '" + dato + "'");
+                rs = stmt.executeQuery("SELECT " + nombreColumnaImprimir + " FROM " + nombreTabla + " WHERE " + nombreColumnaBuscar + " = '" + dato + "'");
             } else {
-                rs = stmt.executeQuery("SELECT "+nombreColumnaImprimir+" FROM " + nombreTabla);
+                rs = stmt.executeQuery("SELECT " + nombreColumnaImprimir + " FROM " + nombreTabla);
             }
 
             ResultSetMetaData todosDatos = rs.getMetaData();
@@ -519,7 +519,7 @@ public class GestionesDeBD {
     }
 
     public boolean existeMatricula(String nombreTabla, String dniAlumno, String nombreCurso) {
-        if (buscar(dniAlumno, "alumnos", "dni")&&buscar(nombreCurso,"cursos","nombre")) {
+        if (buscar(dniAlumno, "alumnos", "dni") && buscar(nombreCurso, "cursos", "nombre")) {
 
             Statement stmt = null;
             ResultSet rs = null;
@@ -537,7 +537,7 @@ public class GestionesDeBD {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }else{
+        } else {
             return false;
         }
         return false;
@@ -572,5 +572,59 @@ public class GestionesDeBD {
         stmt.close();
 
         return alumnos;
+    }
+
+    public ArrayList<String> informesAlumnosNotas() {
+        ArrayList<String> informe = new ArrayList();
+
+        ArrayList<String> registroCompleto = new ArrayList();
+        String registroIndividual = "";
+        Statement stmt = null;
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        try {
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+            rs = stmt.executeQuery(""
+                    + "SELECT alumnos.Nombre, inscripciones.dniAlumno, inscripciones.nombreCurso, inscripciones.calificacion  "
+                    + "FROM inscripciones "
+                    + "JOIN alumnos ON inscripciones.dniAlumno=ALUMNOS.dni "
+                    + "ORDER BY ALUMNOS.Nombre;");
+
+            ResultSetMetaData todosDatos = rs.getMetaData();
+            int numColumna = todosDatos.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= numColumna; i++) {
+                    registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " ";
+                    if (i == numColumna) {
+                        informe.add(registroIndividual);
+                    }
+                }
+
+                registroIndividual = "";
+            }
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return informe;
     }
 }

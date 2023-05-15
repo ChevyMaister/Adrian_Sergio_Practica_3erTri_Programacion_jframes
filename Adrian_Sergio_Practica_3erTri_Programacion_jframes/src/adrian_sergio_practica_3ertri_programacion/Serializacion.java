@@ -20,7 +20,7 @@ public class Serializacion {
 
     public void serializarAlumnos(ArrayList listaAlumnos) {
         try {
-            FileOutputStream archivo = new FileOutputStream("listaAlumnos.ser");
+            FileOutputStream archivo = new FileOutputStream("Ficheros/listaAlumnos.ser");
             ObjectOutputStream salida = new ObjectOutputStream(archivo);
             salida.writeObject(listaAlumnos);
             salida.close();

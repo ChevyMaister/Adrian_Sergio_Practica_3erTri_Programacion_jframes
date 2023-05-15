@@ -5,6 +5,7 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    //HOLA SERGIO GOMEZ
+    
     public static void main(String[] args) {
         GestionesDeBD baseDatos = new GestionesDeBD();
         baseDatos.Datos("DatosDeBBDD.txt");
@@ -28,6 +29,7 @@ public class Main {
 
         GestionCursos gesC = new GestionCursos(listaCursos);
         panelPrincipal.setVisible(true);
+        
     }
 
 }
