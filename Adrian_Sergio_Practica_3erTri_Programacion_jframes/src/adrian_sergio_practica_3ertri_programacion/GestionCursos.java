@@ -21,7 +21,7 @@ public class GestionCursos extends javax.swing.JFrame {
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
 
     //Constructor
-    public GestionCursos(HashMap listaCursos) {
+    public GestionCursos() {
         this.listaCursos = new HashMap();
         initComponents();
         for (Component component : panelDatos.getComponents()) {

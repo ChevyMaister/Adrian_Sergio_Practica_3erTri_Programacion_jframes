@@ -4,7 +4,6 @@
  */
 package adrian_sergio_practica_3ertri_programacion;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,10 +13,6 @@ import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author 34603
- */
 public class GestionesDeBD {
 
     private String puerto = "3306";
@@ -53,7 +48,7 @@ public class GestionesDeBD {
     public void Datos(String fichero) {//introducir DatosDeBBDD 
         FileReader reader = null; //para leer el fichero de texto 
         BufferedReader bufferedReader = null;
-        String line = null; // para guardar cada linea del fichero
+        String line; // para guardar cada linea del fichero
         HashMap<String, String> parametros = new HashMap<String, String>(); // para guardar los datos de configuracion del fichero 
         try {
             reader = new FileReader(fichero);
@@ -259,6 +254,7 @@ public class GestionesDeBD {
         }
     }
 
+    //METODO PARA BORRAR UN ALUMNO, RECOGE DNI LO BORRA EN LA BD
     public void borrarAlumno(String dni) {
         Statement stmt = null;
         try {
@@ -433,17 +429,17 @@ public class GestionesDeBD {
         }
     }
 
-    public void calificar(String claveAlumno, String claveCurso, String nombreTabla, float nuevoValor) {
+    //Metodo para calificar a los alumnos en los cursos en la tabla INCRIPCIONES
+    public void calificar(String claveAlumno, String claveCurso, float nuevoValor) {
 
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
-
-            stmt.executeUpdate("UPDATE " + nombreTabla + " SET calificacion = '" + nuevoValor + "' WHERE dniAlumno = '" + claveAlumno + "' AND nombreCurso = '" + claveCurso + "';");
-            stmt.executeUpdate("UPDATE " + nombreTabla + " SET fechaFin = CURRENT_DATE() WHERE dniAlumno = '" + claveAlumno + "' AND nombreCurso = '" + claveCurso + "';");
+            //rs = stmt.executeQuery("SELECT * FROM inscripciones");
+            stmt.executeUpdate("UPDATE inscripciones SET calificacion = '" + nuevoValor + "' WHERE dniAlumno = '" + claveAlumno + "' AND nombreCurso = '" + claveCurso + "';");
+            stmt.executeUpdate("UPDATE inscripciones SET fechaFin = CURRENT_DATE() WHERE dniAlumno = '" + claveAlumno + "' AND nombreCurso = '" + claveCurso + "';");
             this.conn.commit();
 
         } catch (SQLException ex) {
@@ -461,18 +457,24 @@ public class GestionesDeBD {
         }
     }
 
+    //Metodo que devuelve una array de String para poder meterlo en la Lista. Devuelve los datos requeridos metiendo por parametro el nombre de la tabla, la columna donde quiere buscar, y el nombre de la columna que quiere devolver
     public String[] imprimir(String dato, String nombreTabla, String nombreColumnaBuscar, String nombreColumnaImprimir) {
+        // Verificar si nombreColumnaImprimir está vacío y asignar "*" como valor predeterminado
         if (nombreColumnaImprimir.equals("")) {
             nombreColumnaImprimir = "*";
         }
-        ArrayList<String> registroCompleto = new ArrayList();
-        String registroIndividual = "";
+
+        // Crear una lista para almacenar los registros obtenidos
+        ArrayList<String> registroCompleto = new ArrayList<>();
+        String registroIndividual = ""; // Variable para construir cada registro individual
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+            // Construir y ejecutar la consulta SQL basada en los parámetros proporcionados
             if (!dato.equals("*")) {
                 rs = stmt.executeQuery("SELECT " + nombreColumnaImprimir + " FROM " + nombreTabla + " WHERE " + nombreColumnaBuscar + " = '" + dato + "'");
             } else {
@@ -482,15 +484,18 @@ public class GestionesDeBD {
             ResultSetMetaData todosDatos = rs.getMetaData();
             int numColumna = todosDatos.getColumnCount();
 
+            // Recorrer los resultados obtenidos de la consulta
             while (rs.next()) {
                 for (int i = 1; i <= numColumna; i++) {
+                    // Construir cada registro individual concatenando las etiquetas de columna y los valores correspondientes
                     registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " ";
+
+                    // Si es la última columna, agregar el registro individual a la lista de registros completos
                     if (i == numColumna) {
                         registroCompleto.add(registroIndividual);
                     }
                 }
-
-                registroIndividual = "";
+                registroIndividual = ""; // Reiniciar el registro individual para el próximo resultado
             }
 
             this.conn.commit();
@@ -509,16 +514,19 @@ public class GestionesDeBD {
                 e.printStackTrace();
             }
         }
+
+        // Convertir la lista de registros completos a un array de strings y devolverlo
         String[] devolverRegistros = new String[registroCompleto.size()];
         for (int i = 0; i < devolverRegistros.length; i++) {
-
             devolverRegistros[i] = registroCompleto.get(i);
         }
 
         return devolverRegistros;
     }
 
+    // Verificar si el alumno y el curso existen en las respectivas tablas
     public boolean existeMatricula(String nombreTabla, String dniAlumno, String nombreCurso) {
+
         if (buscar(dniAlumno, "alumnos", "dni") && buscar(nombreCurso, "cursos", "nombre")) {
 
             Statement stmt = null;
@@ -526,42 +534,52 @@ public class GestionesDeBD {
             try {
                 stmt = this.conn.createStatement();
                 stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+                // Ejecutar la consulta SQL para obtener todas las filas de la tabla especificada
                 rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+
+                // Recorrer los resultados obtenidos
                 while (rs.next()) {
                     String columnaAlumno = rs.getString("dniAlumno");
                     String columnaCurso = rs.getString("nombreCurso");
+
+                    // Verificar si el alumno y el curso coinciden con los parámetros proporcionados
                     if (columnaAlumno.equals(dniAlumno) && columnaCurso.equals(nombreCurso)) {
-                        return true;
+                        return true; // La matrícula existe
                     }
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } else {
-            return false;
+            return false; // El alumno o el curso no existen, por lo tanto la matrícula no puede existir
         }
-        return false;
 
+        return false; // No se encontró la matrícula
     }
 
+    //Devuelve todos los alumnos de la bbdd utilizado para serializar
     public ArrayList<Alumno> obtenerAlumnos() throws Exception {
         Statement stmt = null;
         ResultSet rs = null;
         stmt = this.conn.createStatement();
         stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
 
-        rs = stmt.executeQuery("SELECT dni, nombre, apellido, correo, telefono FROM Alumnos");
+        // Ejecutar la consulta SQL para obtener los datos de los alumnos
+        rs = stmt.executeQuery("SELECT * FROM Alumnos");
 
         Alumno alumno = new Alumno("", "", "", "", "");
-        ArrayList alumnos = new ArrayList<>();
+        ArrayList<Alumno> alumnos = new ArrayList<>();
         try {
             while (rs.next()) {
+                // Crear un objeto Alumno y asignar los valores obtenidos de la consulta
+                alumno.setDni(rs.getString("dni"));
+                alumno.setNombre(rs.getString("nombre"));
+                alumno.setApellido(rs.getString("apellido"));
+                alumno.setCorreo(rs.getString("correo"));
+                alumno.setTelefono(rs.getString("telefono"));
 
-                alumno.setDni(rs.getNString("dni"));
-                alumno.setNombre(rs.getNString("nombre"));
-                alumno.setApellido(rs.getNString("apellido"));
-                alumno.setCorreo(rs.getNString("correo"));
-                alumno.setDni(rs.getNString("telefono"));
+                // Agregar el objeto Alumno a la lista de alumnos
                 alumnos.add(alumno);
             }
         } catch (SQLException ex) {
@@ -574,11 +592,47 @@ public class GestionesDeBD {
         return alumnos;
     }
 
-    public ArrayList<String> informesAlumnosNotas() {
-        ArrayList<String> informe = new ArrayList();
+    //Devuelve todas las Inscripciones de la bbdd utilizado para serializar
+    public ArrayList<Inscripcion> obtenerInscripciones() throws Exception {
+        Statement stmt = null;
+        ResultSet rs = null;
+        stmt = this.conn.createStatement();
+        stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
 
-        ArrayList<String> registroCompleto = new ArrayList();
-        String registroIndividual = "";
+        // Ejecutar la consulta SQL para obtener los datos de los Inscripcion
+        rs = stmt.executeQuery("SELECT * FROM Inscripciones");
+
+        Inscripcion ins = new Inscripcion("","");
+        ArrayList<Inscripcion> listaIns = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                // Crear un objeto Inscripcion y asignar los valores obtenidos de la consulta
+                ins.setDni(rs.getString("dniAlumno"));
+                ins.setNombreCurso(rs.getString("nombreCurso"));
+                ins.setFechaInicio(rs.getDate("fechaInicio"));
+                ins.setFechaFin(rs.getDate("fechaFin"));
+                ins.setCalificacion(rs.getFloat("calificacion"));
+                
+
+                // Agregar el objeto Inscripcion a la lista de Inscripciones
+                listaIns.add(ins);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Serializacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        rs.close();
+        stmt.close();
+
+        return listaIns;
+    }
+
+    //Devuelve todos los registros de inscripciones de la bbdd utilizado para serializar
+    public ArrayList<String> informesAlumnosNotas() {
+        ArrayList<String> informe = new ArrayList<>();  // Lista para almacenar el informe
+
+        ArrayList<String> registroCompleto = new ArrayList<>();  // Lista para almacenar los registros individuales
+        String registroIndividual = "";  // Cadena para construir cada registro individual
         Statement stmt = null;
         ResultSet rs = null;
         ResultSet rs2 = null;
@@ -587,6 +641,7 @@ public class GestionesDeBD {
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
 
+            // Realizar la consulta SQL para obtener el informe de alumnos y notas
             rs = stmt.executeQuery(""
                     + "SELECT alumnos.Nombre, inscripciones.dniAlumno, inscripciones.nombreCurso, inscripciones.calificacion  "
                     + "FROM inscripciones "
@@ -600,7 +655,7 @@ public class GestionesDeBD {
                 for (int i = 1; i <= numColumna; i++) {
                     registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " ";
                     if (i == numColumna) {
-                        informe.add(registroIndividual);
+                        informe.add(registroIndividual);  // Agregar el registro individual a la lista del informe
                     }
                 }
 
@@ -624,7 +679,6 @@ public class GestionesDeBD {
             }
         }
 
-
-        return informe;
+        return informe;  // Devolver el informe completo
     }
 }

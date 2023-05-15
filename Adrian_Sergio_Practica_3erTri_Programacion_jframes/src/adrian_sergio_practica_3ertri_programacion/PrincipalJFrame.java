@@ -4,31 +4,30 @@
  */
 package adrian_sergio_practica_3ertri_programacion;
 
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Chevy
  */
 public class PrincipalJFrame extends javax.swing.JFrame {
-    
-    HashMap <String,Alumno> listaAlumnos;
-    HashMap <String,Curso> listaCursos;
-    Main main = new Main ();
-    static boolean mensajeReadme=false;
+
+
+    Main main = new Main();
+    static boolean mensajeReadme = false;
+
     public PrincipalJFrame() {
         initComponents();
-        if(mensajeReadme==false)
-        JOptionPane.showMessageDialog(this, "ANTES DE USAR LA APLICACION, SE RECOMIENDA LEER EL ARCHIVO README\nSITUADO EN \\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
+        if (mensajeReadme == false) {
+            JOptionPane.showMessageDialog(this, "ANTES DE USAR LA APLICACION, SE RECOMIENDA LEER EL ARCHIVO README\nSITUADO EN \\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
+        }
         mensajeReadme = true;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,31 +174,31 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     private void BotonGesAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGesAActionPerformed
         // TODO add your handling code here:
-        GestionAlumnos gesA = new GestionAlumnos(listaAlumnos,listaCursos);
+        GestionAlumnos gesA = new GestionAlumnos();
         gesA.setVisible(true);
         this.dispose();
 
-        
+
     }//GEN-LAST:event_BotonGesAActionPerformed
 
 
     private void BotonGesCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGesCActionPerformed
-    GestionCursos gesC = new GestionCursos(listaCursos);
+        GestionCursos gesC = new GestionCursos();
         gesC.setVisible(true);
-        this.dispose();        
+        this.dispose();
     }//GEN-LAST:event_BotonGesCActionPerformed
 
     private void botonMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMatActionPerformed
         // TODO add your handling code here:
-        MatriculasBusquedas gesMB = new MatriculasBusquedas(listaAlumnos,listaCursos);
+        MatriculasBusquedas gesMB = new MatriculasBusquedas();
         gesMB.setVisible(true);
-        this.dispose(); 
+        this.dispose();
     }//GEN-LAST:event_botonMatActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        System.exit( 0 );
+        System.exit(0);
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonFicherosyBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDDActionPerformed
@@ -227,7 +226,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             System.out.println("Error al generar el archivo");
         }
-    JOptionPane.showMessageDialog(this, "                       INFORME TIPO TXT CREADO EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
+        JOptionPane.showMessageDialog(this, "                       INFORME TIPO TXT CREADO EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
     }//GEN-LAST:event_botonFicherosyBBDD1ActionPerformed
 
     /**
@@ -261,7 +260,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+
             }
         });
     }
@@ -293,7 +292,5 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
-
-
 
 }

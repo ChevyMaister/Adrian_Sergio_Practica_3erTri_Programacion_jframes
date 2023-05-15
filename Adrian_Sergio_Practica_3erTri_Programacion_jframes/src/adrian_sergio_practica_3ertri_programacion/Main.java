@@ -5,7 +5,6 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.util.HashMap;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,13 +20,8 @@ public class Main {
         GestionesDeBD baseDatos = new GestionesDeBD();
         baseDatos.Datos("DatosDeBBDD.txt");
         baseDatos.crearDB();
-        
-        HashMap<String, Alumno> listaAlumnos = new HashMap();
-        HashMap<String, Curso> listaCursos = new HashMap();
-
         PrincipalJFrame panelPrincipal = new PrincipalJFrame();
-
-        GestionCursos gesC = new GestionCursos(listaCursos);
+        GestionCursos gesC = new GestionCursos();
         panelPrincipal.setVisible(true);
         
     }

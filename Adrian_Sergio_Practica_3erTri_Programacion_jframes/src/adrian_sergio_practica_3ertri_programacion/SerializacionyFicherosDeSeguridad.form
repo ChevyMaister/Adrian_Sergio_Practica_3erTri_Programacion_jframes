@@ -61,7 +61,7 @@
                           <Component id="panelEleccion" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -70,7 +70,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelEleccion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
                   <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -98,7 +98,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="aniadir" min="-2" pref="230" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="borrar" min="-2" pref="244" max="-2" attributes="0"/>
+                              <Component id="desserializar" min="-2" pref="207" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="borrar1" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
@@ -120,7 +120,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="borrar" alignment="3" max="32767" attributes="0"/>
+                              <Component id="desserializar" alignment="3" max="32767" attributes="0"/>
                               <Component id="borrar1" alignment="3" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -211,7 +211,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aniadirActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="borrar">
+            <Component class="javax.swing.JButton" name="desserializar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c" green="3" red="4" type="rgb"/>
@@ -222,14 +222,14 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="71" green="ed" red="f4" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;&amp;nbsp;BORRAR&lt;/p&gt;&lt;p&gt;ALUMNO&lt;/p&gt;&lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;VOLCAR FICHERO SERIALIZADO&lt;/p&gt;&lt;p&gt;A BBDD&lt;/p&gt;&lt;/html&gt;"/>
                 <Property name="actionCommand" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;BORRAR&lt;/p&gt;&lt;p&gt; ALUMNO&lt;/p&gt;&lt;/html&gt;"/>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[140, 80]"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="desserializarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="borrar1">

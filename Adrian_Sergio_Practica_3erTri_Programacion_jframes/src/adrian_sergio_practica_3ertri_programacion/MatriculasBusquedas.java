@@ -21,13 +21,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     int opcion = 0;
     Utiles util = new Utiles();
     GestionesDeBD bd = new GestionesDeBD();
-    HashMap<String, Alumno> listaAlumnos;
-    HashMap<String, Curso> listaCursos;
 
-    public MatriculasBusquedas(HashMap<String, Alumno> listaAlumnos, HashMap<String, Curso> listaCursos) {
+    public MatriculasBusquedas() {
         initComponents();
-        this.listaAlumnos = listaAlumnos;
-        this.listaCursos = listaCursos;
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(false);
         }
@@ -504,16 +500,18 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(true);
         }
-
-        panelInfo.setText("Seleccione un curso y un alumno para matricularlo, use el buscador de cada registro, una vez encontrados los registros pulse HACER GESTION");
+        String[] datosAlumno;
+        datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI", "");
+        cajaListaAlumnos.setListData(datosAlumno);
+        textoAlumnos.setText("");
+        panelInfo.setText("Rellene NOMBRE DE CURSO, DNI DE ALUMNO y pulse HACER GESTION");
 
         opcion = 1;
         aceptar.setEnabled(true);
     }//GEN-LAST:event_botonMatricularActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        cajaListaAlumnos.clearSelection();
-        cajaListaCursos.clearSelection();
+        String[] datosAlumno;
         String[] datosCursos;
         boolean cursoEncontrado = false;
         boolean alumnoEncontrado = false;
@@ -528,7 +526,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         } else {
             if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
 
-                datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE","");
+                datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE", "");
                 panelInfo.setText("CURSO ENCONTRADO");
                 cajaListaCursos.setListData(datosCursos);
 
@@ -537,14 +535,14 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     nombreCurso = datosCursos[0].substring(indiceInicio, indiceFin).trim();
-                    System.out.println( "Encontrado "+nombreCurso);
+                    System.out.println("Encontrado " + nombreCurso);
                     cursoEncontrado = true;
                 } else {
                     System.out.println("No se encontró ninguna palabra.");
                 }
             }
         }
-        String[] datosAlumno;
+        
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
             System.out.println("Aqui llego");
             panelInfo.setText(panelInfo.getText() + " " + "Por favor, introduzca un DNI valido 8 numeros y una letra");
@@ -553,7 +551,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         } else {
             if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
 
-                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni","");
+                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
                 panelInfo.setText(panelInfo.getText() + " " + "ALUMNO ENCONTRADO");
                 cajaListaAlumnos.setListData(datosAlumno);
 
@@ -562,7 +560,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     dniAlumno = datosAlumno[0].substring(indiceInicio, indiceFin).trim();
-                    System.out.println("Encontrado "+dniAlumno);
+                    System.out.println("Encontrado " + dniAlumno);
                     alumnoEncontrado = true;
                 } else {
                     System.out.println("No se encontró ninguna palabra.");
@@ -576,15 +574,14 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                     aceptar.setEnabled(false);
                     panelInfo.setText("Se realizó la inscripcion");
                 }
-            }else {
+            } else {
                 panelInfo.setText("El Alumno ya está matriculado en el curso");
             }
         } else if (opcion == 2) {//CALIFICAR
             if (bd.existeMatricula("inscripciones", dniAlumno, nombreCurso)) {
                 float nota = util.esNotaValida(textoNota.getText().trim());
                 if (nota != -1) {
-
-                    bd.calificar(dniAlumno, nombreCurso, "Inscripciones", nota);
+                    bd.calificar(dniAlumno, nombreCurso, nota);
                     panelInfo.setText("Calificacion realizada");
                 } else {
                     panelInfo.setText("Pon una nota valida, < o = que 10 y > o = que 0");
@@ -617,7 +614,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
 
         String[] datosAlumno = new String[0];
-        String[] cursosAlumno = new String [0];
+        String[] cursosAlumno = new String[0];
         String[] listaImprimir;
         String imprimir = "";
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
@@ -628,15 +625,15 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         } else {
             if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
 
-                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni","");
-                cursosAlumno =bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno","nombreCurso");
+                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
+                cursosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "nombreCurso");
                 panelInfo.setText("ALUMNO ENCONTRADO");
             }
-            listaImprimir = new String [datosAlumno.length+cursosAlumno.length+1];
-            listaImprimir[0]=datosAlumno[0];
-            listaImprimir[1]="MATRICULADO EN:";
-            for (int i = 0,j=2; i < cursosAlumno.length; i++,j++) {
-                listaImprimir[j]=cursosAlumno[i];
+            listaImprimir = new String[datosAlumno.length + cursosAlumno.length + 1];
+            listaImprimir[0] = datosAlumno[0];
+            listaImprimir[1] = "MATRICULADO EN:";
+            for (int i = 0, j = 2; i < cursosAlumno.length; i++, j++) {
+                listaImprimir[j] = cursosAlumno[i];
             }
             cajaListaAlumnos.setListData(listaImprimir);
 
@@ -652,7 +649,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private void buscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTodosActionPerformed
         // TODO add your handling code here:
         String[] datosAlumno;
-        datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI","");
+        datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI", "");
         cajaListaAlumnos.setListData(datosAlumno);
         textoAlumnos.setText("");
     }//GEN-LAST:event_buscarTodosActionPerformed
@@ -674,7 +671,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         } else {
             if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
 
-                datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE","");
+                datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE", "");
                 panelInfo.setText("CURSO ENCONTRADO");
             }
 
@@ -696,7 +693,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             component.setEnabled(true);
         }
 
-        panelInfo.setText("Seleccione un curso y un alumno para matricularlo, use el buscador de cada registro, una vez encontrados los registros pulse HACER GESTION");
+        panelInfo.setText("Escriba el NOMBRE DE CURSO y DNI DE ALUMNO, posteriormente HACER GESTION para hacer la matricula\nSi busca un CURSO o un Alumno aparecerán las inscripciones");
 
         opcion = 2;
         aceptar.setEnabled(true);

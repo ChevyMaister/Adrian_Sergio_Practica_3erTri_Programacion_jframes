@@ -4,17 +4,11 @@
  */
 package adrian_sergio_practica_3ertri_programacion;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Serializacion {
 
@@ -31,29 +25,39 @@ public class Serializacion {
         }
     }
 
-    private static ArrayList<Inscripcion> obtenerInscripciones() throws Exception {
-        /*Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT id_inscripcion, dni, nombre_curso, calificacion FROM inscripcionesAlumnosCursos");
+    public void deserializarAlumnos() {
+        try {
+            FileInputStream archivo = new FileInputStream("Ficheros/listaAlumnos.ser");
+            ObjectInputStream entrada = new ObjectInputStream(archivo);
+            ArrayList<Alumno> listaAlumnos = (ArrayList<Alumno>) entrada.readObject();
+            entrada.close();
+            archivo.close();
 
-        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
-        while (rs.next()) {
-            Inscripcion inscripcion = new Inscripcion();
-            //inscripcion.setIdInscripcion(rs.getInt("id_inscripcion"));
-            inscripcion.setDni(rs.getString("dniAlumno"));
-            inscripcion.setNombreCurso(rs.getString("nombreCurso"));
-            inscripcion.setFechaInicio(rs.getDate("fechaInicio"));
-            inscripcion.setFechaFin(rs.getDate("fechaFin"));
-            inscripcion.setCalificacion(rs.getInt("calificacion"));
+            // Insertar los alumnos en la base de datos
+            GestionesDeBD bd = new GestionesDeBD();
+            for (Alumno alumno : listaAlumnos) {
+                bd.insertarAlumno(alumno.getDni(), alumno.getNombre(), alumno.getApellido(), alumno.getCorreo(), alumno.getTelefono());
+            }
 
-            inscripciones.add(inscripcion);
+            System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void serializarInscripciones(ArrayList listaInscripciones) {
+
+        try {
+            FileOutputStream archivo = new FileOutputStream("Ficheros/listaInscripciones.ser");
+            ObjectOutputStream salida = new ObjectOutputStream(archivo);
+            salida.writeObject(listaInscripciones);
+            salida.close();
+            archivo.close();
+            System.out.println("ArrayList serializado correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        rs.close();
-        stmt.close();
-        conn.close();
-         */
-        return null;
     }
 
 }
