@@ -41,6 +41,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         BotonGesA = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         botonFicherosyBBDD = new javax.swing.JButton();
+        botonFicherosyBBDD1 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -97,11 +98,19 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ImgCentroEstudios.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
 
-        botonFicherosyBBDD.setText("GESTION FICHEROS Y BBDD");
+        botonFicherosyBBDD.setText("GESTION FICHEROS Y COPIAS DE SEGURIDAD BBDD");
         botonFicherosyBBDD.setPreferredSize(new java.awt.Dimension(1, 1));
         botonFicherosyBBDD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonFicherosyBBDDActionPerformed(evt);
+            }
+        });
+
+        botonFicherosyBBDD1.setText("INFORME DE LOS ALUMNOS, CURSOS Y CALIFICACIONES");
+        botonFicherosyBBDD1.setPreferredSize(new java.awt.Dimension(1, 1));
+        botonFicherosyBBDD1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFicherosyBBDD1ActionPerformed(evt);
             }
         });
 
@@ -119,7 +128,8 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                             .addComponent(BotonGesA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(BotonGesC, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                             .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)))
+                            .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(botonFicherosyBBDD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)))
                     .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -127,16 +137,18 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BotonGesA, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotonGesA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonGesC, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BotonGesC, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonMat, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(botonMat, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonFicherosyBBDD1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
@@ -186,10 +198,14 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonFicherosyBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDDActionPerformed
-        FicherosYBBDD fYBBDD = new FicherosYBBDD(listaAlumnos,listaCursos);
-        fYBBDD.setVisible(true);
+        SerializacionyFicherosDeSeguridad seguridad = new SerializacionyFicherosDeSeguridad();
+        seguridad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonFicherosyBBDDActionPerformed
+
+    private void botonFicherosyBBDD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDD1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonFicherosyBBDD1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,6 +263,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     private javax.swing.JButton BotonGesA;
     private javax.swing.JButton BotonGesC;
     private javax.swing.JButton botonFicherosyBBDD;
+    private javax.swing.JButton botonFicherosyBBDD1;
     private javax.swing.JButton botonMat;
     private javax.swing.JButton botonSalir;
     private javax.swing.JLabel jLabel2;

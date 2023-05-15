@@ -62,6 +62,18 @@ public class Utiles {
         }
         return esNumero;
     }
+// Método para validar que un String es un número float y devolverlo
+    public static float esNotaValida(String num) {
+    try {
+        float valor = Float.parseFloat(num);
+        if (valor >= 0 && valor <= 10) {
+            return valor;
+        }
+    } catch (NumberFormatException e) {
+        // no hacer nada
+    }
+    return -1;
+}
 
     // Método para comprobar si un alumno existe en el HashMap de lista de alumnos
     public boolean existeAlumno(String dni, HashMap<String, Alumno> listaAlumnos) {

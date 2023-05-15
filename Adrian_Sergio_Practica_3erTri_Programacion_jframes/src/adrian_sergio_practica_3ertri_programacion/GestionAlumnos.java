@@ -15,7 +15,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
 
     HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos;
-    PersistenciaBD bd = new PersistenciaBD();
+    GestionesDeBD bd = new GestionesDeBD();
 
     Utiles util = new Utiles();
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
@@ -477,9 +477,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
             case 3:
                 if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {
                     textoInfo.setText("Por favor, introduzca DNI valido, 8 num y 1 letra");
-                } else if (!bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
-                    textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
-                } else {
+                } else if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
                     textoInfo.setText("Alumno encontrado: ");
 
                     for (Component component : panelDatos.getComponents()) {
@@ -489,10 +487,13 @@ public class GestionAlumnos extends javax.swing.JFrame {
                     labelDni.setEnabled(false);
 
                     opcion = 4;
+                } else {
+                    System.out.println("Aqui llego no encuentra DNI");
+                    textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
                 }
                 break;
             case 4:
-                String texto = "Alumno con DNI: " + dni + "\n";
+                String texto = "Alumno con DNI: " + textoDni.getText().trim().toUpperCase() + "\n";
                 textoInfo.setText("");
                 if (!textoNombre.getText().equals("")) {
 

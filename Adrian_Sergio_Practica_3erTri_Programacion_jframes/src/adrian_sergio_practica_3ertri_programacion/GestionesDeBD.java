@@ -11,12 +11,14 @@ import java.io.IOException;
 import java.util.*;
 import java.sql.*;
 import java.sql.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author 34603
  */
-public class PersistenciaBD {
+public class GestionesDeBD {
 
     private String puerto = "3306";
     private String ip = "localhost";
@@ -25,7 +27,7 @@ public class PersistenciaBD {
     private String db = "";
     private Connection conn = null;
 
-    public PersistenciaBD(String ip, String port, String user, String psw, String db) {
+    public GestionesDeBD(String ip, String port, String user, String psw, String db) {
         this.puerto = port;
         this.ip = ip;
         this.usuario = user;
@@ -34,7 +36,7 @@ public class PersistenciaBD {
         conectar();
     }
 
-    public PersistenciaBD() {
+    public GestionesDeBD() {
         conectar();
     }
 
@@ -208,14 +210,14 @@ public class PersistenciaBD {
     public void insertarInscripcion(String nombreCurso, String dniAlumno) {// para insertar los datos de la tabla inscripcion 
         Statement stmt = null;
         long miliseconds = System.currentTimeMillis();
-        Date date = new Date(miliseconds);
-
+        Date fecha = new Date(miliseconds);
+        System.out.println(fecha);
         try {
 
             stmt = this.conn.createStatement();
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            stmt.executeUpdate("insert into INSCRIPCIONES values ('" + dniAlumno + "','" + nombreCurso + "','" + date + "','" + null + "','" + null + "')");
+            stmt.executeUpdate("insert into INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio) values ('" + dniAlumno + "','" + nombreCurso + "','" + fecha + "')");
 
             this.conn.commit();
 
@@ -290,7 +292,7 @@ public class PersistenciaBD {
      */
     //METODO PARA BUSCAR DATOS DENTRO DE LA BASE DE DATOS
     public boolean buscar(String dato, String nombreTabla, String nombreColumna) {//devuelve true si el dato introducido en la tabla introducida existe
-        String campo = "";
+        String campo;
         boolean encontrado = false;
         Statement stmt = null;
         ResultSet rs = null;
@@ -304,8 +306,6 @@ public class PersistenciaBD {
                 campo = rs.getString(nombreColumna);
                 if (campo.equalsIgnoreCase(dato)) {
                     encontrado = true;
-                } else {
-                    encontrado = false;
                 }
             }
             this.conn.commit();
@@ -403,9 +403,10 @@ public class PersistenciaBD {
         }
 
     }
+// metodo para modificar general
 
     public void modificar(String clave, String columnaClave, String nombreTabla, String columnaCambio, String nuevoValor) {
-        String campo = "";
+
         boolean encontrado = false;
         Statement stmt = null;
         ResultSet rs = null;
@@ -430,5 +431,135 @@ public class PersistenciaBD {
             }
 
         }
+    }
+
+    public void calificar(String claveAlumno, String claveCurso, String nombreTabla, float nuevoValor) {
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = this.conn.createStatement();
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+
+            stmt.executeUpdate("UPDATE " + nombreTabla + " SET calificacion = '" + nuevoValor + "' WHERE dniAlumno = '" + claveAlumno + "' AND nombreCurso = '" + claveCurso + "';");
+            stmt.executeUpdate("UPDATE " + nombreTabla + " SET fechaFin = CURRENT_DATE() WHERE dniAlumno = '" + claveAlumno + "' AND nombreCurso = '" + claveCurso + "';");
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("Entra aqui");
+        } finally {
+            try {
+                stmt.close();
+                rs.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    public String[] imprimir(String dato, String nombreTabla, String nombreColumna) {
+        ArrayList<String> registroCompleto = new ArrayList();
+        String registroIndividual = "";
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            if (!dato.equals("*")) {
+                rs = stmt.executeQuery("SELECT * FROM " + nombreTabla + " WHERE " + nombreColumna + " = '" + dato + "'");
+            } else {
+                rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+            }
+
+            ResultSetMetaData todosDatos = rs.getMetaData();
+            int numColumna = todosDatos.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= numColumna; i++) {
+                    registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " -";
+                    if (i == numColumna) {
+                        registroCompleto.add(registroIndividual);
+                    }
+                }
+
+                registroIndividual = "";
+            }
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        String[] devolverRegistros = new String[registroCompleto.size()];
+        for (int i = 0; i < devolverRegistros.length; i++) {
+
+            devolverRegistros[i] = registroCompleto.get(i);
+        }
+
+        return devolverRegistros;
+    }
+
+    public boolean existeMatricula(String nombreTabla, String dniAlumno, String nombreCurso) {
+
+        try {
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet rs = metaData.getPrimaryKeys(null, null, nombreTabla);
+            while (rs.next()) {
+                String columnaAlumno = rs.getString("dniAlumno");
+                String columnaCurso = rs.getString("nombreCurso");
+                if (columnaAlumno.equals(dniAlumno) && columnaCurso.equals(nombreCurso)) {
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<Alumno> obtenerAlumnos() throws Exception {
+        Statement stmt = null;
+        ResultSet rs = null;
+        stmt = this.conn.createStatement();
+        stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+        rs = stmt.executeQuery("SELECT dni, nombre, apellido, correo, telefono FROM Alumnos");
+
+        Alumno alumno = new Alumno("", "", "", "", "");
+        ArrayList alumnos = new ArrayList<>();
+        try {
+            while (rs.next()) {
+
+                alumno.setDni(rs.getNString("dni"));
+                alumno.setNombre(rs.getNString("nombre"));
+                alumno.setApellido(rs.getNString("apellido"));
+                alumno.setCorreo(rs.getNString("correo"));
+                alumno.setDni(rs.getNString("telefono"));
+                alumnos.add(alumno);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Serializacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        rs.close();
+        stmt.close();
+
+        return alumnos;
     }
 }

@@ -17,7 +17,7 @@ public class Main {
      */
     //HOLA SERGIO GOMEZ
     public static void main(String[] args) {
-        PersistenciaBD baseDatos = new PersistenciaBD();
+        GestionesDeBD baseDatos = new GestionesDeBD();
         baseDatos.Datos("DatosDeBBDD.txt");
         baseDatos.crearDB();
         

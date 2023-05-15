@@ -20,10 +20,10 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
      */
     int opcion = 0;
     Utiles util = new Utiles();
-
+    GestionesDeBD bd = new GestionesDeBD();
     HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos;
-
+    
     public MatriculasBusquedas(HashMap<String, Alumno> listaAlumnos, HashMap<String, Curso> listaCursos) {
         initComponents();
         this.listaAlumnos = listaAlumnos;
@@ -34,7 +34,8 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         for (Component component : panelCurso.getComponents()) {
             component.setEnabled(false);
         }
-
+        aceptar.setEnabled(false);
+        
         panelInfo.setText("Por favor, SELECCIONE, BUSCAR CURSO, BUSCAR ALUMNO O MATRICULAR");
     }
 
@@ -56,6 +57,8 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         botonMatricular = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelInfo = new javax.swing.JTextPane();
+        botonCalificar = new javax.swing.JButton();
+        textoNota = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         aceptar = new javax.swing.JButton();
         borrarCampos = new javax.swing.JButton();
@@ -65,9 +68,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         cajaListaAlumnos = new javax.swing.JList<>();
         buscarAlumnoInsertado = new javax.swing.JButton();
-        textoAlumno = new javax.swing.JTextField();
+        textoAlumnos = new javax.swing.JTextField();
         labelNombre = new javax.swing.JLabel();
-        buscarAlumnoInsertado1 = new javax.swing.JButton();
+        buscarTodos = new javax.swing.JButton();
         panelCurso = new javax.swing.JPanel();
         labelDni = new javax.swing.JLabel();
         buscarCursoInsertado = new javax.swing.JButton();
@@ -113,7 +116,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         botonBuscarCurso.setBackground(new java.awt.Color(4, 3, 12));
         botonBuscarCurso.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         botonBuscarCurso.setForeground(new java.awt.Color(244, 237, 113));
-        botonBuscarCurso.setText("<html><p>BUSCAR</p><p>&nbsp;CURSO</p></html>");
+        botonBuscarCurso.setText("BUSCAR CURSO");
         botonBuscarCurso.setActionCommand("BUSCAR CURSO");
         botonBuscarCurso.setPreferredSize(new java.awt.Dimension(140, 80));
         botonBuscarCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +128,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         botonBuscarAlumno.setBackground(new java.awt.Color(4, 3, 12));
         botonBuscarAlumno.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         botonBuscarAlumno.setForeground(new java.awt.Color(244, 237, 113));
-        botonBuscarAlumno.setText("<html><p>&nbsp;BUSCAR</p><p>ALUMNO</p></html>");
+        botonBuscarAlumno.setText("BUSCAR ALUMNO");
         botonBuscarAlumno.setActionCommand("<html><p>BORRAR</p><p> ALUMNO</p></html>");
         botonBuscarAlumno.setPreferredSize(new java.awt.Dimension(140, 80));
         botonBuscarAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -147,26 +150,42 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(panelInfo);
 
+        botonCalificar.setBackground(new java.awt.Color(4, 3, 12));
+        botonCalificar.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        botonCalificar.setForeground(new java.awt.Color(244, 237, 113));
+        botonCalificar.setText("CALIFICAR");
+        botonCalificar.setPreferredSize(new java.awt.Dimension(140, 80));
+        botonCalificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCalificarActionPerformed(evt);
+            }
+        });
+
+        textoNota.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoNota.setText("NOTA");
+
         javax.swing.GroupLayout panelEleccionLayout = new javax.swing.GroupLayout(panelEleccion);
         panelEleccion.setLayout(panelEleccionLayout);
         panelEleccionLayout.setHorizontalGroup(
             panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEleccionLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(panelEleccionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelEleccionLayout.createSequentialGroup()
-                                .addComponent(botonBuscarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)
-                                .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16)
-                                .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(botonBuscarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelEleccionLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addGroup(panelEleccionLayout.createSequentialGroup()
+                        .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         panelEleccionLayout.setVerticalGroup(
             panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,13 +193,16 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel5.setBackground(new java.awt.Color(4, 3, 12));
@@ -254,11 +276,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             }
         });
 
-        textoAlumno.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoAlumno.setForeground(new java.awt.Color(4, 3, 12));
-        textoAlumno.addActionListener(new java.awt.event.ActionListener() {
+        textoAlumnos.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoAlumnos.setForeground(new java.awt.Color(4, 3, 12));
+        textoAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoAlumnoActionPerformed(evt);
+                textoAlumnosActionPerformed(evt);
             }
         });
 
@@ -266,10 +288,10 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         labelNombre.setForeground(new java.awt.Color(4, 3, 12));
         labelNombre.setText("DNI de Alumno:");
 
-        buscarAlumnoInsertado1.setText("MOSTRAR TODOS");
-        buscarAlumnoInsertado1.addActionListener(new java.awt.event.ActionListener() {
+        buscarTodos.setText("MOSTRAR TODOS");
+        buscarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarAlumnoInsertado1ActionPerformed(evt);
+                buscarTodosActionPerformed(evt);
             }
         });
 
@@ -282,14 +304,14 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 .addGroup(panelAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAlumnoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(textoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textoAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(buscarAlumnoInsertado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelAlumnoLayout.createSequentialGroup()
                         .addGroup(panelAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(buscarAlumnoInsertado1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buscarTodos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelAlumnoLayout.setVerticalGroup(
@@ -297,13 +319,13 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             .addGroup(panelAlumnoLayout.createSequentialGroup()
                 .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textoAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buscarAlumnoInsertado)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buscarAlumnoInsertado1)
+                .addComponent(buscarTodos)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -314,6 +336,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         labelDni.setText("Nombre de curso:");
 
         buscarCursoInsertado.setText("BUSCAR CURSO INSERTADO");
+        buscarCursoInsertado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarCursoInsertadoActionPerformed(evt);
+            }
+        });
 
         jScrollPane2.setViewportView(cajaListaCursos);
 
@@ -401,7 +428,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             .addGroup(panelGALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelEleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -424,12 +451,14 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelGA, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelGA, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelGA, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelGA, javax.swing.GroupLayout.PREFERRED_SIZE, 711, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -437,8 +466,8 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
     private void botonBuscarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarCursoActionPerformed
         textoCurso.setText("");
-        textoAlumno.setText("");
-
+        textoAlumnos.setText("");
+        
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(false);
         }
@@ -452,94 +481,121 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
     private void botonBuscarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarAlumnoActionPerformed
         textoCurso.setText("");
-        textoAlumno.setText("");
+        textoAlumnos.setText("");
         for (Component component : panelCurso.getComponents()) {
             component.setEnabled(false);
         }
-
+        
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(true);
         }
         panelInfo.setText("Ponga el DNI del Alumno o dejelo vacio para ver todos, despues pulse BUSCAR ALUMNO INSERTADO");
-
+        
         opcion = 2;
     }//GEN-LAST:event_botonBuscarAlumnoActionPerformed
 
     private void botonMatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMatricularActionPerformed
         textoCurso.setText("");
-        textoAlumno.setText("");
-        for (Component component : panelDatos.getComponents()) {
-            component.setEnabled(false);
+        textoAlumnos.setText("");
+        for (Component component : panelCurso.getComponents()) {
+            component.setEnabled(true);
         }
-
-        panelInfo.setText("Seleccione un curso y un alumno para matricularlo, puede usar el buscador");
-        opcion = 3;
+        
+        for (Component component : panelAlumno.getComponents()) {
+            component.setEnabled(true);
+        }
+        
+        panelInfo.setText("Seleccione un curso y un alumno para matricularlo, use el buscador de cada registro, una vez encontrados los registros pulse HACER GESTION");
+        
+        opcion = 1;
+        aceptar.setEnabled(true);
     }//GEN-LAST:event_botonMatricularActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-        if (opcion == 1) {/*
-            
-            if (!util.existeCurso(textoCurso.getText().trim().toUpperCase())) {
-                textoInfo.setText("Por favor, introduzca DNI valido, 8 num y 1 letra");
-
-            } else if (cajaListaAlumnos.containsKey(textoCurso.getText().trim().toUpperCase())) {
-                textoInfo.setText("DNI registrado, por favor, introduzca uno nuevo");
-            } else if (textoAlumno.getText().trim().toUpperCase().equals("")) {
-                textoInfo.setText("Por favor, introduzca Nombre valido");
-            } else if (textoApellido.getText().trim().toUpperCase().equals("")) {
-                textoInfo.setText("Por favor, introduzca Apellido valido");
-            } else if (!util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {
-                textoInfo.setText("Por favor, introduzca Correo valido, debe tener @");
-            } else if (!util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
-                textoInfo.setText("Por favor, introduzca Telefono valido, 9 digitos");
-            } else {
-                cajaListaAlumnos.put(textoCurso.getText().trim().toUpperCase(), new Alumno(textoCurso.getText().trim().toUpperCase(), textoAlumno.getText().trim().toUpperCase(), textoApellido.getText().trim().toUpperCase(), textoCorreo.getText().trim().toUpperCase(), textoTlfn.getText().trim().toUpperCase()));
-                textoInfo.setText("Se ha añadido el Alumno Correctamente");
-                for (Alumno alumno : cajaListaAlumnos.values()) {
-                    System.out.println(alumno.getNombre());
+        cajaListaAlumnos.clearSelection();
+        cajaListaCursos.clearSelection();
+        String[] datosCursos;
+        boolean cursoEncontrado = false;
+        boolean alumnoEncontrado = false;
+        String nombreCurso = "";
+        String dniAlumno = "";
+        panelInfo.setText("");
+        if (!util.validarLongitud(textoCurso.getText().trim().toUpperCase(), 1)) {
+            System.out.println("Aqui llego");
+            panelInfo.setText("Por favor, introduzca un curso que tenga al menos un caracter");
+        } else if (!bd.buscar(textoCurso.getText().trim().toUpperCase(), "cursos", "Nombre")) {
+            panelInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
+        } else {
+            if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
+                
+                datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE");
+                panelInfo.setText("CURSO ENCONTRADO");
+                cajaListaCursos.setListData(datosCursos);
+                
+                int indiceInicio = datosCursos[0].indexOf(":") + 1;
+                int indiceFin = datosCursos[0].indexOf("-", indiceInicio);
+                
+                if (indiceInicio != -1 && indiceFin != -1) {
+                    nombreCurso = datosCursos[0].substring(indiceInicio, indiceFin).trim();
+                    System.out.println("La primera palabra es: " + nombreCurso);
+                    cursoEncontrado = true;
+                } else {
+                    System.out.println("No se encontró ninguna palabra.");
                 }
-                for (Component component : panelDatos.getComponents()) {
-                    component.setEnabled(false);
-                }
-
-                opcion = 0;
-                textoInfo.setText("REGISTRO NUEVO ALUMNO REALIZADO.\nSelecciona una opcion, NUEVO, BORRAR O MODIFICAR");
-                textoCurso.setText("");
-                textoAlumno.setText("");
-                textoApellido.setText("");
-                textoCorreo.setText("");
-                textoTlfn.setText("");
-             
-        }*/
-        } else if (opcion == 2) {
-            DefaultListModel<String> cajaListaAlumnos = new DefaultListModel<>();
-            panelInfo.setText("Por favor, Introduzca un DNI registrado");
-            System.out.println(listaAlumnos);
-            if (textoAlumno.getText().trim().equals("")) {
-                ArrayList<String> datosAlumno = new ArrayList();
-                for (HashMap.Entry<String, Alumno> entry : listaAlumnos.entrySet()) {
-                    Alumno alumno = entry.getValue();
-                    String imprimir = "DNI: " + entry.getKey() + ", Nombre: " + alumno.getNombre() + ", Apellido: " + alumno.getApellido();
-
-                }
-
-            } else if (!util.validarDNI(textoAlumno.getText().trim().toUpperCase())) {
-                panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
-            } else if (!listaAlumnos.containsKey(textoAlumno.getText().trim().toUpperCase())) {
-                panelInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
-            } else {
-                String imprimir = listaAlumnos.get(textoAlumno.getText().toUpperCase().trim()).getDni() + " " + listaAlumnos.get(textoAlumno.getText().toUpperCase().trim()).getNombre();
-                cajaListaAlumnos.addElement(listaAlumnos.get(textoAlumno.getText().toUpperCase().trim()).getDni());
             }
         }
-
+        String[] datosAlumno;
+        if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
+            System.out.println("Aqui llego");
+            panelInfo.setText(panelInfo.getText() + " " + "Por favor, introduzca un DNI valido 8 numeros y una letra");
+        } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+            panelInfo.setText(panelInfo.getText() + " " + "DNI no encontrado, por favor, introduzca uno registrado");
+        } else {
+            if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+                
+                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni");
+                panelInfo.setText(panelInfo.getText() + " " + "ALUMNO ENCONTRADO");
+                cajaListaAlumnos.setListData(datosAlumno);
+                
+                int indiceInicio = datosAlumno[0].indexOf(":") + 1;
+                int indiceFin = datosAlumno[0].indexOf("-", indiceInicio);
+                
+                if (indiceInicio != -1 && indiceFin != -1) {
+                    dniAlumno = datosAlumno[0].substring(indiceInicio, indiceFin).trim();
+                    System.out.println("La primera palabra es: " + dniAlumno);
+                    alumnoEncontrado = true;
+                } else {
+                    System.out.println("No se encontró ninguna palabra.");
+                }
+            }
+        }
+        if (opcion == 1) {//MATRICULAR
+            if (alumnoEncontrado && cursoEncontrado) {
+                bd.insertarInscripcion(nombreCurso, dniAlumno);
+                aceptar.setEnabled(false);
+                panelInfo.setText("Se realizó la inscripcion");
+            }
+        } else if (opcion == 2) {//CALIFICAR
+            if (bd.existeMatricula("inscripciones", dniAlumno, nombreCurso)) {
+                float nota = util.esNotaValida(textoNota.getText().trim());
+                if (nota != -1) {
+                    
+                    bd.calificar(dniAlumno, nombreCurso, "Inscripciones", nota);
+                    panelInfo.setText("Calificacion realizada");
+                } else {
+                    panelInfo.setText("Pon una nota valida, < o = que 10 y > o = que 0");
+                }
+            } else {
+                panelInfo.setText("El Alumno no esta matriculado en el curso, selecciona una relacion valida");
+            }
+        }
 
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
-
+        
         textoCurso.setText("");
-        textoAlumno.setText("");
+        textoAlumnos.setText("");
 
     }//GEN-LAST:event_borrarCamposActionPerformed
 
@@ -555,83 +611,84 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     }//GEN-LAST:event_textoCursoActionPerformed
 
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
-        // TODO add your handling code here:
-        if (opcion == 1) {/*
-            
-            if (!util.existeCurso(textoCurso.getText().trim().toUpperCase())) {
-                textoInfo.setText("Por favor, introduzca DNI valido, 8 num y 1 letra");
-
-            } else if (cajaListaAlumnos.containsKey(textoCurso.getText().trim().toUpperCase())) {
-                textoInfo.setText("DNI registrado, por favor, introduzca uno nuevo");
-            } else if (textoAlumno.getText().trim().toUpperCase().equals("")) {
-                textoInfo.setText("Por favor, introduzca Nombre valido");
-            } else if (textoApellido.getText().trim().toUpperCase().equals("")) {
-                textoInfo.setText("Por favor, introduzca Apellido valido");
-            } else if (!util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {
-                textoInfo.setText("Por favor, introduzca Correo valido, debe tener @");
-            } else if (!util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
-                textoInfo.setText("Por favor, introduzca Telefono valido, 9 digitos");
-            } else {
-                cajaListaAlumnos.put(textoCurso.getText().trim().toUpperCase(), new Alumno(textoCurso.getText().trim().toUpperCase(), textoAlumno.getText().trim().toUpperCase(), textoApellido.getText().trim().toUpperCase(), textoCorreo.getText().trim().toUpperCase(), textoTlfn.getText().trim().toUpperCase()));
-                textoInfo.setText("Se ha añadido el Alumno Correctamente");
-                for (Alumno alumno : cajaListaAlumnos.values()) {
-                    System.out.println(alumno.getNombre());
-                }
-                for (Component component : panelDatos.getComponents()) {
-                    component.setEnabled(false);
-                }
-
-                opcion = 0;
-                textoInfo.setText("REGISTRO NUEVO ALUMNO REALIZADO.\nSelecciona una opcion, NUEVO, BORRAR O MODIFICAR");
-                textoCurso.setText("");
-                textoAlumno.setText("");
-                textoApellido.setText("");
-                textoCorreo.setText("");
-                textoTlfn.setText("");
-             
-        }*/
-        } else if (opcion == 2) {
-
-            panelInfo.setText("Por favor, Introduzca un DNI registrado");
-            System.out.println(listaAlumnos);
-            String[] datosAlumno;
-            if (textoAlumno.getText().trim().equals("")) {
-                datosAlumno = new String[listaAlumnos.size()];
-                int i = 0;
-                for (HashMap.Entry<String, Alumno> entry : listaAlumnos.entrySet()) {
-                    Alumno alumno = entry.getValue();
-                    String imprimir = entry.getKey() + ", Alumno: " + alumno.getNombre() + " " + alumno.getApellido();
-                    datosAlumno[i] = imprimir;
-                    i++;
-                }
-                cajaListaAlumnos.setListData(datosAlumno);
-
-            } else if (!util.validarDNI(textoAlumno.getText().trim().toUpperCase())) {
-                panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
-            } else if (!listaAlumnos.containsKey(textoAlumno.getText().trim().toUpperCase())) {
-                panelInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
-            } else {
-                String imprimir = listaAlumnos.get(textoAlumno.getText().toUpperCase().trim()).getDni() + " " + listaAlumnos.get(textoAlumno.getText().toUpperCase().trim()).getNombre();
-                datosAlumno = new String[1];
-                datosAlumno[0]=imprimir;
-                cajaListaAlumnos.setListData(datosAlumno);
+        
+        String[] datosAlumno = new String[1];
+        String imprimir = "";
+        if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
+            System.out.println("Aqui llego");
+            panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
+        } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+            panelInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+        } else {
+            if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+                
+                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni");
+                panelInfo.setText("ALUMNO ENCONTRADO");
             }
+            
+            cajaListaAlumnos.setListData(datosAlumno);
+            
         }
-
+        
 
     }//GEN-LAST:event_buscarAlumnoInsertadoActionPerformed
 
-    private void textoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoAlumnoActionPerformed
+    private void textoAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoAlumnosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textoAlumnoActionPerformed
+    }//GEN-LAST:event_textoAlumnosActionPerformed
 
-    private void buscarAlumnoInsertado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertado1ActionPerformed
+    private void buscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTodosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buscarAlumnoInsertado1ActionPerformed
+        String[] datosAlumno;
+        datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI");
+        cajaListaAlumnos.setListData(datosAlumno);
+        textoAlumnos.setText("");
+    }//GEN-LAST:event_buscarTodosActionPerformed
 
     private void buscarAlumnoInsertado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertado2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buscarAlumnoInsertado2ActionPerformed
+
+    private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed
+        // TODO add your handling code here:
+
+        String[] datosCursos = new String[1];
+        String imprimir = "";
+        if (!util.validarLongitud(textoCurso.getText().trim().toUpperCase(), 1)) {
+            System.out.println("Aqui llego");
+            panelInfo.setText("Por favor, introduzca un curso que tenga al menos un caracter");
+        } else if (!bd.buscar(textoCurso.getText().trim().toUpperCase(), "cursos", "Nombre")) {
+            panelInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
+        } else {
+            if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
+                
+                datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE");
+                panelInfo.setText("CURSO ENCONTRADO");
+            }
+            
+            cajaListaCursos.setListData(datosCursos);
+            
+        }
+        
+
+    }//GEN-LAST:event_buscarCursoInsertadoActionPerformed
+
+    private void botonCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalificarActionPerformed
+        textoCurso.setText("");
+        textoAlumnos.setText("");
+        for (Component component : panelCurso.getComponents()) {
+            component.setEnabled(true);
+        }
+        
+        for (Component component : panelAlumno.getComponents()) {
+            component.setEnabled(true);
+        }
+        
+        panelInfo.setText("Seleccione un curso y un alumno para matricularlo, use el buscador de cada registro, una vez encontrados los registros pulse HACER GESTION");
+        
+        opcion = 2;
+        aceptar.setEnabled(true);
+    }//GEN-LAST:event_botonCalificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -647,21 +704,21 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MatriculasBusquedas.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(MatriculasBusquedas.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(MatriculasBusquedas.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MatriculasBusquedas.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -671,7 +728,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-
+                
             }
         });
     }
@@ -681,11 +738,12 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private javax.swing.JButton borrarCampos;
     private javax.swing.JButton botonBuscarAlumno;
     private javax.swing.JButton botonBuscarCurso;
+    private javax.swing.JButton botonCalificar;
     private javax.swing.JButton botonMatricular;
     private javax.swing.JButton buscarAlumnoInsertado;
-    private javax.swing.JButton buscarAlumnoInsertado1;
     private javax.swing.JButton buscarAlumnoInsertado2;
     private javax.swing.JButton buscarCursoInsertado;
+    private javax.swing.JButton buscarTodos;
     private javax.swing.JList<String> cajaListaAlumnos;
     private javax.swing.JList<String> cajaListaCursos;
     private javax.swing.JLabel jLabel1;
@@ -702,8 +760,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private javax.swing.JPanel panelEleccion;
     public javax.swing.JPanel panelGA;
     private javax.swing.JTextPane panelInfo;
-    private javax.swing.JTextField textoAlumno;
+    private javax.swing.JTextField textoAlumnos;
     private javax.swing.JTextField textoCurso;
+    private javax.swing.JTextField textoNota;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class GestionCursos extends javax.swing.JFrame {
     String auxNombre = "";
-    PersistenciaBD tablaCursos = new PersistenciaBD();
+    GestionesDeBD tablaCursos = new GestionesDeBD();
     HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos;
     Utiles util = new Utiles();
@@ -336,7 +336,7 @@ public class GestionCursos extends javax.swing.JFrame {
                     textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
                 } else {
                     //listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
-                    tablaCursos.insertarCurso(Nombre.getText().trim(), textoDesc.getText().trim(), NumH.getText().trim());
+                    tablaCursos.insertarCurso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), NumH.getText().trim().toUpperCase());
                     textoInfo.setText("Se ha añadido el Curso Correctamente");
                     for (Curso curso : listaCursos.values()) {
                         System.out.println(curso.getNombre());
