@@ -41,7 +41,6 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
         textoInfo = new javax.swing.JTextPane();
         jPanel5 = new javax.swing.JPanel();
         aceptar = new javax.swing.JButton();
-        borrarCampos = new javax.swing.JButton();
         volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -171,17 +170,6 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
             }
         });
 
-        borrarCampos.setBackground(new java.awt.Color(4, 3, 12));
-        borrarCampos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        borrarCampos.setForeground(new java.awt.Color(244, 237, 113));
-        borrarCampos.setText("BORRAR TODO");
-        borrarCampos.setToolTipText("");
-        borrarCampos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                borrarCamposActionPerformed(evt);
-            }
-        });
-
         volver.setBackground(new java.awt.Color(4, 3, 12));
         volver.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         volver.setForeground(new java.awt.Color(244, 237, 113));
@@ -198,11 +186,9 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(borrarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
                 .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
@@ -212,7 +198,6 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(borrarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -259,15 +244,15 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aniadirActionPerformed
-    Serializacion serial= new Serializacion();
-    GestionesDeBD bd = new GestionesDeBD();
-    ArrayList <Alumno>listaAlumnos= new ArrayList();
+        Serializacion serial = new Serializacion();
+        GestionesDeBD bd = new GestionesDeBD();
+        ArrayList<Alumno> listaAlumnos = new ArrayList();
         try {
             listaAlumnos = bd.obtenerAlumnos();
         } catch (Exception ex) {
             Logger.getLogger(SerializacionyFicherosDeSeguridad.class.getName()).log(Level.SEVERE, null, ex);
         }
-    serial.serializarAlumnos(listaAlumnos);
+        serial.serializarAlumnos(listaAlumnos);
     }//GEN-LAST:event_aniadirActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
@@ -275,19 +260,17 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     }//GEN-LAST:event_borrarActionPerformed
 
     private void borrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_borrar1ActionPerformed
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
     }//GEN-LAST:event_aceptarActionPerformed
 
-    private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
-
-    }//GEN-LAST:event_borrarCamposActionPerformed
-
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-
+        PrincipalJFrame volver = new PrincipalJFrame();
+        volver.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_volverActionPerformed
 
     /**
@@ -330,7 +313,6 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     private javax.swing.JButton aniadir;
     private javax.swing.JButton borrar;
     private javax.swing.JButton borrar1;
-    private javax.swing.JButton borrarCampos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

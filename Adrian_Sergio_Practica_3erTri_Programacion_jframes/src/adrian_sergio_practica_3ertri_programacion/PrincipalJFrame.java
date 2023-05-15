@@ -18,10 +18,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     HashMap <String,Curso> listaCursos;
     Main main = new Main ();
 
-    public PrincipalJFrame(HashMap listaAlumnos, HashMap listaCursos) {
+    public PrincipalJFrame() {
         initComponents();
-        this.listaAlumnos=listaAlumnos;
-        this.listaCursos=listaCursos;
+
     }
     
     /**

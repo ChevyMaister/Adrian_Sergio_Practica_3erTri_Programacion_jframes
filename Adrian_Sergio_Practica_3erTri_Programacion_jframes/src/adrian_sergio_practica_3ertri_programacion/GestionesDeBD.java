@@ -461,7 +461,10 @@ public class GestionesDeBD {
         }
     }
 
-    public String[] imprimir(String dato, String nombreTabla, String nombreColumna) {
+    public String[] imprimir(String dato, String nombreTabla, String nombreColumnaBuscar, String nombreColumnaImprimir) {
+        if(nombreColumnaImprimir.equals("")){
+            nombreColumnaImprimir="*";
+        }
         ArrayList<String> registroCompleto = new ArrayList();
         String registroIndividual = "";
         Statement stmt = null;
@@ -471,9 +474,9 @@ public class GestionesDeBD {
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
             if (!dato.equals("*")) {
-                rs = stmt.executeQuery("SELECT * FROM " + nombreTabla + " WHERE " + nombreColumna + " = '" + dato + "'");
+                rs = stmt.executeQuery("SELECT "+nombreColumnaImprimir+" FROM " + nombreTabla + " WHERE " + nombreColumnaBuscar + " = '" + dato + "'");
             } else {
-                rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+                rs = stmt.executeQuery("SELECT "+nombreColumnaImprimir+" FROM " + nombreTabla);
             }
 
             ResultSetMetaData todosDatos = rs.getMetaData();
@@ -481,7 +484,7 @@ public class GestionesDeBD {
 
             while (rs.next()) {
                 for (int i = 1; i <= numColumna; i++) {
-                    registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " -";
+                    registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " ";
                     if (i == numColumna) {
                         registroCompleto.add(registroIndividual);
                     }
@@ -516,21 +519,29 @@ public class GestionesDeBD {
     }
 
     public boolean existeMatricula(String nombreTabla, String dniAlumno, String nombreCurso) {
+        if (buscar(dniAlumno, "alumnos", "dni")&&buscar(nombreCurso,"cursos","nombre")) {
 
-        try {
-            DatabaseMetaData metaData = conn.getMetaData();
-            ResultSet rs = metaData.getPrimaryKeys(null, null, nombreTabla);
-            while (rs.next()) {
-                String columnaAlumno = rs.getString("dniAlumno");
-                String columnaCurso = rs.getString("nombreCurso");
-                if (columnaAlumno.equals(dniAlumno) && columnaCurso.equals(nombreCurso)) {
-                    return true;
+            Statement stmt = null;
+            ResultSet rs = null;
+            try {
+                stmt = this.conn.createStatement();
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+                rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+                while (rs.next()) {
+                    String columnaAlumno = rs.getString("dniAlumno");
+                    String columnaCurso = rs.getString("nombreCurso");
+                    if (columnaAlumno.equals(dniAlumno) && columnaCurso.equals(nombreCurso)) {
+                        return true;
+                    }
                 }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        }else{
+            return false;
         }
         return false;
+
     }
 
     public ArrayList<Alumno> obtenerAlumnos() throws Exception {

@@ -24,7 +24,7 @@ public class Main {
         HashMap<String, Alumno> listaAlumnos = new HashMap();
         HashMap<String, Curso> listaCursos = new HashMap();
 
-        PrincipalJFrame panelPrincipal = new PrincipalJFrame(listaAlumnos, listaCursos);
+        PrincipalJFrame panelPrincipal = new PrincipalJFrame();
 
         GestionCursos gesC = new GestionCursos(listaCursos);
         panelPrincipal.setVisible(true);
