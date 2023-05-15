@@ -16,7 +16,7 @@ public class GestionCursos extends javax.swing.JFrame {
     String auxNombre = "";
     GestionesDeBD tablaCursos = new GestionesDeBD();
     HashMap<String, Alumno> listaAlumnos;
-    HashMap<String, Curso> listaCursos;
+    HashMap<String, Curso> listaCursos= new HashMap();
     Utiles util = new Utiles();
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
 

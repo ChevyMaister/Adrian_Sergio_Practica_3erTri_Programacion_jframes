@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 public class GestionAlumnos extends javax.swing.JFrame {
 
-    HashMap<String, Alumno> listaAlumnos;
+    HashMap<String, Alumno> listaAlumnos = new HashMap();
     HashMap<String, Curso> listaCursos;
     GestionesDeBD bd = new GestionesDeBD();
 
@@ -21,7 +21,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
 
     public GestionAlumnos(HashMap<String, Alumno> listaAlumnos, HashMap<String, Curso> listaCursos) {
-        this.listaAlumnos = listaAlumnos;
+        this.listaAlumnos = new HashMap();
 
         initComponents();
         for (Component component : panelDatos.getComponents()) {

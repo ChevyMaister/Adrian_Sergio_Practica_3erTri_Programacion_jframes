@@ -533,11 +533,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 cajaListaCursos.setListData(datosCursos);
 
                 int indiceInicio = datosCursos[0].indexOf(":") + 1;
-                int indiceFin = datosCursos[0].indexOf("-", indiceInicio);
+                int indiceFin = datosCursos[0].indexOf("Descripcion", indiceInicio);
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     nombreCurso = datosCursos[0].substring(indiceInicio, indiceFin).trim();
-                    System.out.println("La primera palabra es: " + nombreCurso);
+                    System.out.println( "Encontrado "+nombreCurso);
                     cursoEncontrado = true;
                 } else {
                     System.out.println("No se encontró ninguna palabra.");
@@ -558,11 +558,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 cajaListaAlumnos.setListData(datosAlumno);
 
                 int indiceInicio = datosAlumno[0].indexOf(":") + 1;
-                int indiceFin = datosAlumno[0].indexOf("-", indiceInicio);
+                int indiceFin = datosAlumno[0].indexOf("Nombre", indiceInicio);
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     dniAlumno = datosAlumno[0].substring(indiceInicio, indiceFin).trim();
-                    System.out.println("La primera palabra es: " + dniAlumno);
+                    System.out.println("Encontrado "+dniAlumno);
                     alumnoEncontrado = true;
                 } else {
                     System.out.println("No se encontró ninguna palabra.");
