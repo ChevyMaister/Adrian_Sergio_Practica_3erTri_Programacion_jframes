@@ -1,29 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package adrian_sergio_practica_3ertri_programacion;
 
-import java.util.HashMap;
-
 /**
- *
- * @author Chevy
+ * Esta es la clase principal del programa.
  */
 public class Main {
 
     /**
-     * @param args the command line arguments
+     * El método main es el punto de entrada del programa.
+     *
+     * @param args Los argumentos de línea de comandos.
      */
-    
     public static void main(String[] args) {
-        GestionesDeBD baseDatos = new GestionesDeBD();
-        baseDatos.Datos("DatosDeBBDD.txt");
-        baseDatos.crearDB();
-        PrincipalJFrame panelPrincipal = new PrincipalJFrame();
-        GestionCursos gesC = new GestionCursos();
-        panelPrincipal.setVisible(true);
+        // Se crea una instancia de la clase GestionesDeBD
+        GestionesDeBD bd = new GestionesDeBD();
         
+        // Se cargan los datos con los parametros necesarios para abrir la BBDD de PHPMYADMIN desde un archivo llamado "DatosDeBBDD.txt"
+        bd.Datos("DatosDeBBDD.txt");
+        
+        // Se crea una base de datos
+        bd.crearDB();
+        
+        // Se crea una instancia de la clase PrincipalJFrame
+        PrincipalJFrame panelPrincipal = new PrincipalJFrame();
+        
+        // Se muestra el panel principal
+        panelPrincipal.setVisible(true);
     }
-
 }

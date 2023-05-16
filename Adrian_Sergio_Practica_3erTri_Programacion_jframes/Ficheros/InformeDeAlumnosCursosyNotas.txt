@@ -1,3 +1,0 @@
-Nombre: ADRIAN dniAlumno: 98765432A nombreCurso: MATES calificacion: null 
-Nombre: SERGIO dniAlumno: 12345678A nombreCurso: CONO calificacion: null 
-Nombre: SERGIO dniAlumno: 12345678A nombreCurso: MATES calificacion: 10.00 

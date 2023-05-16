@@ -60,7 +60,7 @@
                       <Component id="panelDatos" alignment="0" max="32767" attributes="0"/>
                       <Component id="panelEleccion" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

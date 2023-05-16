@@ -96,9 +96,9 @@
                               <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="aniadir" min="-2" pref="230" max="-2" attributes="0"/>
+                              <Component id="serializarAFichero" min="-2" pref="230" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="desserializar" min="-2" pref="207" max="-2" attributes="0"/>
+                              <Component id="volcarFicheroABBDD" min="-2" pref="207" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="borrar1" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
@@ -120,11 +120,11 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="desserializar" alignment="3" max="32767" attributes="0"/>
+                              <Component id="volcarFicheroABBDD" alignment="3" max="32767" attributes="0"/>
                               <Component id="borrar1" alignment="3" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="aniadir" min="-2" pref="80" max="-2" attributes="0"/>
+                              <Component id="serializarAFichero" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -190,7 +190,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="aniadir">
+            <Component class="javax.swing.JButton" name="serializarAFichero">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c" green="3" red="4" type="rgb"/>
@@ -208,10 +208,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aniadirActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="serializarAFicheroActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="desserializar">
+            <Component class="javax.swing.JButton" name="volcarFicheroABBDD">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c" green="3" red="4" type="rgb"/>
@@ -229,7 +229,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="desserializarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="volcarFicheroABBDDActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="borrar1">

@@ -1,7 +1,6 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.awt.Component;
-import java.util.HashMap;
 
 public class GestionAlumnos extends javax.swing.JFrame {
 
@@ -19,6 +18,8 @@ public class GestionAlumnos extends javax.swing.JFrame {
         }
 
         textoInfo.setText("Selecciona una opción: NUEVO, BORRAR o MODIFICAR"); // Establecer texto informativo
+        // Centrar la ventana en la pantalla
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

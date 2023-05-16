@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Chevy
- */
 public class Curso {
     private String nombre ;
     private String descripcion ;

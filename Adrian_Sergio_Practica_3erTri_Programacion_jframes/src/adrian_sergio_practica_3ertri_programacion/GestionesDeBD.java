@@ -1,17 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.sql.*;
 import java.sql.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GestionesDeBD {
 
@@ -185,8 +183,10 @@ public class GestionesDeBD {
             stmt = this.conn.createStatement();
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            System.out.println("insert into ALUMNOS values ('" + dni + "','" + nombre + "','" + apellido + "','" + correo + "','" + telefono + "')");
+            System.out.println(stmt.executeUpdate("SHOW TABLES FROM sergio_adrian_centroformacion;"));
             stmt.executeUpdate("insert into ALUMNOS values ('" + dni + "','" + nombre + "','" + apellido + "','" + correo + "','" + telefono + "')");
-
+            System.out.println(stmt.executeUpdate("SHOW TABLES FROM sergio_adrian_centroformacion;"));
             this.conn.commit();
 
         } catch (SQLException ex) {
@@ -628,9 +628,9 @@ public class GestionesDeBD {
         // Ejecutar la consulta SQL para obtener los datos de los alumnos
         rs = stmt.executeQuery("SELECT * FROM Alumnos");
 
-        Alumno alumno = new Alumno("", "", "", "", "");
+        Alumno alumno;
         ArrayList<Alumno> alumnos = new ArrayList<>();
-        try {
+        
             while (rs.next()) {
                 alumno = new Alumno("", "", "", "", ""); // Crear un nuevo objeto Alumno en cada iteración
 
@@ -644,9 +644,7 @@ public class GestionesDeBD {
                 // Agregar el objeto Alumno a la lista de alumnos
                 alumnos.add(alumno);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Serializacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
 
         rs.close();
         stmt.close();
@@ -666,22 +664,19 @@ public class GestionesDeBD {
 
         Inscripcion ins = new Inscripcion("", "");
         ArrayList<Inscripcion> listaIns = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                ins = new Inscripcion("", ""); // Crear un nuevo objeto Inscripcion en cada iteración
 
-                // Asignar los valores obtenidos de la consulta al objeto Inscripcion
-                ins.setDni(rs.getString("dniAlumno"));
-                ins.setNombreCurso(rs.getString("nombreCurso"));
-                ins.setFechaInicio(rs.getDate("fechaInicio"));
-                ins.setFechaFin(rs.getDate("fechaFin"));
-                ins.setCalificacion(rs.getFloat("calificacion"));
+        while (rs.next()) {
+            ins = new Inscripcion("", ""); // Crear un nuevo objeto Inscripcion en cada iteración
 
-                // Agregar el objeto Inscripcion a la lista de Inscripciones
-                listaIns.add(ins);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Serializacion.class.getName()).log(Level.SEVERE, null, ex);
+            // Asignar los valores obtenidos de la consulta al objeto Inscripcion
+            ins.setDni(rs.getString("dniAlumno"));
+            ins.setNombreCurso(rs.getString("nombreCurso"));
+            ins.setFechaInicio(rs.getDate("fechaInicio"));
+            ins.setFechaFin(rs.getDate("fechaFin"));
+            ins.setCalificacion(rs.getFloat("calificacion"));
+
+            // Agregar el objeto Inscripcion a la lista de Inscripciones
+            listaIns.add(ins);
         }
 
         rs.close();
@@ -744,4 +739,94 @@ public class GestionesDeBD {
 
         return informe;  // Devolver el informe completo
     }
+
+    public void serializarAlumnos(ArrayList listaAlumnos) {
+        try {
+            FileOutputStream archivo = new FileOutputStream("Ficheros/listaAlumnos.ser", false);
+            ObjectOutputStream salida = new ObjectOutputStream(archivo);
+            salida.writeObject(listaAlumnos);
+            salida.close();
+            archivo.close();
+
+            System.out.println("ArrayList serializado correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Alumno> deserializarAlumnos() {
+        try {
+            FileInputStream archivo = new FileInputStream("Ficheros/listaAlumnos.ser");
+            ObjectInputStream entrada = new ObjectInputStream(archivo);
+            ArrayList<Alumno> listaAlumnos = (ArrayList<Alumno>) entrada.readObject();
+
+            // Se borra cualquier registro
+            borrarAlumno("TODO");
+            // Insertar los alumnos en la base de 
+            for (Alumno alumno : listaAlumnos) {
+                System.out.println(listaAlumnos);
+            }
+            for (Alumno alumno : listaAlumnos) {
+                System.out.println(alumno.getDni());
+                System.out.println(alumno.getNombre());
+                System.out.println(alumno.getApellido());
+                System.out.println(alumno.getCorreo());
+                System.out.println(alumno.getTelefono());
+                insertarAlumno(
+                        alumno.getDni(),
+                        alumno.getNombre(),
+                        alumno.getApellido(),
+                        alumno.getCorreo(),
+                        alumno.getTelefono()
+                );
+            }
+
+            entrada.close();
+            archivo.close();
+
+            System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void serializarInscripciones(ArrayList listaInscripciones) {
+
+        try {
+            FileOutputStream archivo = new FileOutputStream("Ficheros/listaInscripciones.ser", false);
+            ObjectOutputStream salida = new ObjectOutputStream(archivo);
+            salida.writeObject(listaInscripciones);
+            salida.close();
+            archivo.close();
+            System.out.println("ArrayList INSCRIPCIONES serializado correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void deserializarInscripciones() {
+        try {
+            FileInputStream archivo = new FileInputStream("Ficheros/listaInscripciones.ser");
+            ObjectInputStream entrada = new ObjectInputStream(archivo);
+            ArrayList<Inscripcion> listaInscripciones = (ArrayList<Inscripcion>) entrada.readObject();
+            entrada.close();
+            archivo.close();
+
+            GestionesDeBD bd = new GestionesDeBD();
+            // Se borra cualquier registro
+            bd.borrarAlumno("TODO");
+            // Insertar las inscripciones en la base de datos
+            for (Inscripcion inscrip : listaInscripciones) {
+
+                bd.insertarInscSerializada(inscrip.getDni(), inscrip.getNombreCurso(), inscrip.getFechaInicio().toString(), inscrip.getFechaFin().toString(), inscrip.getCalificacion());
+            }
+
+            System.out.println("Inscripciones deserializadas e insertados en la base de datos correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
