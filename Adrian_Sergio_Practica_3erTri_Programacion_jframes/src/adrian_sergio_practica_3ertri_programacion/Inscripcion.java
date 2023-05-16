@@ -24,7 +24,13 @@ public class Inscripcion implements Serializable{
         this.dni = dni;
         this.nombre_curso = nombre_curso;
         this.fechaInicio = new Date();
- 
+    }
+        public Inscripcion(String dni, String nombre_curso, Date inicio, Date fin, float nota) {
+        this.dni = dni;
+        this.nombre_curso = nombre_curso;
+        this.fechaInicio = inicio;
+        this.fechaFin = fin;
+        this.calificacion = nota;
     }
 
     

@@ -229,6 +229,33 @@ public class GestionesDeBD {
 
     }
 
+    public void insertarInscSerializada(String nombreCurso, String dniAlumno, String inicio, String fin, float nota) {// para insertar los datos de la tabla inscripcion 
+        Statement stmt = null;
+        long miliseconds = System.currentTimeMillis();
+        Date fecha = new Date(miliseconds);
+        System.out.println(fecha);
+        try {
+
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            stmt.executeUpdate("insert into INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio, fechaFin, calificacion) values ('" + dniAlumno + "','" + nombreCurso + "','" + inicio + "','" + fin + "','" + nota + "')");
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     //METODOS PARA DAR DE BAJA EN LA BASE DE DATOS
     public void borrarCurso(String nombre) {
 
@@ -260,10 +287,10 @@ public class GestionesDeBD {
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            if(dni.equals("TODO")){
+            if (dni.equals("TODO")) {
                 stmt.executeUpdate("delete from ALUMNOS;");
-            }else{
-            stmt.executeUpdate("delete from ALUMNOS where dni='" + dni + "' ;");
+            } else {
+                stmt.executeUpdate("delete from ALUMNOS where dni='" + dni + "' ;");
             }
             this.conn.commit();
 
@@ -280,20 +307,20 @@ public class GestionesDeBD {
 
         }
     }
-    
-        public void borrarInscripciones(String dni, String curso) {
+
+    public void borrarInscripciones(String dni, String curso) {
         Statement stmt = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            if(dni.equals("TODO")&&curso.equals("TODO")){
+            if (dni.equals("TODO") && curso.equals("TODO")) {
                 stmt.executeUpdate("delete from Inscripciones;");
-            }else if(curso.equals("TODO")){
-            stmt.executeUpdate("delete from Inscripciones where dniAlumno='" + dni + "' ;");
-            }else if(dni.equals("TODO")){
+            } else if (curso.equals("TODO")) {
+                stmt.executeUpdate("delete from Inscripciones where dniAlumno='" + dni + "' ;");
+            } else if (dni.equals("TODO")) {
                 stmt.executeUpdate("delete from Inscripciones where nombreCurso='" + curso + "' ;");
-            }else{
-                stmt.executeUpdate("delete from Inscripciones where nombreCurso='" + curso + "' AND dniAlumno = '"+dni+"';");
+            } else {
+                stmt.executeUpdate("delete from Inscripciones where nombreCurso='" + curso + "' AND dniAlumno = '" + dni + "';");
             }
             this.conn.commit();
 
@@ -605,7 +632,9 @@ public class GestionesDeBD {
         ArrayList<Alumno> alumnos = new ArrayList<>();
         try {
             while (rs.next()) {
-                // Crear un objeto Alumno y asignar los valores obtenidos de la consulta
+                alumno = new Alumno("", "", "", "", ""); // Crear un nuevo objeto Alumno en cada iteración
+
+                // Asignar los valores obtenidos de la consulta al objeto Alumno
                 alumno.setDni(rs.getString("dni"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setApellido(rs.getString("apellido"));
@@ -635,17 +664,18 @@ public class GestionesDeBD {
         // Ejecutar la consulta SQL para obtener los datos de los Inscripcion
         rs = stmt.executeQuery("SELECT * FROM Inscripciones");
 
-        Inscripcion ins = new Inscripcion("","");
+        Inscripcion ins = new Inscripcion("", "");
         ArrayList<Inscripcion> listaIns = new ArrayList<>();
         try {
             while (rs.next()) {
-                // Crear un objeto Inscripcion y asignar los valores obtenidos de la consulta
+                ins = new Inscripcion("", ""); // Crear un nuevo objeto Inscripcion en cada iteración
+
+                // Asignar los valores obtenidos de la consulta al objeto Inscripcion
                 ins.setDni(rs.getString("dniAlumno"));
                 ins.setNombreCurso(rs.getString("nombreCurso"));
                 ins.setFechaInicio(rs.getDate("fechaInicio"));
                 ins.setFechaFin(rs.getDate("fechaFin"));
                 ins.setCalificacion(rs.getFloat("calificacion"));
-                
 
                 // Agregar el objeto Inscripcion a la lista de Inscripciones
                 listaIns.add(ins);

@@ -252,6 +252,7 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
 
         try {
             listaAlumnos = bd.obtenerAlumnos();
+            System.out.println(listaAlumnos);
         } catch (Exception ex) {
             Logger.getLogger(SerializacionyFicherosDeSeguridad.class.getName()).log(Level.SEVERE, null, ex);
         }
