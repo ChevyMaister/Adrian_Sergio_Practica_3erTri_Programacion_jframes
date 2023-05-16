@@ -33,8 +33,11 @@ public class Serializacion {
             entrada.close();
             archivo.close();
 
-            // Insertar los alumnos en la base de datos
+            
             GestionesDeBD bd = new GestionesDeBD();
+            // Se borra cualquier registro
+            bd.borrarAlumno("TODO");
+            // Insertar los alumnos en la base de datos
             for (Alumno alumno : listaAlumnos) {
                 bd.insertarAlumno(alumno.getDni(), alumno.getNombre(), alumno.getApellido(), alumno.getCorreo(), alumno.getTelefono());
             }
@@ -58,6 +61,29 @@ public class Serializacion {
             e.printStackTrace();
         }
 
+    }
+    
+    public void deserializarInscripciones() {
+        try {
+            FileInputStream archivo = new FileInputStream("Ficheros/listaInscripciones.ser");
+            ObjectInputStream entrada = new ObjectInputStream(archivo);
+            ArrayList<Alumno> listaAlumnos = (ArrayList<Alumno>) entrada.readObject();
+            entrada.close();
+            archivo.close();
+
+            
+            GestionesDeBD bd = new GestionesDeBD();
+            // Se borra cualquier registro
+            bd.borrarAlumno("TODO");
+            // Insertar los alumnos en la base de datos
+            for (Alumno alumno : listaAlumnos) {
+                bd.insertarAlumno(alumno.getDni(), alumno.getNombre(), alumno.getApellido(), alumno.getCorreo(), alumno.getTelefono());
+            }
+
+            System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -265,8 +265,17 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     }//GEN-LAST:event_aniadirActionPerformed
 
     private void desserializarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desserializarActionPerformed
+        GestionesDeBD bd = new GestionesDeBD();
         Serializacion serial = new Serializacion();
+        //AQUI IRIAN LOS CURSOS
+
+        //Se introducen en la base de datos los alumnos
+        bd.borrarAlumno("*");       
         serial.deserializarAlumnos();
+
+        //Por ultimo se introducen las inscripciones, despues de los cursos y alumnos
+        bd.borrarInscripciones("TODO", "TODO");
+        serial.deserializarInscripciones();
     }//GEN-LAST:event_desserializarActionPerformed
 
     private void borrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar1ActionPerformed

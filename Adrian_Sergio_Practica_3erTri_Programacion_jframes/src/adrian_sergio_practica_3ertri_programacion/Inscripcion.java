@@ -4,6 +4,7 @@
  */
 package adrian_sergio_practica_3ertri_programacion;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  * Contiene información sobre el alumno, el curso, las fechas de inicio y fin, y
  * la calificación obtenida.
  */
-public class Inscripcion {
+public class Inscripcion implements Serializable{
 
     private String dni; // DNI del alumno
     private String nombre_curso; // Nombre del curso

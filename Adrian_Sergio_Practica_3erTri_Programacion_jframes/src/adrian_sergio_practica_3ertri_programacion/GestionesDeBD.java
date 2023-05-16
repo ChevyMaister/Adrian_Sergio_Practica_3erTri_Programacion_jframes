@@ -254,14 +254,47 @@ public class GestionesDeBD {
         }
     }
 
-    //METODO PARA BORRAR UN ALUMNO, RECOGE DNI LO BORRA EN LA BD
+    //METODO PARA BORRAR UN ALUMNO, RECOGE DNI LO BORRA EN LA BD, si en la string pone TODO se borra todo
     public void borrarAlumno(String dni) {
         Statement stmt = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            if(dni.equals("TODO")){
+                stmt.executeUpdate("delete from ALUMNOS;");
+            }else{
             stmt.executeUpdate("delete from ALUMNOS where dni='" + dni + "' ;");
+            }
+            this.conn.commit();
 
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+        }
+    }
+    
+        public void borrarInscripciones(String dni, String curso) {
+        Statement stmt = null;
+        try {
+            stmt = this.conn.createStatement();
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            if(dni.equals("TODO")&&curso.equals("TODO")){
+                stmt.executeUpdate("delete from Inscripciones;");
+            }else if(curso.equals("TODO")){
+            stmt.executeUpdate("delete from Inscripciones where dniAlumno='" + dni + "' ;");
+            }else if(dni.equals("TODO")){
+                stmt.executeUpdate("delete from Inscripciones where nombreCurso='" + curso + "' ;");
+            }else{
+                stmt.executeUpdate("delete from Inscripciones where nombreCurso='" + curso + "' AND dniAlumno = '"+dni+"';");
+            }
             this.conn.commit();
 
         } catch (SQLException ex) {
