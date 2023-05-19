@@ -1,22 +1,21 @@
-
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.awt.Component;
+
 /**
- * La clase MatriculasBusquedas, es un JFRAME donde se gestionan las busquedas
- * y las matriculas tanto de los cursos como de los alumnos
+ * La clase MatriculasBusquedas, es un JFRAME donde se gestionan las busquedas y
+ * las matriculas tanto de los cursos como de los alumnos
  */
 public class MatriculasBusquedas extends javax.swing.JFrame {
-
 
     int opcion = 0;
     Utiles util = new Utiles();
     GestionesDeBD bd = new GestionesDeBD();
-    
+
     //Constructor
     public MatriculasBusquedas() {
         initComponents();
-        
+
         // Deshabilita los componentes en el panelAlumno y panelCurso
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(false);
@@ -27,7 +26,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         aceptar.setEnabled(false);
 
         panelInfo.setText("Por favor, SELECCIONE, BUSCAR CURSO, BUSCAR ALUMNO O MATRICULAR");
-        
+
         // Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
     }
@@ -105,7 +104,6 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         botonBuscarCurso.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         botonBuscarCurso.setForeground(new java.awt.Color(244, 237, 113));
         botonBuscarCurso.setText("BUSCAR CURSO");
-        botonBuscarCurso.setActionCommand("BUSCAR CURSO");
         botonBuscarCurso.setPreferredSize(new java.awt.Dimension(140, 80));
         botonBuscarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +164,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                         .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelEleccionLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 2, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelEleccionLayout.createSequentialGroup()
                         .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,6 +253,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
         panelAlumno.setBackground(new java.awt.Color(202, 199, 215));
 
+        cajaListaAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cajaListaAlumnosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(cajaListaAlumnos);
 
         buscarAlumnoInsertado.setText("BUSCAR DNI INSERTADO");
@@ -419,7 +422,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelEleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         panelGALayout.setVerticalGroup(
             panelGALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,7 +448,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelGA, javax.swing.GroupLayout.PREFERRED_SIZE, 711, Short.MAX_VALUE)
+                .addComponent(panelGA, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -534,7 +537,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 }
             }
         }
-        
+
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
             System.out.println("Aqui llego");
             panelInfo.setText(panelInfo.getText() + " " + "Por favor, introduzca un DNI valido 8 numeros y una letra");
@@ -691,9 +694,24 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         aceptar.setEnabled(true);
     }//GEN-LAST:event_botonCalificarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void cajaListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaAlumnosMouseClicked
+        GestionesDeBD ge = new GestionesDeBD();
+        javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
+        if (evt.getClickCount() == 2) {// Si detecta doble click(2 click)
+            // Double-click detected
+            int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
+            String item = list.getModel().getElementAt(index);
+            //Extraemos el nombre
+            String campos[] = item.split("=");
+            String camposAux[] = campos[1].split(",");
+            String dni = camposAux[0].trim();
+
+            Alumno al = ge.devolverAlumno(dni, "Alumno", "dni");//Extraemos el empleado al que corresponde la posicion seleccionada
+            textoAlumnos.setText(al.getDni());
+
+        }
+    }//GEN-LAST:event_cajaListaAlumnosMouseClicked
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

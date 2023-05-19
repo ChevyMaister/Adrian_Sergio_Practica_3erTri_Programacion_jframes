@@ -1,6 +1,7 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.awt.Component;
+import javax.swing.JOptionPane;
 
 public class GestionAlumnos extends javax.swing.JFrame {
 
@@ -466,16 +467,28 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 } else if (!bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
                     textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado y pulse REALIZAR GESTION");
                 } else {
-                    // Borrar alumno de la base de datos
-                    bd.borrarAlumno(textoDni.getText().trim().toUpperCase());
-                    textoInfo.setText("ELIMINADO " + textoDni.getText().trim().toUpperCase());
-                    // Limpia los campos
-                    textoDni.setText("");
-                    textoNombre.setText("");
-                    textoApellido.setText("");
-                    textoCorreo.setText("");
-                    textoTlfn.setText("");
-                    opcion = 0;
+                    // PANEL DE CONFIRMACION
+                    int n = JOptionPane.showConfirmDialog(
+                            this,
+                            "¿Estas seguro de querer borrar?",
+                            "Confirmación de borrado",
+                            JOptionPane.YES_NO_OPTION);
+                    // SI SE CONFIRMA
+                    if (n == JOptionPane.OK_OPTION) {
+                        // Borrar alumno de la base de datos
+                        bd.borrarAlumno(textoDni.getText().trim().toUpperCase());
+                        textoInfo.setText("ELIMINADO " + textoDni.getText().trim().toUpperCase());
+                        // Limpia los campos
+                        textoDni.setText("");
+                        textoNombre.setText("");
+                        textoApellido.setText("");
+                        textoCorreo.setText("");
+                        textoTlfn.setText("");
+                        opcion = 0;
+                        // SI NO SE CONFIRMA
+                    }else{
+                        textoInfo.setText("No se ha eliminado ningún alumno, Pulse HACER GESTION para confirmar o seleccione otra opcion");
+                    }
                 }
                 break;
             case 3:
@@ -485,7 +498,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 } else if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
                     textoInfo.setText("Alumno encontrado\nRellene los datos que quieras modificar, nada = dejarlo igual\nEntonces pulsa HACER GESTION");
 
-                // Habilitar los componentes del panelDatos
+                    // Habilitar los componentes del panelDatos
                     for (Component component : panelDatos.getComponents()) {
                         component.setEnabled(true);
                     }
@@ -566,7 +579,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
         textoApellido.setText("");
         textoCorreo.setText("");
         textoTlfn.setText("");
-        
+
         //Se desabilitan los campos
         for (Component component : panelDatos.getComponents()) {
             component.setEnabled(false);
@@ -576,7 +589,6 @@ public class GestionAlumnos extends javax.swing.JFrame {
         //Se habilitan los campos especificos
         textoDni.setEnabled(true);
         labelDni.setEnabled(true);
-
         opcion = 2;
 
     }//GEN-LAST:event_borrarActionPerformed
@@ -633,6 +645,8 @@ public class GestionAlumnos extends javax.swing.JFrame {
         });
 
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;

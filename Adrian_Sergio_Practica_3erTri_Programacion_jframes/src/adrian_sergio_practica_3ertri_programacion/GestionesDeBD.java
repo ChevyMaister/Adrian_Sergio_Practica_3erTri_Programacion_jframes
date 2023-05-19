@@ -381,6 +381,56 @@ public class GestionesDeBD {
         return encontrado;
     }
 
+    public Alumno devolverAlumno(String dato, String nombreTabla, String nombreColumna) {//devuelve true si el dato introducido en la tabla introducida existe
+        Alumno a= new Alumno(null, null, null, null, null);
+        String campo;
+        boolean encontrado = false;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
+            ResultSetMetaData todosDatos = rs.getMetaData();
+            int numColumna = todosDatos.getColumnCount();
+            ArrayList datos = new ArrayList();
+            while (rs.next()) {
+                campo = rs.getString(nombreColumna);
+                if (campo.equalsIgnoreCase(dato)) {
+                    encontrado = true;
+                    while (rs.next()) {
+                        for (int i = 1; i <= numColumna; i++) {
+                            // Construir cada registro individual concatenando las etiquetas de columna y los valores correspondientes
+                            datos.set(i, todosDatos.getColumnLabel(i));
+
+                            // Si es la última columna, agregar el registro individual a la lista de registros completos
+                            if (i == numColumna) {
+                                
+                            }
+                        }
+
+                    }
+                }
+            }
+            a= new Alumno(datos.get(0).toString(),datos.get(1).toString(),datos.get(2).toString(),datos.get(3).toString(),datos.get(4).toString());
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+                rs.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+        }
+        return a;
+    }
+
     //METODO PARA MODIFICAR CURSOS
     public void modificarCurso(String nombreCurso, String columna, String datoNuevo) {
         String curso = "";
@@ -630,21 +680,20 @@ public class GestionesDeBD {
 
         Alumno alumno;
         ArrayList<Alumno> alumnos = new ArrayList<>();
-        
-            while (rs.next()) {
-                alumno = new Alumno("", "", "", "", ""); // Crear un nuevo objeto Alumno en cada iteración
 
-                // Asignar los valores obtenidos de la consulta al objeto Alumno
-                alumno.setDni(rs.getString("dni"));
-                alumno.setNombre(rs.getString("nombre"));
-                alumno.setApellido(rs.getString("apellido"));
-                alumno.setCorreo(rs.getString("correo"));
-                alumno.setTelefono(rs.getString("telefono"));
+        while (rs.next()) {
+            alumno = new Alumno("", "", "", "", ""); // Crear un nuevo objeto Alumno en cada iteración
 
-                // Agregar el objeto Alumno a la lista de alumnos
-                alumnos.add(alumno);
-            }
-        
+            // Asignar los valores obtenidos de la consulta al objeto Alumno
+            alumno.setDni(rs.getString("dni"));
+            alumno.setNombre(rs.getString("nombre"));
+            alumno.setApellido(rs.getString("apellido"));
+            alumno.setCorreo(rs.getString("correo"));
+            alumno.setTelefono(rs.getString("telefono"));
+
+            // Agregar el objeto Alumno a la lista de alumnos
+            alumnos.add(alumno);
+        }
 
         rs.close();
         stmt.close();
