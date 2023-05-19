@@ -1,0 +1,1 @@
+Nombre: SERGIO dniAlumno: 12345678A nombreCurso: CONO calificacion: 6.00 

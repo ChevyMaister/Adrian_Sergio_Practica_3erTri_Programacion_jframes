@@ -253,8 +253,9 @@ public class GestionAlumnos extends javax.swing.JFrame {
         textoTlfn.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         textoTlfn.setForeground(new java.awt.Color(4, 3, 12));
 
-        textoInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        textoInfo.setForeground(new java.awt.Color(4, 3, 12));
+        textoInfo.setBackground(new java.awt.Color(0, 0, 0));
+        textoInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        textoInfo.setForeground(java.awt.Color.black);
         textoInfo.setEnabled(false);
         jScrollPane1.setViewportView(textoInfo);
 
@@ -329,12 +330,12 @@ public class GestionAlumnos extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(panelDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelEleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelGALayout.setVerticalGroup(
             panelGALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGALayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelEleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
