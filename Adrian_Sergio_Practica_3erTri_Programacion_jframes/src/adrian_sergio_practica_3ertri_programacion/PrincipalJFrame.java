@@ -62,6 +62,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
+        botonMat.setBackground(new java.awt.Color(138, 134, 4));
+        botonMat.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        botonMat.setForeground(new java.awt.Color(56, 49, 64));
         botonMat.setText("MATRICULAS Y BUSQUEDAS");
         botonMat.setPreferredSize(new java.awt.Dimension(1, 1));
         botonMat.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +73,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
+        BotonGesC.setBackground(new java.awt.Color(138, 134, 4));
+        BotonGesC.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
+        BotonGesC.setForeground(new java.awt.Color(244, 237, 113));
         BotonGesC.setText("GESTION CURSOS");
         BotonGesC.setPreferredSize(new java.awt.Dimension(150, 80));
         BotonGesC.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +98,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ImgCentroEstudios.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
 
-        botonFicherosyBBDD.setText("GESTION FICHEROS Y COPIAS DE SEGURIDAD BBDD");
+        botonFicherosyBBDD.setBackground(new java.awt.Color(138, 134, 4));
+        botonFicherosyBBDD.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        botonFicherosyBBDD.setForeground(new java.awt.Color(56, 49, 64));
+        botonFicherosyBBDD.setText("<html><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GESTION FICHEROS</p><p>COPIAS SEGURIDAD BBDD</p></html>");
         botonFicherosyBBDD.setPreferredSize(new java.awt.Dimension(1, 1));
         botonFicherosyBBDD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,7 +109,12 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
 
-        botonFicherosyBBDD1.setText("INFORME DE LOS ALUMNOS, CURSOS Y CALIFICACIONES");
+        botonFicherosyBBDD1.setBackground(new java.awt.Color(138, 134, 4));
+        botonFicherosyBBDD1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        botonFicherosyBBDD1.setForeground(new java.awt.Color(56, 49, 64));
+        botonFicherosyBBDD1.setText("<html><p>CREAR INFORMES DE ALUMNOS</p><p>&nbsp;&nbsp;&nbsp;&nbsp;CURSOS Y CALIFICACIONES</p></html>");
+        botonFicherosyBBDD1.setToolTipText("");
+        botonFicherosyBBDD1.setActionCommand("<html><p>cCREAR INFORME DE ALUMNOS</p><p>CURSOS Y CALIFICACIONES</p></html>");
         botonFicherosyBBDD1.setPreferredSize(new java.awt.Dimension(1, 1));
         botonFicherosyBBDD1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,10 +134,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BotonGesA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BotonGesC, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                            .addComponent(botonFicherosyBBDD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)))
+                            .addComponent(BotonGesC, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                            .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                            .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+                            .addComponent(botonFicherosyBBDD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)))
                     .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
