@@ -696,18 +696,21 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
     private void cajaListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaAlumnosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
+        String dni="";
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
-        if (evt.getClickCount() == 2) {// Si detecta doble click(2 click)
-            // Double-click detected
+        if (evt.getClickCount() == 1) {// Si detecta click(1 click)
+
             int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
             String item = list.getModel().getElementAt(index);
             //Extraemos el nombre
-            String campos[] = item.split("=");
-            String camposAux[] = campos[1].split(",");
-            String dni = camposAux[0].trim();
+            String campos[] = item.split(": ");
+            if(campos[0].equals("dni")){
+            String camposAux[] = campos[1].split("Nombre");
+            dni = camposAux[0].trim();}
 
-            Alumno al = ge.devolverAlumno(dni, "Alumno", "dni");//Extraemos el empleado al que corresponde la posicion seleccionada
-            textoAlumnos.setText(al.getDni());
+            if (dni.length() == 9 && !textoAlumnos.getText().equals(dni)) {
+                textoAlumnos.setText(dni);
+            }
 
         }
     }//GEN-LAST:event_cajaListaAlumnosMouseClicked
