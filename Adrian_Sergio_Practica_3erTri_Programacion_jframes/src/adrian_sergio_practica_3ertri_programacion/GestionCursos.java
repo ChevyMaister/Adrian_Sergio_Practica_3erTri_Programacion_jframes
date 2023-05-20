@@ -2,13 +2,14 @@ package adrian_sergio_practica_3ertri_programacion;
 
 import java.awt.Component;
 import java.util.HashMap;
-
+import javax.swing.JOptionPane;
 
 public class GestionCursos extends javax.swing.JFrame {
+
     String auxNombre = "";
     GestionesDeBD tablaCursos = new GestionesDeBD();
     HashMap<String, Alumno> listaAlumnos;
-    HashMap<String, Curso> listaCursos= new HashMap();
+    HashMap<String, Curso> listaCursos = new HashMap();
     Utiles util = new Utiles();
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
 
@@ -137,7 +138,8 @@ public class GestionCursos extends javax.swing.JFrame {
         NumH.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         NumH.setForeground(new java.awt.Color(4, 3, 12));
 
-        textoInfo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        textoInfo.setBackground(new java.awt.Color(0, 0, 0));
+        textoInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         textoInfo.setForeground(new java.awt.Color(4, 3, 12));
         textoInfo.setEnabled(false);
         jScrollPane1.setViewportView(textoInfo);
@@ -193,7 +195,7 @@ public class GestionCursos extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(202, 199, 215));
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(138, 134, 4));
-        jLabel1.setText("GESTION DE ALUMNOS");
+        jLabel1.setText("GESTION DE CURSOS");
         jLabel1.setAutoscrolls(true);
         jLabel1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
 
@@ -202,16 +204,16 @@ public class GestionCursos extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         aniadir.setBackground(new java.awt.Color(4, 3, 12));
@@ -308,7 +310,7 @@ public class GestionCursos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-       
+
         switch (opcion) {
             case 1://CREAR
 
@@ -317,10 +319,10 @@ public class GestionCursos extends javax.swing.JFrame {
                 } else if (!util.validarLongitud(textoDesc.getText().trim(), 5)) {
                     textoInfo.setText("Por favor, introduzca una descripcion de 5 caracteres minimo");
                 } else if (!util.esNumeroC(NumH.getText().trim())) {
-                    
+
                     textoInfo.setText("Debe ser un numero mayor que 0 ");
-                
-                } else if (tablaCursos.buscar(Nombre.getText().trim(),"CURSOS" , "Nombre")) {
+
+                } else if (tablaCursos.buscar(Nombre.getText().trim(), "CURSOS", "Nombre")) {
                     textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
                 } else {
                     //listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
@@ -344,29 +346,98 @@ public class GestionCursos extends javax.swing.JFrame {
                 textoInfo.setText("Por favor, Introduzca un nombre de curso registrado");
                 if (!util.validarLongitud(Nombre.getText().trim().toUpperCase(), 1)) {
                     textoInfo.setText("Por favor, introduzca nombre valido , minimo una letra");
-                } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase() , "CURSOS" , "Nombre")) {
+                } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase(), "CURSOS", "Nombre")) {
                     textoInfo.setText("Nombre no encontrado, por favor, introduzca uno registrado");
                 } else {
-                    //listaCursos.remove(Nombre.getText().trim().toUpperCase());
-                    tablaCursos.borrarCurso(Nombre.getText().trim().toUpperCase());
-                    textoInfo.setText("Curso Eliminado");
-                    //System.out.println(listaCursos);
+                    int n = JOptionPane.showConfirmDialog(
+                            this,
+                            " Estas seguro de querer borrar el curso " + Nombre.getText().trim().toUpperCase() + " ?",
+                            "Confirmación",
+                            JOptionPane.YES_NO_OPTION);
+                    if (n == JOptionPane.OK_OPTION) {
+                        tablaCursos.borrarCurso(Nombre.getText().trim().toUpperCase());
+                        tablaCursos.borrarInscripciones("", Nombre.getText().trim().toUpperCase());
+                        textoInfo.setText("Curso Eliminado");
+                    } else {
+                        textoInfo.setText("El curso no ha sido eliminado");
+                    }
+
                 }
                 break;
             case 3://HACER MODIFICAR CURSOS
-               
+
                 if (!util.validarLongitud(Nombre.getText().trim(), 1)) {
                     textoInfo.setText("Por favor, introduzca nombre valido , minimo 1 letra");
-                } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase() , "CURSOS" , "Nombre")) {
-                    textoInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
+                } else if (tablaCursos.buscar(Nombre.getText().trim().toUpperCase(), "CURSOS", "Nombre")) {
+                    textoInfo.setText("Curso encontrado ");
+
+                    auxNombre = Nombre.getText().trim().toUpperCase();
+
+                    for (Component component : panelDatos.getComponents()) {
+                        component.setEnabled(true);
+                    }
+                    Nombre.setEnabled(false);
+                    labelNombreC.setEnabled(false);
+
+                    opcion = 4; // Establecer la opción actual como 4 (Modificar)
                 } else {
-                    Nombre.setText("");
-                    auxNombre = Nombre.getText().trim();
-                   
+                    textoInfo.setText("Nombre no encontrado, por favor, introduzca uno registrado y pulse REALIZAR GESTION");
                 }
-               
-                  modificarCampos();  
-                
+
+                break;
+            case 4:
+                String texto = "En el curso: " + auxNombre + "\n";
+                textoInfo.setText("");
+                // Se comprueba cada uno de los campos rellenables, 
+                //1º si está vacío no hace nada 
+                //2ª Si hay algo realiza las comprobaciones, como si el tipo de variable es correcta.
+                //3ª Tambien determina si la clave esta dentro de la BD
+                //Se comprueba Nombre
+                if (!textoDesc.getText().equals("")) {
+                    if (util.validarLongitud(textoDesc.getText().trim(), 5)) {
+                        int dec = JOptionPane.showConfirmDialog(
+                                this,
+                                "Seguro que quieres cambiar la descripcion de " + auxNombre,
+                                "Confirmación",
+                                JOptionPane.YES_NO_OPTION);
+                        if (dec == JOptionPane.OK_OPTION) {
+                            tablaCursos.modificar(auxNombre, "nombre", "Cursos", "descripcion", textoDesc.getText().trim().toUpperCase());
+                            texto = texto + " Se ha modificado la descripcion por " + textoDesc.getText().trim().toUpperCase() + "\n";
+                        } else {
+                            texto = texto + "No se ha modificado la descripcion " + "\n";
+                        }
+                    } else {
+                        texto = texto + "No se ha modificado la descripcion (5 caracteres minimo) " + "\n";
+                    }
+                } else {
+
+                    texto = texto + "No se ha modificado la descripcion " + "\n";
+                }
+
+                textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
+
+                if (!NumH.getText().equals("")) {
+                    if (util.esNumeroC(NumH.getText().trim())) {
+                        int dec2 = JOptionPane.showConfirmDialog(
+                                this,
+                                "Seguro que quieres cambiar las horas de " + auxNombre,
+                                "Confirmación",
+                                JOptionPane.YES_NO_OPTION);
+                        if (dec2 == JOptionPane.OK_OPTION) {
+                            tablaCursos.modificar(auxNombre, "nombre", "Cursos", "numeroHoras", NumH.getText().trim().toUpperCase());
+                            texto = texto + "Se ha modificado correctamente las horas a " + NumH.getText().trim().toUpperCase() + "\n";
+                        } else {
+                            texto = texto + "No se ha modificado las horas" + "\n";
+                        }
+                    } else {
+                        texto = texto + "No se ha modificado las horas (mayor  0) " + "\n";
+                    }
+                } else {
+                    texto = texto + "No se ha modificado las horas" + "\n";
+                }
+                textoInfo.setText(texto);
+                textoDesc.setText("");
+                NumH.setText("");
                 break;
             default:
                 textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
@@ -426,16 +497,24 @@ public class GestionCursos extends javax.swing.JFrame {
         for (Component component : panelDatos.getComponents()) {
             component.setEnabled(false);
         }
-        
+
         Nombre.setEnabled(true);
         labelNombreC.setEnabled(true);
         textoInfo.setText("Ponga el nombre del curso para modificar y pulse HACER GESTION");
+        if (!util.validarLongitud(Nombre.getText().trim(), 1)) {
+            textoInfo.setText("Por favor, introduzca nombre valido , minimo 1 letra");
+        } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase(), "CURSOS", "Nombre")) {
+            textoInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
+        } else {
+            Nombre.setText("");
+            auxNombre = Nombre.getText().trim();
+
+        }
         opcion = 3;
     }//GEN-LAST:event_modificarActionPerformed
 
-    
     public static void main(String args[]) {
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -456,9 +535,7 @@ public class GestionCursos extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GestionCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
 
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
@@ -495,35 +572,33 @@ public class GestionCursos extends javax.swing.JFrame {
     public void setListaCursos(HashMap<String, Curso> listaCursos) {
         this.listaCursos = listaCursos;
     }
-    public void modificarCampos(){
-        
-        
-         textoInfo.setText("Curso : " + auxNombre + " encontrado. " + "\n Rellena los campos que quieres cambiar, si alguno no quieres cambiarlo, dejalo en blanco");
-                    
-                    
-                    
-                   for (Component component : panelDatos.getComponents()) {
-                       component.setEnabled(true);
-                   }
-                        if (!Nombre.getText().trim().equalsIgnoreCase("")){
-                        tablaCursos.modificarCurso(auxNombre, "Nombre", Nombre.getText().trim());
 
-                    }else{
-                    }
-                    if (!textoDesc.getText().trim().equalsIgnoreCase("")){
-                       tablaCursos.modificarCurso(auxNombre, "Descripcion", textoDesc.getText().trim());
+    public void modificarCampos() {
 
-                    }else{
-                    }
-                    if (!NumH.getText().trim().equalsIgnoreCase("")){
-                       tablaCursos.modificarCurso(auxNombre, "NumeroHoras", NumH.getText().trim());
+        textoInfo.setText("Curso : " + auxNombre + " encontrado. " + "\n Rellena los campos que quieres cambiar, si alguno no quieres cambiarlo, dejalo en blanco");
 
-                    }else{
-                    }
-                    Nombre.setText("");
-                    NumH.setText("");
-                    textoDesc.setText("");
-                    
+        for (Component component : panelDatos.getComponents()) {
+            component.setEnabled(true);
+        }
+        if (!Nombre.getText().trim().equalsIgnoreCase("")) {
+            tablaCursos.modificarCurso(auxNombre, "Nombre", Nombre.getText().trim());
+
+        } else {
+        }
+        if (!textoDesc.getText().trim().equalsIgnoreCase("")) {
+            tablaCursos.modificarCurso(auxNombre, "Descripcion", textoDesc.getText().trim());
+
+        } else {
+        }
+        if (!NumH.getText().trim().equalsIgnoreCase("")) {
+            tablaCursos.modificarCurso(auxNombre, "NumeroHoras", NumH.getText().trim());
+
+        } else {
+        }
+        Nombre.setText("");
+        NumH.setText("");
+        textoDesc.setText("");
+
     }
 
 }
