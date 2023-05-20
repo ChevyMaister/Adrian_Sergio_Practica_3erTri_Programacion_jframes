@@ -239,8 +239,16 @@ public class GestionesDeBD {
             stmt = this.conn.createStatement();
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            stmt.executeUpdate("insert into INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio, fechaFin, calificacion) values ('" + dniAlumno + "','" + nombreCurso + "','" + inicio + "','" + fin + "','" + nota + "')");
+String query = "INSERT INTO INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio, fechaFin, calificacion) VALUES (?, ?, ?, ?, ?)";
 
+PreparedStatement pstmt = conn.prepareStatement(query);
+pstmt.setString(1, dniAlumno);
+pstmt.setString(2, nombreCurso);
+pstmt.setString(3, inicio);
+pstmt.setString(4, fin);
+pstmt.setFloat(5, nota);
+
+pstmt.executeUpdate();
             this.conn.commit();
 
         } catch (SQLException ex) {
@@ -381,8 +389,6 @@ public class GestionesDeBD {
         return encontrado;
     }
 
-
-
     //METODO PARA MODIFICAR CURSOS
     public void modificarCurso(String nombreCurso, String columna, String datoNuevo) {
         String curso = "";
@@ -506,7 +512,6 @@ public class GestionesDeBD {
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            System.out.println("Entra aqui");
         } finally {
             try {
                 stmt.close();
@@ -764,28 +769,23 @@ public class GestionesDeBD {
             // Se borra cualquier registro
             borrarAlumno("TODO");
             // Insertar los alumnos en la base de 
-            for (Alumno alumno : listaAlumnos) {
-                System.out.println(listaAlumnos);
-            }
-            for (Alumno alumno : listaAlumnos) {
-                System.out.println(alumno.getDni());
-                System.out.println(alumno.getNombre());
-                System.out.println(alumno.getApellido());
-                System.out.println(alumno.getCorreo());
-                System.out.println(alumno.getTelefono());
-                insertarAlumno(
-                        alumno.getDni(),
-                        alumno.getNombre(),
-                        alumno.getApellido(),
-                        alumno.getCorreo(),
-                        alumno.getTelefono()
-                );
-            }
+            if (listaAlumnos.size() > 0) {
+                for (Alumno alumno : listaAlumnos) {
 
-            entrada.close();
-            archivo.close();
+                    insertarAlumno(
+                            alumno.getDni(),
+                            alumno.getNombre(),
+                            alumno.getApellido(),
+                            alumno.getCorreo(),
+                            alumno.getTelefono()
+                    );
+                }
 
-            System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
+                entrada.close();
+                archivo.close();
+
+                System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -819,11 +819,17 @@ public class GestionesDeBD {
             // Se borra cualquier registro
             bd.borrarAlumno("TODO");
             // Insertar las inscripciones en la base de datos
-            for (Inscripcion inscrip : listaInscripciones) {
-
-                bd.insertarInscSerializada(inscrip.getDni(), inscrip.getNombreCurso(), inscrip.getFechaInicio().toString(), inscrip.getFechaFin().toString(), inscrip.getCalificacion());
+            System.out.println(listaInscripciones.size());
+            if (!listaInscripciones.isEmpty()) {
+                for (Inscripcion inscrip : listaInscripciones) {
+                    
+                    insertarInscSerializada(inscrip.getDni(),
+                            inscrip.getNombreCurso(), 
+                            inscrip.getFechaInicio().toString(), 
+                            inscrip.getFechaFin().toString(), 
+                            inscrip.getCalificacion());
+                }
             }
-
             System.out.println("Inscripciones deserializadas e insertados en la base de datos correctamente.");
         } catch (Exception e) {
             e.printStackTrace();

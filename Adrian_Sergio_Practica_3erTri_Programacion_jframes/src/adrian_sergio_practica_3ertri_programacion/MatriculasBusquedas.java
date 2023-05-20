@@ -112,7 +112,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         });
 
         botonBuscarAlumno.setBackground(new java.awt.Color(4, 3, 12));
-        botonBuscarAlumno.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        botonBuscarAlumno.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         botonBuscarAlumno.setForeground(new java.awt.Color(244, 237, 113));
         botonBuscarAlumno.setText("BUSCAR ALUMNO");
         botonBuscarAlumno.setActionCommand("<html><p>BORRAR</p><p> ALUMNO</p></html>");
@@ -134,6 +134,10 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             }
         });
 
+        panelInfo.setBackground(new java.awt.Color(4, 3, 12));
+        panelInfo.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
+        panelInfo.setDisabledTextColor(new java.awt.Color(222, 222, 222));
+        panelInfo.setEnabled(false);
         jScrollPane1.setViewportView(panelInfo);
 
         botonCalificar.setBackground(new java.awt.Color(4, 3, 12));
@@ -181,14 +185,15 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
         );
 
         jPanel5.setBackground(new java.awt.Color(4, 3, 12));
@@ -422,18 +427,18 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelEleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelGALayout.setVerticalGroup(
             panelGALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGALayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(panelEleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -447,9 +452,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelGA, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(panelGA, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
         );
 
         pack();
@@ -480,7 +483,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(true);
         }
-        panelInfo.setText("Ponga el DNI del Alumno o dejelo vacio para ver todos, despues pulse BUSCAR ALUMNO INSERTADO");
+        panelInfo.setText("Ponga el DNI del Alumno y pulse Buscar DNI insertado para ver los detalles del alumno\nO pulse mostrar todos para ver todos los alumnos ");
 
         opcion = 2;
     }//GEN-LAST:event_botonBuscarAlumnoActionPerformed
@@ -647,6 +650,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI", "");
         cajaListaAlumnos.setListData(datosAlumno);
         textoAlumnos.setText("");
+        panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_buscarTodosActionPerformed
 
     private void buscarAlumnoInsertado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertado2ActionPerformed
