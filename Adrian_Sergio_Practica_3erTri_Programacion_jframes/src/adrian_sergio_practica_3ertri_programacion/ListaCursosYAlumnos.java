@@ -30,10 +30,6 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel5 = new javax.swing.JPanel();
-        aceptar = new javax.swing.JButton();
-        borrarCampos = new javax.swing.JButton();
-        volver = new javax.swing.JButton();
         panelEleccion = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -53,69 +49,13 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         cajaListaCursos = new javax.swing.JList<>();
         textoCurso = new javax.swing.JTextField();
-        buscarAlumnoInsertado2 = new javax.swing.JButton();
+        mostrarTodosC = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaMostrar = new javax.swing.JTable();
+        volver = new javax.swing.JButton();
+        borrarCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel5.setBackground(new java.awt.Color(4, 3, 12));
-
-        aceptar.setBackground(new java.awt.Color(4, 3, 12));
-        aceptar.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        aceptar.setForeground(new java.awt.Color(244, 237, 113));
-        aceptar.setText("HACER GESTION");
-        aceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aceptarActionPerformed(evt);
-            }
-        });
-
-        borrarCampos.setBackground(new java.awt.Color(4, 3, 12));
-        borrarCampos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        borrarCampos.setForeground(new java.awt.Color(244, 237, 113));
-        borrarCampos.setText("BORRAR TODO");
-        borrarCampos.setToolTipText("");
-        borrarCampos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                borrarCamposActionPerformed(evt);
-            }
-        });
-
-        volver.setBackground(new java.awt.Color(4, 3, 12));
-        volver.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        volver.setForeground(new java.awt.Color(244, 237, 113));
-        volver.setText("VOLVER ATRAS");
-        volver.setToolTipText("");
-        volver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                volverActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(borrarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(borrarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
 
         panelEleccion.setBackground(new java.awt.Color(56, 49, 64));
 
@@ -258,6 +198,11 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             }
         });
 
+        cajaListaCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cajaListaCursosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(cajaListaCursos);
 
         textoCurso.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -268,10 +213,10 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             }
         });
 
-        buscarAlumnoInsertado2.setText("MOSTRAR TODOS");
-        buscarAlumnoInsertado2.addActionListener(new java.awt.event.ActionListener() {
+        mostrarTodosC.setText("MOSTRAR TODOS");
+        mostrarTodosC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarAlumnoInsertado2ActionPerformed(evt);
+                mostrarTodosCActionPerformed(evt);
             }
         });
 
@@ -298,7 +243,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                         .addComponent(buscarCursoInsertado, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCursoLayout.createSequentialGroup()
-                        .addComponent(buscarAlumnoInsertado2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mostrarTodosC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(16, 16, 16))))
         );
         panelCursoLayout.setVerticalGroup(
@@ -312,7 +257,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buscarAlumnoInsertado2)
+                .addComponent(mostrarTodosC)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -362,6 +307,28 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                         .addGap(27, 27, 27))))
         );
 
+        volver.setBackground(new java.awt.Color(4, 3, 12));
+        volver.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        volver.setForeground(new java.awt.Color(244, 237, 113));
+        volver.setText("VOLVER ATRAS");
+        volver.setToolTipText("");
+        volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverActionPerformed(evt);
+            }
+        });
+
+        borrarCampos.setBackground(new java.awt.Color(4, 3, 12));
+        borrarCampos.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        borrarCampos.setForeground(new java.awt.Color(244, 237, 113));
+        borrarCampos.setText("BORRAR TODO");
+        borrarCampos.setToolTipText("");
+        borrarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrarCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,11 +337,14 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelEleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(borrarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -384,22 +354,25 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 .addComponent(panelEleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(volver, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(borrarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
-
-    }//GEN-LAST:event_aceptarActionPerformed
-
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
 
         textoCurso.setText("");
         textoAlumnos.setText("");
+        cajaListaAlumnos.removeAll();
+        cajaListaCursos.removeAll();
+        DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
+        tabla.setRowCount(0);
+
     }//GEN-LAST:event_borrarCamposActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
@@ -420,7 +393,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             //Extraemos el nombre
             String campos[] = item.split(": ");
             if (campos[0].equals("dni")) {
-                String camposAux[] = campos[1].split("Nombre");
+                String camposAux[] = campos[1].split("nombre");
                 dato = camposAux[0].trim();
             }
 
@@ -457,20 +430,18 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             listaImprimir[0] = datosAlumno[0];
             if (cursosAlumno.length != 0) {
                 tabla.setRowCount(0);
-                String nomCurso="";
+                String nomCurso = "";
+                int i = 0;
                 for (String curso : cursosAlumno) {
-                    int indice=curso.indexOf(":");
-                    nomCurso=curso.substring(indice+1).trim();
+                    int indice = curso.indexOf(":");
+                    nomCurso = curso.substring(indice + 1).trim();
                     Object[] fila = new Object[3];
                     fila[1] = textoAlumnos.getText().trim().toUpperCase();
                     fila[0] = nomCurso;
-                    if (util.esNotaValida(cursosAlumnoNotas.toString()) != -1) {
-                        fila[2] = cursosAlumnoNotas;
-                    } else {
-                        fila[2] = "Sin nota";
-                    }
+
+                    fila[2] = cursosAlumnoNotas[i];
                     tabla.addRow(fila);
-                    System.out.println(fila[0]);
+                    i++;
                 }
             } else {
                 panelInfo.setText("El alumno no tiene cursos");
@@ -487,22 +458,42 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
     private void buscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTodosActionPerformed
         // TODO add your handling code here:
-        String[] datosAlumno;
-        datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI", "");
+        String[] datosAlumnoDni;
+        String[] datosAlumnoNombre;
+
+        datosAlumnoDni = bd.imprimir("*", "ALUMNOS", "DNI", "dni");
+        datosAlumnoNombre = bd.imprimir("*", "ALUMNOS", "DNI", "nombre");
+        String[] datosAlumno = new String[datosAlumnoDni.length];
+        for (int i = 0; i < datosAlumnoDni.length; i++) {
+            datosAlumno[i] = datosAlumnoDni[i] + datosAlumnoNombre[i];
+        }
         cajaListaAlumnos.setListData(datosAlumno);
         textoAlumnos.setText("");
         panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_buscarTodosActionPerformed
 
-    private void buscarAlumnoInsertado2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertado2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarAlumnoInsertado2ActionPerformed
+    private void mostrarTodosCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodosCActionPerformed
+        String[] datosCursoNombre;
+        String[] datosDescripcion;
+
+        datosCursoNombre = bd.imprimir("*", "Cursos", "Nombre", "Nombre");
+        datosDescripcion = bd.imprimir("*", "Cursos", "Nombre", "Descripcion");
+        String[] datos = new String[datosCursoNombre.length];
+        for (int i = 0; i < datos.length; i++) {
+            datos[i] = datosCursoNombre[i] + datosDescripcion[i];
+        }
+        cajaListaCursos.setListData(datos);
+        textoAlumnos.setText("");
+        panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
+    }//GEN-LAST:event_mostrarTodosCActionPerformed
 
     private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed
         // TODO add your handling code here:
-
+        DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
         String[] datosCursos = new String[1];
-        String imprimir = "";
+        String[] cursosAlumno = new String[0];
+        String[] cursosAlumnoNotas = new String[0];
+        String[] listaImprimir;
         if (!util.validarLongitud(textoCurso.getText().trim().toUpperCase(), 1)) {
             System.out.println("Aqui llego");
             panelInfo.setText("Por favor, introduzca un curso que tenga al menos un caracter");
@@ -512,9 +503,33 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
 
                 datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE", "");
+                cursosAlumno = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "Inscripciones", "nombreCurso", "dniAlumno");
+                cursosAlumnoNotas = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "Inscripciones", "nombreCurso", "calificacion");
                 panelInfo.setText("CURSO ENCONTRADO");
+
             }
 
+            listaImprimir = new String[datosCursos.length + cursosAlumno.length + 1];
+            listaImprimir[0] = datosCursos[0];
+
+            if (cursosAlumno.length != 0) {
+                tabla.setRowCount(0);
+                String dniAlumno = "";
+                int i = 0;
+                for (String curso : cursosAlumno) {
+                    int indice = curso.indexOf(":");
+                    dniAlumno = curso.substring(indice + 1).trim();
+                    Object[] fila = new Object[3];
+                    fila[0] = textoCurso.getText().trim().toUpperCase();
+                    fila[1] = dniAlumno;
+
+                    fila[2] = cursosAlumnoNotas[i];
+                    tabla.addRow(fila);
+                    i++;
+                }
+            } else {
+                panelInfo.setText("El Curso no tiene alumnos");
+            }
             cajaListaCursos.setListData(datosCursos);
 
         }
@@ -523,6 +538,28 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
     private void textoCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoCursoActionPerformed
+
+    private void cajaListaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaCursosMouseClicked
+        GestionesDeBD ge = new GestionesDeBD();
+
+        javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
+        if (evt.getClickCount() == 1) {// Si detecta click(1 click)
+
+            int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
+            String texto = list.getModel().getElementAt(index);
+            //Extraemos el nombre
+            int indiceInicio = texto.indexOf(":"); // Encuentra la posición del ":"
+            int indiceFin = texto.indexOf("Descripcion"); // Encuentra la posición de "NumeroHoras"
+
+            String nombre = "";
+
+            if (indiceInicio != -1 && indiceFin != -1) { // Verifica si se encontró el ":" y "NumeroHoras"
+                nombre = texto.substring(indiceInicio + 1, indiceFin).trim(); // Obtiene el contenido entre ":" y "NumeroHoras" y se asigna a la variable "nombre"
+                textoCurso.setText(nombre);
+            }
+
+        }
+    }//GEN-LAST:event_cajaListaCursosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -556,23 +593,21 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aceptar;
     private javax.swing.JButton borrarCampos;
     private javax.swing.JButton buscarAlumnoInsertado;
-    private javax.swing.JButton buscarAlumnoInsertado2;
     private javax.swing.JButton buscarCursoInsertado;
     private javax.swing.JButton buscarTodos;
     private javax.swing.JList<String> cajaListaAlumnos;
     private javax.swing.JList<String> cajaListaCursos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel labelDni;
     private javax.swing.JLabel labelNombre;
+    private javax.swing.JButton mostrarTodosC;
     private javax.swing.JPanel panelAlumno;
     private javax.swing.JPanel panelCurso;
     private javax.swing.JPanel panelDatos;
