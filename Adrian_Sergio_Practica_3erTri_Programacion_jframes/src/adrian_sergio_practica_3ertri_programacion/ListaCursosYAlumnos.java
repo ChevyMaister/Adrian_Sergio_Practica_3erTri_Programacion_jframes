@@ -321,9 +321,17 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CURSO", "ALUMNO"
+                "CURSO", "ALUMNO", "NOTA"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tablaMostrar);
 
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
@@ -424,12 +432,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_cajaListaAlumnosMouseClicked
 
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tablaMostrar.getModel();
+        DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
         String[] datosAlumno = new String[0];
         String[] cursosAlumno = new String[0];
+        String[] cursosAlumnoNotas = new String[0];
         String[] listaImprimir;
         String imprimir = "";
-        Object fila[] = new Object[2];
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
             System.out.println("Aqui llego");
             panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
@@ -440,21 +448,32 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
                 datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
                 cursosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "nombreCurso");
+                cursosAlumnoNotas = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "calificacion");
                 panelInfo.setText("ALUMNO ENCONTRADO");
 
             }
-            model.addRow(cursosAlumno);
+
             listaImprimir = new String[datosAlumno.length + cursosAlumno.length + 1];
             listaImprimir[0] = datosAlumno[0];
-            fila[0] = textoAlumnos.getText();
             if (cursosAlumno.length != 0) {
+                tabla.setRowCount(0);
+                String nomCurso="";
                 for (String curso : cursosAlumno) {
-                    Object[] filaCurso = new Object[2];
-                    filaCurso[0] = textoAlumnos.getText().trim().toUpperCase();
-                    filaCurso[1] = curso;
-                    model.addRow(filaCurso);
-                    System.out.println(filaCurso[0]);
+                    int indice=curso.indexOf(":");
+                    nomCurso=curso.substring(indice+1).trim();
+                    Object[] fila = new Object[3];
+                    fila[1] = textoAlumnos.getText().trim().toUpperCase();
+                    fila[0] = nomCurso;
+                    if (util.esNotaValida(cursosAlumnoNotas.toString()) != -1) {
+                        fila[2] = cursosAlumnoNotas;
+                    } else {
+                        fila[2] = "Sin nota";
+                    }
+                    tabla.addRow(fila);
+                    System.out.println(fila[0]);
                 }
+            } else {
+                panelInfo.setText("El alumno no tiene cursos");
             }
             cajaListaAlumnos.setListData(listaImprimir);
 
@@ -534,11 +553,6 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListaCursosYAlumnos().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

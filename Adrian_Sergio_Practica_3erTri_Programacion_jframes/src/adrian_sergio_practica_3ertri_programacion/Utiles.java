@@ -63,7 +63,7 @@ public class Utiles {
         return esNumero;
     }
 // Método para validar que un String es un número float y devolverlo
-    public static float esNotaValida(String num) {
+    public float esNotaValida(String num) {
     try {
         float valor = Float.parseFloat(num);
         if (valor >= 0 && valor <= 10) {
