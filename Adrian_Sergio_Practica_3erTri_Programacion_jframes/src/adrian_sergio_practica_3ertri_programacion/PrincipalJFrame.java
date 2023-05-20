@@ -63,7 +63,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         botonMat.setBackground(new java.awt.Color(138, 134, 4));
         botonMat.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         botonMat.setForeground(new java.awt.Color(56, 49, 64));
-        botonMat.setText("MATRICULAS Y BUSQUEDAS");
+        botonMat.setText("BUSCAR MATRICULAR Y CALIFICAR");
         botonMat.setPreferredSize(new java.awt.Dimension(1, 1));
         botonMat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
