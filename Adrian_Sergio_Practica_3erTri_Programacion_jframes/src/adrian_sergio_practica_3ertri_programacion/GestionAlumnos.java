@@ -470,12 +470,13 @@ public class GestionAlumnos extends javax.swing.JFrame {
                     // PANEL DE CONFIRMACION
                     int n = JOptionPane.showConfirmDialog(
                             this,
-                            "¿Estas seguro de querer borrar?",
+                            "Se borraran tambien las inscripciones del alumno.\n¿Estas seguro de querer borrar?",
                             "Confirmación de borrado",
                             JOptionPane.YES_NO_OPTION);
                     // SI SE CONFIRMA
                     if (n == JOptionPane.OK_OPTION) {
                         // Borrar alumno de la base de datos
+                        bd.borrarInscripciones(textoDni.getText().trim().toUpperCase(), "TODO");
                         bd.borrarAlumno(textoDni.getText().trim().toUpperCase());
                         textoInfo.setText("ELIMINADO " + textoDni.getText().trim().toUpperCase());
                         // Limpia los campos
@@ -486,7 +487,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                         textoTlfn.setText("");
                         opcion = 0;
                         // SI NO SE CONFIRMA
-                    }else{
+                    } else {
                         textoInfo.setText("No se ha eliminado ningún alumno, Pulse HACER GESTION para confirmar o seleccione otra opcion");
                     }
                 }
@@ -511,59 +512,67 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 }
                 break;
             case 4:
-                // Opción Modificar (confirmación)
-                String texto = "Alumno con DNI: " + textoDni.getText().trim().toUpperCase() + "\n";
-                textoInfo.setText("");
-                // Se comprueba cada uno de los campos rellenables, 
-                //1º si está vacío no hace nada 
-                //2ª Si hay algo realiza las comprobaciones, como si el tipo de variable es correcta.
-                //3ª Tambien determina si la clave esta dentro de la BD
-                //Se comprueba Nombre
-                if (!textoNombre.getText().equals("")) {
-                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
-                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "nombre", textoNombre.getText().trim().toUpperCase());
-                        texto = texto + "Se ha cambiado el nombre, nuevo nombre: " + textoNombre.getText().trim().toUpperCase() + "\n";
+                // PANEL DE CONFIRMACION
+                int n = JOptionPane.showConfirmDialog(
+                        this,
+                        "¿Estas seguro de querer Modificar??",
+                        "Confirmación de Modificacion",
+                        JOptionPane.YES_NO_OPTION);
+                // SI SE CONFIRMA
+                if (n == JOptionPane.OK_OPTION) {
+                    // Opción Modificar (confirmación)
+                    String texto = "Alumno con DNI: " + textoDni.getText().trim().toUpperCase() + "\n";
+                    textoInfo.setText("");
+                    // Se comprueba cada uno de los campos rellenables, 
+                    //1º si está vacío no hace nada 
+                    //2ª Si hay algo realiza las comprobaciones, como si el tipo de variable es correcta.
+                    //3ª Tambien determina si la clave esta dentro de la BD
+                    //Se comprueba Nombre
+                    if (!textoNombre.getText().equals("")) {
+                        if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
+                            bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "nombre", textoNombre.getText().trim().toUpperCase());
+                            texto = texto + "Se ha cambiado el nombre, nuevo nombre: " + textoNombre.getText().trim().toUpperCase() + "\n";
+                        } else {
+                            textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        }
                     } else {
-                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        texto = texto + "No se ha cambiado el nombre\n";
                     }
-                } else {
-                    texto = texto + "No se ha cambiado el nombre\n";
-                }
-                //Se comprueba Apellido
-                if (!textoApellido.getText().equals("")) {
-                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
-                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "apellido", textoApellido.getText().trim().toUpperCase());
-                        texto = texto + "Se ha cambiado el apellido, nuevo apellido: " + textoApellido.getText().trim().toUpperCase() + "\n";
+                    //Se comprueba Apellido
+                    if (!textoApellido.getText().equals("")) {
+                        if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
+                            bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "apellido", textoApellido.getText().trim().toUpperCase());
+                            texto = texto + "Se ha cambiado el apellido, nuevo apellido: " + textoApellido.getText().trim().toUpperCase() + "\n";
+                        } else {
+                            textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        }
                     } else {
-                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        texto = texto + "No se ha cambiado el apellido\n";
                     }
-                } else {
-                    texto = texto + "No se ha cambiado el apellido\n";
-                }
-                //Se comprueba Correo
-                if (util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {
-                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
-                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "correo", textoCorreo.getText().trim().toUpperCase());
-                        texto = texto + "Se ha cambiado el correo, nuevo correo: " + textoCorreo.getText().trim().toUpperCase() + "\n";
+                    //Se comprueba Correo
+                    if (util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {
+                        if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
+                            bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "correo", textoCorreo.getText().trim().toUpperCase());
+                            texto = texto + "Se ha cambiado el correo, nuevo correo: " + textoCorreo.getText().trim().toUpperCase() + "\n";
+                        } else {
+                            textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        }
                     } else {
-                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        texto = texto + "No se ha cambiado el correo\n";
                     }
-                } else {
-                    texto = texto + "No se ha cambiado el correo\n";
-                }
-                //Se comprueba Telefono
-                if (util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
-                    if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
-                        bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "telefono", textoTlfn.getText().trim().toUpperCase());
-                        texto = texto + "Se ha cambiado el nombre, nuevo nombre: " + textoTlfn.getText().trim().toUpperCase();
+                    //Se comprueba Telefono
+                    if (util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
+                        if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "DNI")) {
+                            bd.modificar(textoDni.getText().trim().toUpperCase(), "dni", "ALUMNOS", "telefono", textoTlfn.getText().trim().toUpperCase());
+                            texto = texto + "Se ha cambiado el nombre, nuevo nombre: " + textoTlfn.getText().trim().toUpperCase();
+                        } else {
+                            textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        }
                     } else {
-                        textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
+                        texto = texto + "No se ha cambiado el telefono\n";
                     }
-                } else {
-                    texto = texto + "No se ha cambiado el telefono\n";
+                    textoInfo.setText(texto);
                 }
-                textoInfo.setText(texto);
-
                 break;
 
             default:
@@ -645,8 +654,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
         });
 
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aceptar;

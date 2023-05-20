@@ -229,26 +229,18 @@ public class GestionesDeBD {
 
     }
 
-    public void insertarInscSerializada(String nombreCurso, String dniAlumno, String inicio, String fin, float nota) {// para insertar los datos de la tabla inscripcion 
+    public void insertarInscSerializada(String dniAlumno, String nombreCurso, String inicio, String fin, float nota) {// para insertar los datos de la tabla inscripcion 
         Statement stmt = null;
         long miliseconds = System.currentTimeMillis();
-        Date fecha = new Date(miliseconds);
-        System.out.println(fecha);
+
+        System.out.println(dniAlumno + " " + nombreCurso + " " + inicio + " " + fin + " " + nota);
         try {
 
             stmt = this.conn.createStatement();
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-String query = "INSERT INTO INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio, fechaFin, calificacion) VALUES (?, ?, ?, ?, ?)";
+            stmt.executeUpdate("insert into INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio, fechaFin, calificacion) values ('" + dniAlumno + "','" + nombreCurso + "','" + inicio + "','" + fin + "','" + nota + "')");
 
-PreparedStatement pstmt = conn.prepareStatement(query);
-pstmt.setString(1, dniAlumno);
-pstmt.setString(2, nombreCurso);
-pstmt.setString(3, inicio);
-pstmt.setString(4, fin);
-pstmt.setFloat(5, nota);
-
-pstmt.executeUpdate();
             this.conn.commit();
 
         } catch (SQLException ex) {
@@ -769,7 +761,7 @@ pstmt.executeUpdate();
             // Se borra cualquier registro
             borrarAlumno("TODO");
             // Insertar los alumnos en la base de 
-            if (listaAlumnos.size() > 0) {
+            if (!listaAlumnos.isEmpty()) {
                 for (Alumno alumno : listaAlumnos) {
 
                     insertarAlumno(
@@ -780,7 +772,7 @@ pstmt.executeUpdate();
                             alumno.getTelefono()
                     );
                 }
-
+                this.conn.commit();
                 entrada.close();
                 archivo.close();
 
@@ -801,6 +793,7 @@ pstmt.executeUpdate();
             salida.close();
             archivo.close();
             System.out.println("ArrayList INSCRIPCIONES serializado correctamente.");
+            this.conn.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -822,14 +815,23 @@ pstmt.executeUpdate();
             System.out.println(listaInscripciones.size());
             if (!listaInscripciones.isEmpty()) {
                 for (Inscripcion inscrip : listaInscripciones) {
-                    
+                    System.out.println(inscrip.getDni()+" "+inscrip.getNombreCurso()+" "+inscrip.getFechaInicio().toString()+" "+inscrip.getFechaFin().toString()+" "+inscrip.getCalificacion());
+                            
+                            
+                            
+                            
+                }
+                for (Inscripcion inscrip : listaInscripciones) {
                     insertarInscSerializada(inscrip.getDni(),
-                            inscrip.getNombreCurso(), 
-                            inscrip.getFechaInicio().toString(), 
-                            inscrip.getFechaFin().toString(), 
+                            inscrip.getNombreCurso(),
+                            inscrip.getFechaInicio().toString(),
+                            inscrip.getFechaFin().toString(),
                             inscrip.getCalificacion());
                 }
             }
+                            this.conn.commit();
+                entrada.close();
+                archivo.close();
             System.out.println("Inscripciones deserializadas e insertados en la base de datos correctamente.");
         } catch (Exception e) {
             e.printStackTrace();

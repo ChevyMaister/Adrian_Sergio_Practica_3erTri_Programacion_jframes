@@ -699,7 +699,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
     private void cajaListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaAlumnosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
-        String dni="";
+        String dato = "";
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
         if (evt.getClickCount() == 1) {// Si detecta click(1 click)
 
@@ -707,12 +707,13 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             String item = list.getModel().getElementAt(index);
             //Extraemos el nombre
             String campos[] = item.split(": ");
-            if(campos[0].equals("dni")){
-            String camposAux[] = campos[1].split("Nombre");
-            dni = camposAux[0].trim();}
+            if (campos[0].equals("dni")) {
+                String camposAux[] = campos[1].split("Nombre");
+                dato = camposAux[0].trim();
+            }
 
-            if (dni.length() == 9 && !textoAlumnos.getText().equals(dni)) {
-                textoAlumnos.setText(dni);
+            if (dato.length() == 9 && !textoAlumnos.getText().equals(dato)) {
+                textoAlumnos.setText(dato);
             }
 
         }

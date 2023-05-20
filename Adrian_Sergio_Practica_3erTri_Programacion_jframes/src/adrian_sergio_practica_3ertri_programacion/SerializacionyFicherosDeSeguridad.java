@@ -276,6 +276,7 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
 
         //Se introducen en la base de datos los alumnos
         bd.borrarAlumno("*");
+        
         bd.deserializarAlumnos();
 
         //Por ultimo se introducen las inscripciones, despues de los cursos y alumnos
