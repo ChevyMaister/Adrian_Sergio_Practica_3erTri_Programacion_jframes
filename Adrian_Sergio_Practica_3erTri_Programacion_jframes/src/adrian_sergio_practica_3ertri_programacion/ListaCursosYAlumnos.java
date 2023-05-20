@@ -4,6 +4,7 @@
  */
 package adrian_sergio_practica_3ertri_programacion;
 
+import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,10 +15,10 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
     GestionesDeBD bd = new GestionesDeBD();
     Utiles util = new Utiles();
-    
+
     public ListaCursosYAlumnos() {
         initComponents();
-        
+
     }
 
     /**
@@ -323,13 +324,6 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 "CURSO", "ALUMNO"
             }
         ));
-        DefaultTableModel model = (DefaultTableModel) tablaMostrar.getModel();
-
-        // Agrega filas al modelo de datos
-        Object[] rowData1 = {"Dato 1", "Dato 2", "Dato 3"};
-        Object[] rowData2 = {"Dato 4", "Dato 5", "Dato 6"};
-        model.addRow(rowData1);
-        model.addRow(rowData2);
         jScrollPane4.setViewportView(tablaMostrar);
 
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
@@ -430,11 +424,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_cajaListaAlumnosMouseClicked
 
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
-
+        DefaultTableModel model = (DefaultTableModel) tablaMostrar.getModel();
         String[] datosAlumno = new String[0];
         String[] cursosAlumno = new String[0];
         String[] listaImprimir;
         String imprimir = "";
+        Object fila[] = new Object[2];
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
             System.out.println("Aqui llego");
             panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
@@ -446,12 +441,20 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
                 cursosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "nombreCurso");
                 panelInfo.setText("ALUMNO ENCONTRADO");
+
             }
+            model.addRow(cursosAlumno);
             listaImprimir = new String[datosAlumno.length + cursosAlumno.length + 1];
             listaImprimir[0] = datosAlumno[0];
-            for (int i = 0, j = 1; i < cursosAlumno.length; i++, j++) {
-                listaImprimir[j] = cursosAlumno[i];
-                //tablaMostrar.
+            fila[0] = textoAlumnos.getText();
+            if (cursosAlumno.length != 0) {
+                for (String curso : cursosAlumno) {
+                    Object[] filaCurso = new Object[2];
+                    filaCurso[0] = textoAlumnos.getText().trim().toUpperCase();
+                    filaCurso[1] = curso;
+                    model.addRow(filaCurso);
+                    System.out.println(filaCurso[0]);
+                }
             }
             cajaListaAlumnos.setListData(listaImprimir);
 

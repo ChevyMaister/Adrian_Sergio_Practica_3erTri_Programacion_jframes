@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -543,7 +543,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tablaMostrar">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="DefaultTableModel model = (DefaultTableModel) tablaMostrar.getModel();&#xa;&#xa;// Agrega filas al modelo de datos&#xa;Object[] rowData1 = {&quot;Dato 1&quot;, &quot;Dato 2&quot;, &quot;Dato 3&quot;};&#xa;Object[] rowData2 = {&quot;Dato 4&quot;, &quot;Dato 5&quot;, &quot;Dato 6&quot;};&#xa;model.addRow(rowData1);&#xa;model.addRow(rowData2);">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="0">
                     <Column editable="true" title="CURSO" type="java.lang.Object"/>
                     <Column editable="true" title="ALUMNO" type="java.lang.Object"/>
