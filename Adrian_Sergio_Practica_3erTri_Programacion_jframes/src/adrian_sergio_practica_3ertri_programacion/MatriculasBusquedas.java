@@ -629,8 +629,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             }
             listaImprimir = new String[datosAlumno.length + cursosAlumno.length + 1];
             listaImprimir[0] = datosAlumno[0];
-            listaImprimir[1] = "MATRICULADO EN:";
-            for (int i = 0, j = 2; i < cursosAlumno.length; i++, j++) {
+            for (int i = 0, j = 1; i < cursosAlumno.length; i++, j++) {
                 listaImprimir[j] = cursosAlumno[i];
             }
             cajaListaAlumnos.setListData(listaImprimir);
