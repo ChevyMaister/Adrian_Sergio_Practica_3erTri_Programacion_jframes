@@ -110,9 +110,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         botonFicherosyBBDD1.setBackground(new java.awt.Color(138, 134, 4));
         botonFicherosyBBDD1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         botonFicherosyBBDD1.setForeground(new java.awt.Color(4, 3, 12));
-        botonFicherosyBBDD1.setText("<html><p>CREAR INFORMES DE ALUMNOS</p><p>&nbsp;&nbsp;&nbsp;&nbsp;CURSOS Y CALIFICACIONES</p></html>");
+        botonFicherosyBBDD1.setText("<html><p>INFORMES: - ALUMNOS, CURSOS Y CALIFICACIONES</p><p>&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-CURSOS, DESCRIPCIONES Y LISTA DE ALUMNOS</p></html>");
         botonFicherosyBBDD1.setToolTipText("");
-        botonFicherosyBBDD1.setActionCommand("<html><p>cCREAR INFORME DE ALUMNOS</p><p>CURSOS Y CALIFICACIONES</p></html>");
+        botonFicherosyBBDD1.setActionCommand("<html><p>CREAR INFORME DE ALUMNOS</p><p>CURSOS Y CALIFICACIONES</p></html>");
         botonFicherosyBBDD1.setPreferredSize(new java.awt.Dimension(1, 1));
         botonFicherosyBBDD1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +228,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         GestionesDeBD bd = new GestionesDeBD();
         ArrayList<String> informe = bd.informesAlumnosNotas();
         String archivo = "Ficheros/InformeDeAlumnosCursosyNotas.txt";
+        String archivo2 = "Ficheros/InformeDeCursosDescripcionesyAlumnos.txt";
 
         try {
             FileWriter writer = new FileWriter(archivo);
@@ -242,7 +243,21 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             System.out.println("Error al generar el archivo");
         }
-        JOptionPane.showMessageDialog(this, "                       INFORME TIPO TXT CREADO EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
+        informe = bd.informesCursosDescripcionesAlumnos();
+        try {
+            FileWriter writer = new FileWriter(archivo2);
+
+            for (String fila : informe) {
+                writer.write(fila);
+                writer.write(System.lineSeparator()); // Agrega un salto de línea después de cada cadena
+            }
+
+            writer.close();
+            System.out.println("Archivo generado correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al generar el archivo2");
+        }
+        JOptionPane.showMessageDialog(this, "                       AMBOS INFORMES TIPO TXT CREADOS EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
     }//GEN-LAST:event_botonFicherosyBBDD1ActionPerformed
 
     private void BotonListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListasActionPerformed

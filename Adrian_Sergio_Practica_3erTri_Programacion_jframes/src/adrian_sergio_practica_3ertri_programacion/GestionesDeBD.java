@@ -260,20 +260,19 @@ public class GestionesDeBD {
 
         Statement stmt = null;
         try {
-            
-            
-            stmt = this.conn.createStatement();
-             if (nombre.equals("TODO")) {
-               stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-                  stmt.executeUpdate("delete from CURSOS;");
-                              this.conn.commit();
 
-             }else{
-               
-            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            stmt.executeUpdate("delete from CURSOS where Nombre='" + nombre + "' ;");
-             }
-             
+            stmt = this.conn.createStatement();
+            if (nombre.equals("TODO")) {
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+                stmt.executeUpdate("delete from CURSOS;");
+                this.conn.commit();
+
+            } else {
+
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+                stmt.executeUpdate("delete from CURSOS where Nombre='" + nombre + "' ;");
+            }
+
             this.conn.commit();
 
         } catch (SQLException ex) {
@@ -391,7 +390,6 @@ public class GestionesDeBD {
     }
 
 // metodo para modificar general
-
     public void modificar(String clave, String columnaClave, String nombreTabla, String columnaCambio, String nuevoValor) {
 
         boolean encontrado = false;
@@ -547,8 +545,9 @@ public class GestionesDeBD {
 
         return false; // No se encontró la matrícula
     }
+
     public ArrayList<Curso> obtenerCursos() throws Exception {
-        
+
         Statement stmt = null;
         ResultSet rs = null;
         stmt = this.conn.createStatement();
@@ -561,12 +560,12 @@ public class GestionesDeBD {
         ArrayList<Curso> cursos = new ArrayList<>();
 
         while (rs.next()) {
-            curso = new Curso("", "" , 0); // Crear un nuevo objeto Curso en cada iteración
+            curso = new Curso("", "", 0); // Crear un nuevo objeto Curso en cada iteración
 
             // Asignar los valores obtenidos de la consulta al objeto Curso
-           curso.setNombre(rs.getString("nombre"));
-           curso.setDescripcion(rs.getString("descripcion"));
-           curso.setNumHoras(Integer.parseInt(rs.getString("numeroHoras")));
+            curso.setNombre(rs.getString("nombre"));
+            curso.setDescripcion(rs.getString("descripcion"));
+            curso.setNumHoras(Integer.parseInt(rs.getString("numeroHoras")));
 
             // Agregar el objeto Curso a la lista de cursos
             cursos.add(curso);
@@ -576,6 +575,7 @@ public class GestionesDeBD {
         stmt.close();
         return cursos;
     }
+
     //Devuelve todos los alumnos de la bbdd utilizado para serializar
     public ArrayList<Alumno> obtenerAlumnos() throws Exception {
         Statement stmt = null;
@@ -697,6 +697,80 @@ public class GestionesDeBD {
         return informe;  // Devolver el informe completo
     }
 
+    //Devuelve todos los registros de inscripciones de la bbdd utilizado para serializar
+    public ArrayList<String> informesCursosDescripcionesAlumnos() {
+        ArrayList<String> informe = new ArrayList<>();  // Lista para almacenar el informe
+
+        ArrayList<String> registroCompleto = new ArrayList<>();  // Lista para almacenar los registros individuales
+        String registroIndividual = "";  // Cadena para construir cada registro individual
+        Statement stmt = null;
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        try {
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            // Consulta de los cursos con sus descripciones
+            rs = stmt.executeQuery(""
+                    + "SELECT cursos.Nombre, cursos.Descripcion "
+                    + "FROM cursos "
+                    + "ORDER BY cursos.Nombre;");
+
+            ResultSetMetaData todosDatos = rs.getMetaData();
+            int numColumna = todosDatos.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= numColumna; i++) {
+                    registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " ";
+                    if (i == numColumna) {
+                        informe.add(registroIndividual);  // Agregar el registro individual a la lista del informe
+                    }
+                }
+
+                registroIndividual = "";
+            }
+
+            // Realizar la consulta SQL para obtener el curso y los alumnos
+            rs = stmt.executeQuery(""
+                    + "SELECT inscripciones.nombreCurso, alumno.Nombre, alumnos.apellido  "
+                    + "FROM inscripciones "
+                    + "JOIN alumnos ON inscripciones.dniAlumno=ALUMNOS.dni "
+                    + "ORDER BY inscripciones.nombreCurso;");
+
+            todosDatos = rs.getMetaData();
+            numColumna = todosDatos.getColumnCount();
+
+            while (rs.next()) {
+                for (int i = 1; i <= numColumna; i++) {
+                    registroIndividual = registroIndividual + todosDatos.getColumnLabel(i) + ": " + rs.getString(i) + " ";
+                    if (i == numColumna) {
+                        informe.add(registroIndividual);  // Agregar el registro individual a la lista del informe
+                    }
+                }
+
+                registroIndividual = "";
+            }
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return informe;  // Devolver el informe completo
+    }
+
     public void serializarAlumnos(ArrayList listaAlumnos) {
         try {
             FileOutputStream archivo = new FileOutputStream("Ficheros/listaAlumnos.ser", false);
@@ -710,6 +784,7 @@ public class GestionesDeBD {
             e.printStackTrace();
         }
     }
+
     public void serializarCursos(ArrayList listaCursos) {
         FileOutputStream archivoC = null;
         ObjectOutputStream salida = null;
@@ -720,31 +795,29 @@ public class GestionesDeBD {
             System.out.println("ArrayList de Cursos serializado correctamente.");
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            
-            try{
-            salida.close();
-            archivoC.close();
-            }catch(Exception e){
+        } finally {
+
+            try {
+                salida.close();
+                archivoC.close();
+            } catch (Exception e) {
                 //e.printStackTrace();
-            }      
+            }
         }
     }
 
-     public ArrayList<Curso> deserializarCursos() {
-         FileInputStream archivo  = null ;
-         ObjectInputStream entrada = null;
-         ArrayList<Curso> listaCursos = null;
+    public ArrayList<Curso> deserializarCursos() {
+        FileInputStream archivo = null;
+        ObjectInputStream entrada = null;
+        ArrayList<Curso> listaCursos = null;
         try {
             archivo = new FileInputStream("Ficheros/listaCursos.ser");
             entrada = new ObjectInputStream(archivo);
-           listaCursos = (ArrayList<Curso>) entrada.readObject();
-            
-           //no da nada , no esta deserializando
-           
+            listaCursos = (ArrayList<Curso>) entrada.readObject();
+
+            //no da nada , no esta deserializando
             //Insertar los cursos en la base de datos
- 
-           /* if (!listaCursos.isEmpty()) {
+            /* if (!listaCursos.isEmpty()) {
                 for (Curso curso : listaCursos) {
 
                     insertarCurso(
@@ -755,36 +828,35 @@ public class GestionesDeBD {
                     );
                     //this.conn.commit();
                 }*/
-                //this.conn.commit();
-                
-
-                //System.out.println("Cursos deserializados e insertados en la base de datos correctamente.");
-           // }
+            //this.conn.commit();
+            //System.out.println("Cursos deserializados e insertados en la base de datos correctamente.");
+            // }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            
-            try{
-                 entrada.close();
+        } finally {
+
+            try {
+                entrada.close();
                 archivo.close();
-                
-            }catch(Exception e ){
-                
+
+            } catch (Exception e) {
+
                 e.printStackTrace();
             }
         }
-       return listaCursos;
+        return listaCursos;
     }
-     //para insertar los cursos serializados
-     public void insertarCS ( ArrayList<Curso> cursos){
-         Statement stmt = null;
+    //para insertar los cursos serializados
+
+    public void insertarCS(ArrayList<Curso> cursos) {
+        Statement stmt = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            for ( int i = 0 ; i< cursos.size() ; i++){
-            stmt.executeUpdate("insert into CURSOS values ('" + cursos.get(i).getNombre() + "','" + cursos.get(i).getDescripcion() + "','" + cursos.get(i).getNumHoras() + "')");
+            for (int i = 0; i < cursos.size(); i++) {
+                stmt.executeUpdate("insert into CURSOS values ('" + cursos.get(i).getNombre() + "','" + cursos.get(i).getDescripcion() + "','" + cursos.get(i).getNumHoras() + "')");
 
-            this.conn.commit();
+                this.conn.commit();
             }
             System.out.println("Cursos insertados en la base de datos");
         } catch (SQLException ex) {
@@ -796,12 +868,9 @@ public class GestionesDeBD {
                 e.printStackTrace();
             }
         }
-         
-         
-         
-         
-         
-     }
+
+    }
+
     public ArrayList<Alumno> deserializarAlumnos() {
         try {
             FileInputStream archivo = new FileInputStream("Ficheros/listaAlumnos.ser");
@@ -834,7 +903,6 @@ public class GestionesDeBD {
         return null;
     }
 
-
     public void serializarInscripciones(ArrayList listaInscripciones) {
 
         try {
@@ -866,9 +934,8 @@ public class GestionesDeBD {
             System.out.println(listaInscripciones.size());
             if (!listaInscripciones.isEmpty()) {
                 for (Inscripcion inscrip : listaInscripciones) {
-                    System.out.println(inscrip.getDni()+" "+inscrip.getNombreCurso()+" "+inscrip.getFechaInicio().toString()+" "+inscrip.getFechaFin().toString()+" "+inscrip.getCalificacion());
-         
-                            
+                    System.out.println(inscrip.getDni() + " " + inscrip.getNombreCurso() + " " + inscrip.getFechaInicio().toString() + " " + inscrip.getFechaFin().toString() + " " + inscrip.getCalificacion());
+
                 }
                 for (Inscripcion inscrip : listaInscripciones) {
                     insertarInscSerializada(inscrip.getDni(),
@@ -878,16 +945,14 @@ public class GestionesDeBD {
                             inscrip.getCalificacion());
                 }
             }
-                            //this.conn.commit();
-                entrada.close();
-                archivo.close();
-                 this.conn.commit();
+            //this.conn.commit();
+            entrada.close();
+            archivo.close();
+            this.conn.commit();
             System.out.println("Inscripciones deserializadas e insertados en la base de datos correctamente.");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-  
-        
-    
+
 }

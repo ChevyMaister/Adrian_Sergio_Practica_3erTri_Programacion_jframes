@@ -225,9 +225,9 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="c" green="3" red="4" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;CREAR INFORMES DE ALUMNOS&lt;/p&gt;&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;CURSOS Y CALIFICACIONES&lt;/p&gt;&lt;/html&gt;"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;INFORMES: - ALUMNOS, CURSOS Y CALIFICACIONES&lt;/p&gt;&lt;p&gt;&amp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;-CURSOS, DESCRIPCIONES Y LISTA DE ALUMNOS&lt;/p&gt;&lt;/html&gt;"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
-            <Property name="actionCommand" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;cCREAR INFORME DE ALUMNOS&lt;/p&gt;&lt;p&gt;CURSOS Y CALIFICACIONES&lt;/p&gt;&lt;/html&gt;"/>
+            <Property name="actionCommand" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;CREAR INFORME DE ALUMNOS&lt;/p&gt;&lt;p&gt;CURSOS Y CALIFICACIONES&lt;/p&gt;&lt;/html&gt;"/>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[1, 1]"/>
             </Property>
