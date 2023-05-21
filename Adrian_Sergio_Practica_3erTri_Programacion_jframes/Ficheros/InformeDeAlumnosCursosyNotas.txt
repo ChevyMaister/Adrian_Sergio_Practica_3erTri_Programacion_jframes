@@ -1,1 +1,3 @@
-Nombre: SERGIO dniAlumno: 12345678A nombreCurso: CONO calificacion: 10.00 
+Nombre: HOLAAAAAAAAA dniAlumno: 12345678A nombreCurso: SISTEMAS calificacion: 10.00 
+Nombre: HOLAAAAAAAAA dniAlumno: 12345678A nombreCurso: CONO calificacion: 10.00 
+Nombre: SERGIOOO dniAlumno: 98765432A nombreCurso: SISTEMAS calificacion: null 
