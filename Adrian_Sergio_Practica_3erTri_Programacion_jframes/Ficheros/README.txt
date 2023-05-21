@@ -49,7 +49,7 @@ d) Mostrar la lista de alumnos inscritos en un curso y la lista de cursos en los
 -LISTAS DE ALUMNOS Y CURSOS tambien permite ver en un Jtable la informacion.
 
 e) Obtener un informe con la lista de alumnos(nombre completo), los cursos(nombre) en los que están inscritos y sus notas.
-INFORMES: - ALUMNOS, CURSOS Y CALIFICACIONES -CURSOS, DESCRIPCIONES Y LISTA DE ALUMNOS, crea un informe en documento txt, con toda la informacion requerida, ordenada por alumnos este documento se guarda en la carpeta \Adrian_Sergio_Practica_3erTri_Programacion_jframes\Ficheros.
+CREAR INFORMES DE ALUMNOS CURSOS Y CALIFICACIONES, crea un informe en documento txt, con toda la informacion requerida, ordenada por alumnos este documento se guarda en la carpeta \Adrian_Sergio_Practica_3erTri_Programacion_jframes\Ficheros.
 
 La funcionalidad anterior debe implementarse en un programa java con interfaz gráfica utilizando la librería "swing" y los datos deben estar en una base de datos MySQL. El informe se generará en un fichero de texto.
 
@@ -58,13 +58,12 @@ La funcionalidad anterior debe implementarse en un programa java con interfaz gr
 PARTE OPCIONAL (3 puntos)
 
 -Obtener un informe con la lista de cursos(nombre), sus descripciones y la lista de alumnos(nombre completo) inscritos en cada curso. (0,5p)
----INFORMES: - ALUMNOS, CURSOS Y CALIFICACIONES -CURSOS, DESCRIPCIONES Y LISTA DE ALUMNOS, crea un informe en documento txt, con toda la informacion requerida, ordenada por alumnos este documento se guarda en la carpeta \Adrian_Sergio_Practica_3erTri_Programacion_jframes\Ficheros.
 
 -Utilización del componente JTable para mostrar los datos en la interfaz. Se deberá utilizar al menos para implementar el punto d), aunque también podría utilizarse para mostrar los alumnos y cursos.(0,5p)
 ---LISTAS DE ALUMNOS Y CURSOS tambien permite ver en un Jtable la informacion requerida en el punto d.
 
 -Permitir realizar una copia de seguridad de los alumnos en un fichero serializado. Dicha copia de seguridad también se debe poder reponer y actualizar así la base de datos. La tabla de los alumnos se sobrescribiría entera. También se puede realizar una copia de las 3 tablas(2p)
----GESTION FICHEROS COPIAS DE SEGURIDAD permite realizar la copia de seguridad en un fichero serializable, intentando realizar la desserializacion desde el fichero a la bbdd
+GESTION FICHEROS COPIAS DE SEGURIDAD permite realizar la copia de seguridad en un fichero serializable, también se realiza la deserializacion desde el fichero a la bbdd.
 
 -Las foreign keys son opcionales. En caso de no usarlas se restará 0,5 puntos a la nota final.
 ---Se realizan las foreing keys en la creacción de las tablas

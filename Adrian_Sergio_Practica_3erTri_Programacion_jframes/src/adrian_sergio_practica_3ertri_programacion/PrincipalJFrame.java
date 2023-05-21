@@ -257,7 +257,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
         } catch (IOException e) {
             System.out.println("Error al generar el archivo2");
         }
-        JOptionPane.showMessageDialog(this, "                       AMBOS INFORMES TIPO TXT CREADOS EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
+        JOptionPane.showMessageDialog(this, "                AMBOS INFORMES TIPO TXT CREADOS EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
     }//GEN-LAST:event_botonFicherosyBBDD1ActionPerformed
 
     private void BotonListasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListasActionPerformed

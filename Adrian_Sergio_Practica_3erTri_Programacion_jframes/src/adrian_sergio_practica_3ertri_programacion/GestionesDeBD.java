@@ -255,6 +255,33 @@ public class GestionesDeBD {
 
     }
 
+    public void insertarInscSerializadaNoFinalizada(String dniAlumno, String nombreCurso, String inicio) {// para insertar los datos de la tabla inscripcion 
+        Statement stmt = null;
+        long miliseconds = System.currentTimeMillis();
+
+        System.out.println(dniAlumno + " " + nombreCurso + " " + inicio);
+        try {
+
+            stmt = this.conn.createStatement();
+
+            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+            stmt.executeUpdate("insert into INSCRIPCIONES (dniAlumno, nombreCurso, fechaInicio) values ('" + dniAlumno + "','" + nombreCurso + "','" + inicio + "')");
+
+            this.conn.commit();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     //METODOS PARA DAR DE BAJA EN LA BASE DE DATOS
     public void borrarCurso(String nombre) {
 
@@ -547,14 +574,13 @@ public class GestionesDeBD {
     }
 
     public ArrayList<Curso> obtenerCursos() throws Exception {
-
         Statement stmt = null;
         ResultSet rs = null;
         stmt = this.conn.createStatement();
         stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
 
-        // Ejecutar la consulta SQL para obtener los datos de los alumnos
-        rs = stmt.executeQuery("SELECT * FROM Alumnos");
+        // Ejecutar la consulta SQL para obtener los datos de los cursos
+        rs = stmt.executeQuery("SELECT * FROM Cursos"); // Cambio de "Alumnos" a "Cursos"
 
         Curso curso;
         ArrayList<Curso> cursos = new ArrayList<>();
@@ -576,7 +602,6 @@ public class GestionesDeBD {
         return cursos;
     }
 
-    //Devuelve todos los alumnos de la bbdd utilizado para serializar
     public ArrayList<Alumno> obtenerAlumnos() throws Exception {
         Statement stmt = null;
         ResultSet rs = null;
@@ -616,10 +641,10 @@ public class GestionesDeBD {
         stmt = this.conn.createStatement();
         stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
 
-        // Ejecutar la consulta SQL para obtener los datos de los Inscripcion
+        // Ejecutar la consulta SQL para obtener los datos de las inscripciones
         rs = stmt.executeQuery("SELECT * FROM Inscripciones");
 
-        Inscripcion ins = new Inscripcion("", "");
+        Inscripcion ins;
         ArrayList<Inscripcion> listaIns = new ArrayList<>();
 
         while (rs.next()) {
@@ -732,7 +757,7 @@ public class GestionesDeBD {
 
             // Realizar la consulta SQL para obtener el curso y los alumnos
             rs = stmt.executeQuery(""
-                    + "SELECT inscripciones.nombreCurso, alumno.Nombre, alumnos.apellido  "
+                    + "SELECT inscripciones.nombreCurso, alumnos.Nombre, alumnos.apellido  "
                     + "FROM inscripciones "
                     + "JOIN alumnos ON inscripciones.dniAlumno=ALUMNOS.dni "
                     + "ORDER BY inscripciones.nombreCurso;");
@@ -929,23 +954,28 @@ public class GestionesDeBD {
 
             GestionesDeBD bd = new GestionesDeBD();
             // Se borra cualquier registro
-            bd.borrarAlumno("TODO");
+            bd.borrarInscripciones("TODO", "TODO");
             // Insertar las inscripciones en la base de datos
             System.out.println(listaInscripciones.size());
             if (!listaInscripciones.isEmpty()) {
+
                 for (Inscripcion inscrip : listaInscripciones) {
-                    System.out.println(inscrip.getDni() + " " + inscrip.getNombreCurso() + " " + inscrip.getFechaInicio().toString() + " " + inscrip.getFechaFin().toString() + " " + inscrip.getCalificacion());
+                    if (inscrip.getFechaFin() != null) {
+                        insertarInscSerializada(inscrip.getDni(),
+                                inscrip.getNombreCurso(),
+                                inscrip.getFechaInicio().toString(),
+                                inscrip.getFechaFin().toString(),
+                                inscrip.getCalificacion());
+                    } else {
+                        insertarInscSerializadaNoFinalizada(inscrip.getDni(),
+                                inscrip.getNombreCurso(),
+                                inscrip.getFechaInicio().toString());
+
+                    }
 
                 }
-                for (Inscripcion inscrip : listaInscripciones) {
-                    insertarInscSerializada(inscrip.getDni(),
-                            inscrip.getNombreCurso(),
-                            inscrip.getFechaInicio().toString(),
-                            inscrip.getFechaFin().toString(),
-                            inscrip.getCalificacion());
-                }
             }
-            //this.conn.commit();
+
             entrada.close();
             archivo.close();
             this.conn.commit();

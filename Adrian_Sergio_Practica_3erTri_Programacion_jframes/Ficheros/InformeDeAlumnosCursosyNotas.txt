@@ -1,1 +1,2 @@
-Nombre: AAA dniAlumno: 33333333A nombreCurso: mate calificacion: null 
+Nombre: HOLAAAAAAAAA dniAlumno: 12345678A nombreCurso: SISTEMAS calificacion: 10.00 
+Nombre: HOLAAAAAAAAA dniAlumno: 12345678A nombreCurso: CONO calificacion: 10.00 
