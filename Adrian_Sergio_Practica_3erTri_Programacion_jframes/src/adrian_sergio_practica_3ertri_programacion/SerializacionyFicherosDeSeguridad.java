@@ -14,12 +14,16 @@ import java.util.logging.Logger;
  */
 public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
 
+    
+    
+    ArrayList<Curso> listaCursos = new ArrayList();
+    ArrayList<Curso> listaCursosS = new ArrayList();
     /**
      * Creates new form SerializacionyFicherosDeSeguridad
      */
     public SerializacionyFicherosDeSeguridad() {
         initComponents();
-        
+      
         // Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
     }
@@ -250,9 +254,16 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
 
         GestionesDeBD bd = new GestionesDeBD();
         ArrayList<Alumno> listaAlumnos = new ArrayList();
-        ArrayList<Curso> listaCursos = new ArrayList();
+       
         ArrayList<Inscripcion> listaInscripciones = new ArrayList();
-
+        try {
+            listaCursos = bd.obtenerCursos();
+            System.out.println(listaCursos);
+        } catch (Exception ex) {
+            Logger.getLogger(SerializacionyFicherosDeSeguridad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        bd.serializarCursos(listaCursos);
+        System.out.println("2");
         try {
             listaAlumnos = bd.obtenerAlumnos();
             System.out.println(listaAlumnos);
@@ -270,17 +281,22 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
 
     private void volcarFicheroABBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volcarFicheroABBDDActionPerformed
         GestionesDeBD bd = new GestionesDeBD();
-        //PRIMERO SE BORRAN LAS INSCRIPCIONES YA QUE TIENEN RELACION CON CURSO Y ALUMNOS
-        bd.borrarInscripciones("TODO", "TODO");
-        //AQUI IRIAN LOS CURSOS
+       
 
-        //Se introducen en la base de datos los alumnos
-        bd.borrarAlumno("*");
+        //PRIMERO SE BORRAN LAS INSCRIPCIONES YA QUE TIENEN RELACION CON CURSO Y ALUMNOS
+       // bd.borrarInscripciones("TODO", "TODO");
+        //AQUI IRIAN LOS CURSOS
+        //bd.borrarCurso("TODO");
         
-        bd.deserializarAlumnos();
+       listaCursosS = bd.deserializarCursos();
+        bd.insertarCS(listaCursosS);
+        //Se introducen en la base de datos los alumnos
+        //bd.borrarAlumno("*");
+        
+       // bd.deserializarAlumnos();
 
         //Por ultimo se introducen las inscripciones, despues de los cursos y alumnos
-        bd.deserializarInscripciones();
+        //bd.deserializarInscripciones();
     }//GEN-LAST:event_volcarFicheroABBDDActionPerformed
 
     private void borrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar1ActionPerformed
@@ -298,6 +314,10 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     }//GEN-LAST:event_volverActionPerformed
 
     /**
+     * 
+     * 
+     * 
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {

@@ -1,1 +1,1 @@
-Nombre: SERGIO dniAlumno: 12345678A nombreCurso: CONO calificacion: 10.00 
+Nombre: AAA dniAlumno: 33333333A nombreCurso: mate calificacion: null 

@@ -1,9 +1,10 @@
 
 package adrian_sergio_practica_3ertri_programacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Curso {
+public class Curso implements Serializable{
     private String nombre ;
     private String descripcion ;
     private int numHoras;

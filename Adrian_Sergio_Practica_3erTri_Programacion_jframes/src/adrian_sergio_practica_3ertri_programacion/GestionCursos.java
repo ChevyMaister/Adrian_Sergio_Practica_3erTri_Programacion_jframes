@@ -8,7 +8,6 @@ public class GestionCursos extends javax.swing.JFrame {
 
     String auxNombre = "";
     GestionesDeBD tablaCursos = new GestionesDeBD();
-    HashMap<String, Alumno> listaAlumnos;
     HashMap<String, Curso> listaCursos = new HashMap();
     Utiles util = new Utiles();
     private int opcion = 0; //opcion 0 Cuando entras Opcion 1 Cuando Añades Opcion 2 Cuando Borras, Opcion 3 Cuando modificas
@@ -326,7 +325,7 @@ public class GestionCursos extends javax.swing.JFrame {
                     textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
                 } else {
                     //listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
-                    tablaCursos.insertarCurso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), NumH.getText().trim().toUpperCase());
+                    tablaCursos.insertarCurso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim().toUpperCase()));
                     textoInfo.setText("Se ha añadido el Curso Correctamente");
                     for (Curso curso : listaCursos.values()) {
                         System.out.println(curso.getNombre());
@@ -571,34 +570,6 @@ public class GestionCursos extends javax.swing.JFrame {
 
     public void setListaCursos(HashMap<String, Curso> listaCursos) {
         this.listaCursos = listaCursos;
-    }
-
-    public void modificarCampos() {
-
-        textoInfo.setText("Curso : " + auxNombre + " encontrado. " + "\n Rellena los campos que quieres cambiar, si alguno no quieres cambiarlo, dejalo en blanco");
-
-        for (Component component : panelDatos.getComponents()) {
-            component.setEnabled(true);
-        }
-        if (!Nombre.getText().trim().equalsIgnoreCase("")) {
-            tablaCursos.modificarCurso(auxNombre, "Nombre", Nombre.getText().trim());
-
-        } else {
-        }
-        if (!textoDesc.getText().trim().equalsIgnoreCase("")) {
-            tablaCursos.modificarCurso(auxNombre, "Descripcion", textoDesc.getText().trim());
-
-        } else {
-        }
-        if (!NumH.getText().trim().equalsIgnoreCase("")) {
-            tablaCursos.modificarCurso(auxNombre, "NumeroHoras", NumH.getText().trim());
-
-        } else {
-        }
-        Nombre.setText("");
-        NumH.setText("");
-        textoDesc.setText("");
-
     }
 
 }
