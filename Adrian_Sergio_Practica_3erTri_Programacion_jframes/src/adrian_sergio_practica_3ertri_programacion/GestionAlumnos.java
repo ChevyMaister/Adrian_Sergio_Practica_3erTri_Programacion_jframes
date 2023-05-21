@@ -35,10 +35,6 @@ public class GestionAlumnos extends javax.swing.JFrame {
         aniadir = new javax.swing.JButton();
         borrar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        aceptar = new javax.swing.JButton();
-        borrarCampos = new javax.swing.JButton();
-        volver = new javax.swing.JButton();
         panelDatos = new javax.swing.JPanel();
         labelDni = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
@@ -52,6 +48,10 @@ public class GestionAlumnos extends javax.swing.JFrame {
         textoTlfn = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         textoInfo = new javax.swing.JTextPane();
+        jPanel5 = new javax.swing.JPanel();
+        aceptar = new javax.swing.JButton();
+        borrarCampos = new javax.swing.JButton();
+        volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,6 +153,56 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        panelDatos.setBackground(new java.awt.Color(202, 199, 215));
+
+        labelDni.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        labelDni.setForeground(new java.awt.Color(4, 3, 12));
+        labelDni.setText("DNI:");
+
+        labelNombre.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        labelNombre.setForeground(new java.awt.Color(4, 3, 12));
+        labelNombre.setText("Nombre:");
+
+        labelApellido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        labelApellido.setForeground(new java.awt.Color(4, 3, 12));
+        labelApellido.setText("Apellido");
+
+        labelCorreo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        labelCorreo.setForeground(new java.awt.Color(4, 3, 12));
+        labelCorreo.setText("Correo:");
+
+        labelTlfn.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        labelTlfn.setForeground(new java.awt.Color(4, 3, 12));
+        labelTlfn.setText("Tlfn:");
+        labelTlfn.setToolTipText("");
+
+        textoDni.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoDni.setForeground(new java.awt.Color(4, 3, 12));
+        textoDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoDniActionPerformed(evt);
+            }
+        });
+
+        textoNombre.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoNombre.setForeground(new java.awt.Color(4, 3, 12));
+
+        textoApellido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoApellido.setForeground(new java.awt.Color(4, 3, 12));
+
+        textoCorreo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoCorreo.setForeground(new java.awt.Color(4, 3, 12));
+
+        textoTlfn.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        textoTlfn.setForeground(new java.awt.Color(4, 3, 12));
+
+        textoInfo.setEditable(false);
+        textoInfo.setBackground(new java.awt.Color(0, 0, 0));
+        textoInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        textoInfo.setForeground(java.awt.Color.black);
+        textoInfo.setEnabled(false);
+        jScrollPane1.setViewportView(textoInfo);
+
         jPanel5.setBackground(new java.awt.Color(4, 3, 12));
 
         aceptar.setBackground(new java.awt.Color(4, 3, 12));
@@ -211,56 +261,6 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelDatos.setBackground(new java.awt.Color(202, 199, 215));
-
-        labelDni.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        labelDni.setForeground(new java.awt.Color(4, 3, 12));
-        labelDni.setText("DNI:");
-
-        labelNombre.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        labelNombre.setForeground(new java.awt.Color(4, 3, 12));
-        labelNombre.setText("Nombre:");
-
-        labelApellido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        labelApellido.setForeground(new java.awt.Color(4, 3, 12));
-        labelApellido.setText("Apellido");
-
-        labelCorreo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        labelCorreo.setForeground(new java.awt.Color(4, 3, 12));
-        labelCorreo.setText("Correo:");
-
-        labelTlfn.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        labelTlfn.setForeground(new java.awt.Color(4, 3, 12));
-        labelTlfn.setText("Tlfn:");
-        labelTlfn.setToolTipText("");
-
-        textoDni.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoDni.setForeground(new java.awt.Color(4, 3, 12));
-        textoDni.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoDniActionPerformed(evt);
-            }
-        });
-
-        textoNombre.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoNombre.setForeground(new java.awt.Color(4, 3, 12));
-
-        textoApellido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoApellido.setForeground(new java.awt.Color(4, 3, 12));
-
-        textoCorreo.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoCorreo.setForeground(new java.awt.Color(4, 3, 12));
-
-        textoTlfn.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoTlfn.setForeground(new java.awt.Color(4, 3, 12));
-
-        textoInfo.setEditable(false);
-        textoInfo.setBackground(new java.awt.Color(0, 0, 0));
-        textoInfo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        textoInfo.setForeground(java.awt.Color.black);
-        textoInfo.setEnabled(false);
-        jScrollPane1.setViewportView(textoInfo);
-
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
         panelDatosLayout.setHorizontalGroup(
@@ -293,6 +293,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
+            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +320,9 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelTlfn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoTlfn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+                .addGap(27, 27, 27)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelGALayout = new javax.swing.GroupLayout(panelGA);
@@ -329,7 +332,6 @@ public class GestionAlumnos extends javax.swing.JFrame {
             .addGroup(panelGALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(panelDatos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelEleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -341,9 +343,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                 .addComponent(panelEleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(120, 120, 120))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

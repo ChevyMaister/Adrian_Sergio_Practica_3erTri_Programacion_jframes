@@ -35,7 +35,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         }
         aceptar.setEnabled(false);
 
-        panelInfo.setText("Por favor, SELECCIONE, BUSCAR CURSO, BUSCAR ALUMNO O MATRICULAR");
+        panelInfo.setText("Por favor, SELECCIONE, BUSCAR CURSO, BUSCAR ALUMNO, MATRICULAR o CALIFICAR");
 
         // Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
@@ -512,7 +512,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
         cajaListaCursos.setListData(datosCurso);
         textoAlumnos.setText("");
-        panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
+        panelInfo.setText("Si pulsas en uno se rellena el campo NOMBRE DE CURSO automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_mostrarTodosCActionPerformed
 
     private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed

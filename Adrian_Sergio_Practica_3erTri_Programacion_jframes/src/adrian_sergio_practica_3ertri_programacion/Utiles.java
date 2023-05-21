@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package adrian_sergio_practica_3ertri_programacion;
 
-/**
- *
- * @author Chevy
- */
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JTextField;
 
 public class Utiles {
 
@@ -96,7 +88,7 @@ public class Utiles {
             return false;
         }
     }
-
+//metodo para comprobar que es numero mayor de 0
     public boolean esNumeroC(String num) {
         int n;
         if (esNumero(num)) {
