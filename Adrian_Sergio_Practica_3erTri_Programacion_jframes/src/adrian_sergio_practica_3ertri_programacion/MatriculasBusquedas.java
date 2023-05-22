@@ -1,16 +1,13 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
-import javax.swing.SwingUtilities;
+
 
 /**
  * La clase MatriculasBusquedas, es un JFRAME donde se gestionan las busquedas y

@@ -307,34 +307,46 @@ public class GestionCursos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * El método aceptarActionPerformed maneja diferentes opciones según el
+     * valor de la variable opcion.
+     *
+     * Case 1: CREAR: Se validan los campos ingresados y se crea un nuevo curso
+     * si los datos son válidos y el curso no existe. Case 2: BORRAR: Se valida
+     * el nombre del curso y se elimina si existe en la tabla de cursos. Case 3:
+     * HACER MODIFICAR CURSOS: Se valida el nombre del curso y se habilitan los
+     * componentes para realizar modificaciones. Case 4: Realiza las
+     * modificaciones especificadas en los campos del curso seleccionado. En
+     * cada caso, se actualiza la interfaz de usuario y se realizan las
+     * operaciones correspondientes.
+     *
+     */
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
 
         switch (opcion) {
             case 1://CREAR
-
+                // Validar los campos ingresados para crear un nuevo curso
                 if (!util.validarLongitud(Nombre.getText().trim(), 1)) {
-                    textoInfo.setText("Por favor, introduzca Nombre valido");
+                    textoInfo.setText("Por favor, introduzca un nombre válido");
                 } else if (!util.validarLongitud(textoDesc.getText().trim(), 5)) {
-                    textoInfo.setText("Por favor, introduzca una descripcion de 5 caracteres minimo");
+                    textoInfo.setText("Por favor, introduzca una descripción de al menos 5 caracteres");
                 } else if (!util.esNumeroC(NumH.getText().trim())) {
-
-                    textoInfo.setText("Debe ser un numero mayor que 0 y menor que 99999");
-
+                    textoInfo.setText("Debe ser un número mayor que 0 y menor que 99999");
                 } else if (tablaCursos.buscar(Nombre.getText().trim(), "CURSOS", "Nombre")) {
-                    textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
+                    textoInfo.setText("El curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
                 } else {
-                    //listaCursos.put(Nombre.getText().trim().toUpperCase(), new Curso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim())));
+                    // Crear un nuevo curso y agregarlo a la tabla de cursos
                     tablaCursos.insertarCurso(Nombre.getText().trim().toUpperCase(), textoDesc.getText().trim().toUpperCase(), Integer.parseInt(NumH.getText().trim().toUpperCase()));
-                    textoInfo.setText("Se ha añadido el Curso Correctamente");
+                    textoInfo.setText("Se ha añadido el curso correctamente");
                     for (Curso curso : listaCursos.values()) {
                         System.out.println(curso.getNombre());
                     }
+                    // Deshabilitar los componentes del panelDatos
                     for (Component component : panelDatos.getComponents()) {
                         component.setEnabled(false);
                     }
                     opcion = 0;
-                    textoInfo.setText("REGISTRO NUEVO Curso REALIZADO.\nSelecciona una opcion, NUEVO, BORRAR O MODIFICAR");
+                    textoInfo.setText("REGISTRO NUEVO CURSO REALIZADO.\nSelecciona una opción: NUEVO, BORRAR O MODIFICAR");
                     Nombre.setText("");
                     textoDesc.setText("");
                     NumH.setText("");
@@ -342,29 +354,32 @@ public class GestionCursos extends javax.swing.JFrame {
                 }
                 break;
             case 2://BORRAR
-                textoInfo.setText("Por favor, Introduzca un nombre de curso registrado");
+                textoInfo.setText("Por favor, introduzca un nombre de curso registrado");
+                // Validar el nombre del curso para eliminarlo
                 if (!util.validarLongitud(Nombre.getText().trim().toUpperCase(), 1)) {
-                    textoInfo.setText("Por favor, introduzca nombre valido , minimo una letra");
+                    textoInfo.setText("Por favor, introduzca un nombre válido, al menos una letra");
                 } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase(), "CURSOS", "Nombre")) {
                     textoInfo.setText("Nombre no encontrado, por favor, introduzca uno registrado");
                 } else {
+                    // Mostrar un cuadro de diálogo de confirmación antes de borrar el curso
                     int n = JOptionPane.showConfirmDialog(
                             this,
-                            " Estas seguro de querer borrar el curso " + Nombre.getText().trim().toUpperCase() + " ? \n Tambien se borraran las incsripciones asociadas",
+                            "¿Estás seguro de querer borrar el curso " + Nombre.getText().trim().toUpperCase() + "?\nTambién se borrarán las inscripciones asociadas",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION);
                     if (n == JOptionPane.OK_OPTION) {
+                        // Borrar el curso y las inscripciones asociadas
                         tablaCursos.borrarCurso(Nombre.getText().trim().toUpperCase());
                         tablaCursos.borrarInscripciones("TODO", Nombre.getText().trim().toUpperCase());
-                        textoInfo.setText("Curso Eliminado");
+                        textoInfo.setText("Curso eliminado");
                     } else {
                         textoInfo.setText("El curso no ha sido eliminado");
                     }
-
                 }
                 break;
-            case 3://HACER MODIFICAR CURSOS
 
+            case 3://HACER MODIFICAR CURSOS
+                // Validar el nombre del curso para realizar modificaciones
                 if (!util.validarLongitud(Nombre.getText().trim(), 1)) {
                     textoInfo.setText("Por favor, introduzca nombre valido , minimo 1 letra");
                 } else if (tablaCursos.buscar(Nombre.getText().trim().toUpperCase(), "CURSOS", "Nombre")) {
@@ -392,55 +407,55 @@ public class GestionCursos extends javax.swing.JFrame {
                 //2ª Si hay algo realiza las comprobaciones, como si el tipo de variable es correcta.
                 //3ª Tambien determina si la clave esta dentro de la BD
                 //Se comprueba Nombre
-                if ( !Nombre.getText().equals("")){
-                if (!textoDesc.getText().equals("")) {
-                    if (util.validarLongitud(textoDesc.getText().trim(), 5)) {
-                        int dec = JOptionPane.showConfirmDialog(
-                                this,
-                                "Seguro que quieres cambiar la descripcion de " + Nombre.getText().trim().toUpperCase(),
-                                "Confirmación",
-                                JOptionPane.YES_NO_OPTION);
-                        if (dec == JOptionPane.OK_OPTION) {
-                            tablaCursos.modificar(Nombre.getText().trim().toUpperCase(), "nombre", "Cursos", "descripcion", textoDesc.getText().trim().toUpperCase());
-                            texto = texto + " Se ha modificado la descripcion por " + textoDesc.getText().trim().toUpperCase() + "\n";
+                if (!Nombre.getText().equals("")) {// comprueba el nombre
+                    if (!textoDesc.getText().equals("")) {
+                        if (util.validarLongitud(textoDesc.getText().trim(), 5)) {//copmprueba descripcion
+                            int dec = JOptionPane.showConfirmDialog(// panel informativo
+                                    this,
+                                    "Seguro que quieres cambiar la descripcion de " + Nombre.getText().trim().toUpperCase(),
+                                    "Confirmación",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (dec == JOptionPane.OK_OPTION) {
+                                tablaCursos.modificar(Nombre.getText().trim().toUpperCase(), "nombre", "Cursos", "descripcion", textoDesc.getText().trim().toUpperCase());
+                                texto = texto + " Se ha modificado la descripcion por " + textoDesc.getText().trim().toUpperCase() + "\n";
+                            } else {
+                                texto = texto + "No se ha modificado la descripcion " + "\n";
+                            }
                         } else {
-                            texto = texto + "No se ha modificado la descripcion " + "\n";
+                            texto = texto + "No se ha modificado la descripcion (5 caracteres minimo) " + "\n";
                         }
                     } else {
-                        texto = texto + "No se ha modificado la descripcion (5 caracteres minimo) " + "\n";
+
+                        texto = texto + "No se ha modificado la descripcion " + "\n";
                     }
-                } else {
 
-                    texto = texto + "No se ha modificado la descripcion " + "\n";
-                }
+                    textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
 
-                textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
-                
-                if (!NumH.getText().equals("")) {
-                    if (util.esNumeroC(NumH.getText().trim())) {
-                        int dec2 = JOptionPane.showConfirmDialog(
-                                this,
-                                "Seguro que quieres cambiar las horas de " + Nombre.getText().trim().toUpperCase(),
-                                "Confirmación",
-                                JOptionPane.YES_NO_OPTION);
-                        if (dec2 == JOptionPane.OK_OPTION) {
-                            tablaCursos.modificar(Nombre.getText().trim().toUpperCase(), "nombre", "Cursos", "numeroHoras", NumH.getText().trim().toUpperCase());
-                            texto = texto + "Se ha modificado correctamente las horas a " + NumH.getText().trim().toUpperCase() + "\n";
+                    if (!NumH.getText().equals("")) {// se comprueban las horas
+                        if (util.esNumeroC(NumH.getText().trim())) {// se comprueban horas correctas
+                            int dec2 = JOptionPane.showConfirmDialog(//panel de confirmacion
+                                    this,
+                                    "Seguro que quieres cambiar las horas de " + Nombre.getText().trim().toUpperCase(),
+                                    "Confirmación",
+                                    JOptionPane.YES_NO_OPTION);
+                            if (dec2 == JOptionPane.OK_OPTION) {
+                                tablaCursos.modificar(Nombre.getText().trim().toUpperCase(), "nombre", "Cursos", "numeroHoras", NumH.getText().trim().toUpperCase());
+                                texto = texto + "Se ha modificado correctamente las horas a " + NumH.getText().trim().toUpperCase() + "\n";
+                            } else {
+                                texto = texto + "No se ha modificado las horas" + "\n";
+                            }
                         } else {
-                            texto = texto + "No se ha modificado las horas" + "\n";
+                            texto = texto + "No se ha modificado las horas (mayor  0) " + "\n";
                         }
                     } else {
-                        texto = texto + "No se ha modificado las horas (mayor  0) " + "\n";
+                        texto = texto + "No se ha modificado las horas" + "\n";
                     }
+                    // se modifica el texto y se limpian los campos
+                    textoInfo.setText(texto);
+                    textoDesc.setText("");
+                    NumH.setText("");
                 } else {
-                    texto = texto + "No se ha modificado las horas" + "\n";
-                }
-                
-                textoInfo.setText(texto);
-                textoDesc.setText("");
-                NumH.setText("");
-                }else{
-                    
+
                     textoInfo.setText("No hay ningun nombre , vuelve a seleccionar  MODIFICAR CURSO para introducirlo ");
                 }
                 break;
@@ -450,7 +465,10 @@ public class GestionCursos extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_aceptarActionPerformed
-
+    /**
+     * Borra los campos donde se puede escribir
+     *
+     */
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
 
         Nombre.setText("");
@@ -459,8 +477,12 @@ public class GestionCursos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_borrarCamposActionPerformed
 
+    /**
+     * Vuelve al iframe anterior, al principal
+     *
+     */
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-        // TODO add your handling code here:
+        //vuelve al iframe anterior
         PrincipalJFrame principal = new PrincipalJFrame();
         principal.setVisible(true);
         this.dispose();
@@ -469,16 +491,26 @@ public class GestionCursos extends javax.swing.JFrame {
     private void NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreActionPerformed
-
+    /**
+     * Selecciona la opcion aniadir
+     *
+     */
     private void aniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aniadirActionPerformed
+        //aniadir, habilita todos los campos
         for (Component component : panelDatos.getComponents()) {
             component.setEnabled(true);
         }
+        //pone opcion 1 para el metodo del boton de hacer gestion
         opcion = 1;
         textoInfo.setText("Por favor, rellene todos los campos");
     }//GEN-LAST:event_aniadirActionPerformed
-
+    /**
+     * Selecciona la opcion borrar
+     *
+     */
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
+
+        //borrar curso,
         Nombre.setText("");
         textoDesc.setText("");
         NumH.setText("");
@@ -493,28 +525,40 @@ public class GestionCursos extends javax.swing.JFrame {
 
         opcion = 2;
     }//GEN-LAST:event_borrarActionPerformed
-
+    /**
+     * Selecciona la opcion modificar
+     *
+     */
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        // Limpia los campos de texto
         Nombre.setText("");
         textoDesc.setText("");
         NumH.setText("");
 
+        // Deshabilita todos los componentes en panelDatos
         for (Component component : panelDatos.getComponents()) {
             component.setEnabled(false);
         }
 
+        // Habilita el campo de texto Nombre y la etiqueta labelNombreC
         Nombre.setEnabled(true);
         labelNombreC.setEnabled(true);
+
+        // Establece un mensaje en textoInfo
         textoInfo.setText("Ponga el nombre del curso para modificar y pulse HACER GESTION");
+
+        // Verifica si el nombre ingresado es válido y si existe en la tabla de cursos
         if (!util.validarLongitud(Nombre.getText().trim(), 1)) {
             textoInfo.setText("Por favor, introduzca nombre valido , minimo 1 letra");
         } else if (!tablaCursos.buscar(Nombre.getText().trim().toUpperCase(), "CURSOS", "Nombre")) {
             textoInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
         } else {
+            // Limpia el campo de texto Nombre y asigna su valor a auxNombre
             Nombre.setText("");
             auxNombre = Nombre.getText().trim();
-
         }
+
+        // Establece la opción como 3 (Modificar)
         opcion = 3;
     }//GEN-LAST:event_modificarActionPerformed
 
@@ -531,13 +575,7 @@ public class GestionCursos extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GestionCursos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
@@ -569,6 +607,5 @@ public class GestionCursos extends javax.swing.JFrame {
     private javax.swing.JTextPane textoInfo;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
-
 
 }

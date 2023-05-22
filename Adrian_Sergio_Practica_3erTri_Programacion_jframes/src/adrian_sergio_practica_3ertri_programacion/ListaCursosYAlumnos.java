@@ -1,17 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package adrian_sergio_practica_3ertri_programacion;
 
-import java.util.Arrays;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Chevy
+ *Clase donde se gestionan las listas de los alumnos y los cursos en la interfaz grafica
+ * 
  */
 public class ListaCursosYAlumnos extends javax.swing.JFrame {
 

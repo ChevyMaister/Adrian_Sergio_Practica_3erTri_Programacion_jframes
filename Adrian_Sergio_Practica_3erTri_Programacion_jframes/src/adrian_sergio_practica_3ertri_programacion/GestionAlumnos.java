@@ -422,17 +422,17 @@ public class GestionAlumnos extends javax.swing.JFrame {
         switch (opcion) {
             case 1:
                 // Opción Añadir
-                if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {
+                if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {//verifica DNI
                     textoInfo.setText("Por favor, introduzca DNI válido, 8 num y 1 letra");
-                } else if (bd.buscar(textoDni.getText().toUpperCase().trim(), "Alumnos", "dni")) {
+                } else if (bd.buscar(textoDni.getText().toUpperCase().trim(), "Alumnos", "dni")) {//verifica si esta en la bd
                     textoInfo.setText("DNI registrado, por favor, introduzca uno nuevo");
-                } else if (textoNombre.getText().trim().toUpperCase().equals("")) {
+                } else if (textoNombre.getText().trim().toUpperCase().equals("")) {//verifica nombre
                     textoInfo.setText("Por favor, introduzca Nombre válido");
-                } else if (textoApellido.getText().trim().toUpperCase().equals("")) {
+                } else if (textoApellido.getText().trim().toUpperCase().equals("")) {// verifica apellido
                     textoInfo.setText("Por favor, introduzca Apellido válido");
-                } else if (!util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {
+                } else if (!util.validarCorreo(textoCorreo.getText().trim().toUpperCase())) {//verifica correo
                     textoInfo.setText("Por favor, introduzca Correo válido, debe tener @");
-                } else if (!util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {
+                } else if (!util.validarTelefono(textoTlfn.getText().trim().toUpperCase())) {//verifica telefono
                     textoInfo.setText("Por favor, introduzca Teléfono válido, 9 dígitos");
                 } else {
                     // Insertar alumno en la base de datos
@@ -463,11 +463,11 @@ public class GestionAlumnos extends javax.swing.JFrame {
             case 2:
                 // Opción Borrar
                 textoInfo.setText("Por favor, Introduzca un DNI registrado");
-                if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {
+                if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {// verifica el DNI
                     textoInfo.setText("Por favor, introduzca DNI válido, 8 num y 1 letra y pulse REALIZAR GESTION");
-                } else if (!bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+                } else if (!bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {// comprueba si esta el dni
                     textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado y pulse REALIZAR GESTION");
-                } else {
+                } else {// si todo esta bien
                     // PANEL DE CONFIRMACION
                     int n = JOptionPane.showConfirmDialog(
                             this,
@@ -488,16 +488,16 @@ public class GestionAlumnos extends javax.swing.JFrame {
                         textoTlfn.setText("");
                         opcion = 0;
                         // SI NO SE CONFIRMA
-                    } else {
+                    } else {//si no se confirma
                         textoInfo.setText("No se ha eliminado ningún alumno, Pulse HACER GESTION para confirmar o seleccione otra opcion");
                     }
                 }
                 break;
             case 3:
                 // Opción Modificar
-                if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {
+                if (!util.validarDNI(textoDni.getText().trim().toUpperCase())) {// comprueba que el dni este bien
                     textoInfo.setText("Por favor, introduzca DNI válido, 8 num y 1 letra y pulse REALIZAR GESTION");
-                } else if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+                } else if (bd.buscar(textoDni.getText().trim().toUpperCase(), "ALUMNOS", "dni")) { //comprueba si el dni esta
                     textoInfo.setText("Alumno encontrado\nRellene los datos que quieras modificar, nada = dejarlo igual\nEntonces pulsa HACER GESTION");
 
                     // Habilitar los componentes del panelDatos
@@ -508,7 +508,7 @@ public class GestionAlumnos extends javax.swing.JFrame {
                     labelDni.setEnabled(false);
 
                     opcion = 4; // Establecer la opción actual como 4 (Modificar)
-                } else {
+                } else {//si no esta el dni
                     textoInfo.setText("DNI no encontrado, por favor, introduzca uno registrado y pulse REALIZAR GESTION");
                 }
                 break;
