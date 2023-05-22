@@ -46,16 +46,14 @@ public class Utiles {
     // Método para validar que un String es un número
     public boolean esNumero(String num) {
         boolean esNumero = true;
-        if (num.length() <= 5){
+        
         for (int i = 0; i < num.length() && esNumero; i++) {
             char n = num.charAt(i);
             if (!Character.isDigit(n)) {
                 esNumero = false;
             }
         }
-        }else{
-           esNumero = false; 
-        }
+        
         return esNumero;
     }
 // Método para validar que un String es un número float y devolverlo
@@ -95,7 +93,7 @@ public class Utiles {
 //metodo para comprobar que es numero mayor de 0
     public boolean esNumeroC(String num) {
         int n;
-        if (esNumero(num)) {
+        if (esNumeroCur(num)) {
             if (!num.equals("")) {
                 n = Integer.parseInt(num);
             } else {
@@ -107,5 +105,20 @@ public class Utiles {
         }
         return false;
     }
-
+    
+    
+ public boolean esNumeroCur(String num) {
+        boolean esNumeroC = true;
+        if ( num.length() <= 5){
+        for (int i = 0; i < num.length() && esNumeroC; i++) {
+            char n = num.charAt(i);
+            if (!Character.isDigit(n)) {
+                esNumeroC = false;
+            }
+        }
+        }else{
+            esNumeroC = false;
+        }
+        return esNumeroC;
+    }
 }
