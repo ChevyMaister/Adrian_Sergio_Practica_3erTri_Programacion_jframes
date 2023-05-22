@@ -167,15 +167,17 @@ public class GestionesDeBD {
 
             this.conn.commit(); // Confirma los cambios en la base de datos
 
-        } catch (SQLException ex) {
+        } catch (SQLException | NullPointerException ex) {
             // ex.printStackTrace();
-        } catch (NullPointerException npe) {
-            // No hace nada en caso de NullPointerException
-        } finally {
+        }
+        // No hace nada en caso de NullPointerException
+         finally {
             try {
-                stmt.close(); // Cierra el Statement
+                if (stmt != null) {
+                    stmt.close();
+                }
             } catch (SQLException e) {
-                // e.printStackTrace();
+
             }
         }
     }
@@ -279,7 +281,6 @@ public class GestionesDeBD {
      */
     public void insertarInscSerializada(String dniAlumno, String nombreCurso, String inicio, String fin, float nota) {
         Statement stmt = null;
-        long miliseconds = System.currentTimeMillis();
 
         System.out.println(dniAlumno + " " + nombreCurso + " " + inicio + " " + fin + " " + nota);
         try {
@@ -311,7 +312,6 @@ public class GestionesDeBD {
      */
     public void insertarInscSerializadaNoFinalizada(String dniAlumno, String nombreCurso, String inicio) {
         Statement stmt = null;
-        long miliseconds = System.currentTimeMillis();
 
         System.out.println(dniAlumno + " " + nombreCurso + " " + inicio);
         try {
@@ -465,7 +465,7 @@ public class GestionesDeBD {
             try {
                 stmt.close();
                 rs.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
 
                 //   e.printStackTrace();
             }
@@ -488,25 +488,21 @@ public class GestionesDeBD {
      * .
      */
     public void modificar(String clave, String columnaClave, String nombreTabla, String columnaCambio, String nuevoValor) {
-        boolean encontrado = false;
         Statement stmt = null;
         ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("USE Sergio_Adrian_centroFormacion");
             rs = stmt.executeQuery("SELECT * FROM " + nombreTabla);
-
             stmt.executeUpdate("UPDATE " + nombreTabla + " SET " + columnaCambio + " = '" + nuevoValor + "' WHERE " + columnaClave + " = '" + clave + "';");
-
             this.conn.commit();
-
         } catch (SQLException ex) {
             // ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
                 rs.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 // e.printStackTrace();
             }
         }
@@ -536,7 +532,7 @@ public class GestionesDeBD {
             try {
                 stmt.close();
                 rs.close();
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 // e.printStackTrace();
             }
         }
@@ -607,7 +603,7 @@ public class GestionesDeBD {
                 if (rs != null) {
                     rs.close();
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 // e.printStackTrace();
             }
         }
@@ -832,7 +828,7 @@ public class GestionesDeBD {
                 if (rs != null) {
                     rs.close();
                 }
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 //  e.printStackTrace();
             }
         }
@@ -955,7 +951,7 @@ public class GestionesDeBD {
             try {
                 salida.close();
                 archivoC.close();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 //e.printStackTrace();
             }
         }
@@ -983,7 +979,7 @@ public class GestionesDeBD {
                 entrada.close();
                 archivo.close();
 
-            } catch (Exception e) {
+            } catch (IOException e) {
 
                 //  e.printStackTrace();
             }
@@ -1015,7 +1011,7 @@ public class GestionesDeBD {
             } finally {
                 try {
                     stmt.close();
-                } catch (Exception e) {
+                } catch (SQLException e) {
                     //e.printStackTrace();
                 }
             }
@@ -1052,7 +1048,7 @@ public class GestionesDeBD {
 
                 System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
             }
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | SQLException e) {
             // e.printStackTrace();
         }
         return null;
@@ -1072,7 +1068,7 @@ public class GestionesDeBD {
             salida.close();
             archivo.close();
             this.conn.commit();
-        } catch (Exception e) {
+        } catch (IOException | SQLException e) {
             //e.printStackTrace();
         }
 
@@ -1118,7 +1114,7 @@ public class GestionesDeBD {
             archivo.close();
             this.conn.commit();
 
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | SQLException e) {
             //e.printStackTrace();
         }
     }
@@ -1133,7 +1129,7 @@ public class GestionesDeBD {
     public boolean existeFicheros(String filePath) {
         File file = new File(filePath);
 
-        if (file.exists() && file.length() > 0) {
+        if (file.exists()) {
             try {
                 FileInputStream fileInputStream = new FileInputStream(file);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -1148,7 +1144,7 @@ public class GestionesDeBD {
                 if (obj == null) {
                     return false;
                 }
-            } catch (Exception e) {
+            } catch (IOException | ClassNotFoundException e) {
                 //e.printStackTrace();
             }
 
