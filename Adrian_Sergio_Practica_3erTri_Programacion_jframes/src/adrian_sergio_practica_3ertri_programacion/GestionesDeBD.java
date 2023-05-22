@@ -183,7 +183,7 @@ public class GestionesDeBD {
 
             stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
             System.out.println("insert into ALUMNOS values ('" + dni + "','" + nombre + "','" + apellido + "','" + correo + "','" + telefono + "')");
-            System.out.println(stmt.executeUpdate("SHOW TABLES FROM sergio_adrian_centroformacion;"));
+
             stmt.executeUpdate("insert into ALUMNOS values ('" + dni + "','" + nombre + "','" + apellido + "','" + correo + "','" + telefono + "')");
             System.out.println(stmt.executeUpdate("SHOW TABLES FROM sergio_adrian_centroformacion;"));
             this.conn.commit();
