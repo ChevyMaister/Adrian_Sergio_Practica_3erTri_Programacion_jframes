@@ -96,13 +96,13 @@ public class GestionesDeBD {
             }
 
         } catch (IOException e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         } finally {
             try {
                 bufferedReader.close();
                 reader.close();
             } catch (IOException ex) {
-               // ex.printStackTrace();
+                // ex.printStackTrace();
             }
 
         }
@@ -143,13 +143,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
+        } catch (NullPointerException npe) {
         } finally {
             try {
                 stmt.close();
             } catch (Exception e) {
 
-               // e.printStackTrace();
+                // e.printStackTrace();
             }
 
         }
@@ -165,12 +166,12 @@ public class GestionesDeBD {
 
             this.conn.commit();
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
             } catch (Exception e) {
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
         }
     }
@@ -189,13 +190,13 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-           // ex.printStackTrace();
+            // ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
             } catch (Exception e) {
 
-               // e.printStackTrace();
+                // e.printStackTrace();
             }
         }
 
@@ -216,13 +217,13 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
         }
 
@@ -243,13 +244,13 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
         }
 
@@ -270,13 +271,13 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
         }
 
@@ -303,14 +304,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
 
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
 
         }
@@ -330,14 +331,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
 
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
 
         }
@@ -360,14 +361,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
 
             } catch (Exception e) {
 
-             //   e.printStackTrace();
+                //   e.printStackTrace();
             }
 
         }
@@ -402,14 +403,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-         //   ex.printStackTrace();
+            //   ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
                 rs.close();
             } catch (Exception e) {
 
-             //   e.printStackTrace();
+                //   e.printStackTrace();
             }
 
         }
@@ -432,14 +433,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
                 rs.close();
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
 
         }
@@ -459,14 +460,14 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-          //  ex.printStackTrace();
+            //  ex.printStackTrace();
         } finally {
             try {
                 stmt.close();
                 rs.close();
             } catch (Exception e) {
 
-            //    e.printStackTrace();
+                //    e.printStackTrace();
             }
 
         }
@@ -526,7 +527,7 @@ public class GestionesDeBD {
                     rs.close();
                 }
             } catch (Exception e) {
-               // e.printStackTrace();
+                // e.printStackTrace();
             }
         }
 
@@ -564,7 +565,7 @@ public class GestionesDeBD {
                     }
                 }
             } catch (SQLException ex) {
-               // ex.printStackTrace();
+                // ex.printStackTrace();
             }
         } else {
             return false; // El alumno o el curso no existen, por lo tanto la matrícula no puede existir
@@ -705,7 +706,7 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-           // ex.printStackTrace();
+            // ex.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -715,7 +716,7 @@ public class GestionesDeBD {
                     rs.close();
                 }
             } catch (Exception e) {
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
         }
 
@@ -779,7 +780,7 @@ public class GestionesDeBD {
             this.conn.commit();
 
         } catch (SQLException ex) {
-           // ex.printStackTrace();
+            // ex.printStackTrace();
         } finally {
             try {
                 if (stmt != null) {
@@ -789,7 +790,7 @@ public class GestionesDeBD {
                     rs.close();
                 }
             } catch (Exception e) {
-               // e.printStackTrace();
+                // e.printStackTrace();
             }
         }
 
@@ -819,7 +820,7 @@ public class GestionesDeBD {
             salida.writeObject(listaCursos);
             System.out.println("ArrayList de Cursos serializado correctamente.");
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         } finally {
 
             try {
@@ -840,9 +841,8 @@ public class GestionesDeBD {
             entrada = new ObjectInputStream(archivo);
             listaCursos = (ArrayList<Curso>) entrada.readObject();
 
-           
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         } finally {
 
             try {
@@ -851,7 +851,7 @@ public class GestionesDeBD {
 
             } catch (Exception e) {
 
-              //  e.printStackTrace();
+                //  e.printStackTrace();
             }
         }
         return listaCursos;
@@ -908,7 +908,7 @@ public class GestionesDeBD {
                 System.out.println("Alumnos deserializados e insertados en la base de datos correctamente.");
             }
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
         return null;
     }
