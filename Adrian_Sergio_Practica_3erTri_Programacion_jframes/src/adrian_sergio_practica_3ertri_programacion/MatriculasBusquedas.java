@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -594,8 +595,8 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         GestionesDeBD ge = new GestionesDeBD();
 
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
+       ListModel<String> modelo = cajaListaCursos.getModel();
         if (evt.getClickCount() == 1) {// Si detecta click(1 click)
-
             int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
             String texto = list.getModel().getElementAt(index);
             //Extraemos el nombre
@@ -610,6 +611,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             }
 
         }
+        
     }//GEN-LAST:event_cajaListaCursosMouseClicked
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed

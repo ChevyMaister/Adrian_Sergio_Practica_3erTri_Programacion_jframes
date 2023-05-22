@@ -1,4 +1,3 @@
-
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.util.HashMap;
@@ -6,9 +5,10 @@ import java.util.Map;
 
 public class Utiles {
 
-   
     /**
-     * Método para validar que el DNI tenga 8 cifras y una letra , devolvera un true si las dos condiciones son aprobadas correctamente 
+     * Método para validar que el DNI tenga 8 cifras y una letra , devolvera un
+     * true si las dos condiciones son aprobadas correctamente
+     *
      * @param dni
      * @return boolean
      */
@@ -34,21 +34,21 @@ public class Utiles {
         return valido;
     }
 
-    
     /**
      * Método para validar que el correo tenga una @
+     *
      * @param correo
-     * @return 
+     * @return
      */
     public boolean validarCorreo(String correo) {
         return correo.contains("@");
     }
 
-  
     /**
-     * Método para validar que el número de teléfono tenga 9 dígitos 
+     * Método para validar que el número de teléfono tenga 9 dígitos
+     *
      * @param telefono
-     * @return 
+     * @return
      */
     public boolean validarTelefono(String telefono) {
         if (esNumero(telefono)) {//comprueba que es un numero con el metodo telefono
@@ -58,45 +58,50 @@ public class Utiles {
         }
     }
 
-     /**
+    /**
      * Método para validar que un String es un número
+     *
      * @param num
-     * @return 
+     * @return
      */
     public boolean esNumero(String num) {
         boolean esNumero = true;
-        
+
         for (int i = 0; i < num.length() && esNumero; i++) {
             char n = num.charAt(i);
             if (!Character.isDigit(n)) {//comprueba si son digitos ( numeros )
                 esNumero = false;
             }
         }
-        
+
         return esNumero;
     }
 
     /**
-     * Método para validar que un String es un número float y devolverlo ( entre 0 y 10 )
+     * Método para validar que un String es un número float y devolverlo ( entre
+     * 0 y 10 )
+     *
      * @param num
-     * @return 
+     * @return
      */
     public float esNotaValida(String num) {
-    try {
-        float valor = Float.parseFloat(num);
-        if (valor >= 0 && valor <= 10) {
-            return valor;
+        try {
+            float valor = Float.parseFloat(num);
+            if (valor >= 0 && valor <= 10) {
+                return valor;
+            }
+        } catch (NumberFormatException e) {
+            // no hacer nada
         }
-    } catch (NumberFormatException e) {
-        // no hacer nada
+        return -1;
     }
-    return -1;
-}
 
     /**
      * metodo para comprobar que es mas de X caracteres
+     *
      * @param dato Texto entrante
-     * @param num , sera el tamaño exacto al que queramos limitar el texto entrate
+     * @param num , sera el tamaño exacto al que queramos limitar el texto
+     * entrate
      * @return boolean
      */
     public boolean validarLongitud(String dato, int num) {
@@ -108,10 +113,12 @@ public class Utiles {
     }
 
     /**
-     * metodo para comprobar que es numero mayor de 0 despues de haber comprobado con el metodo esNumeroCur que el numero introducido
-     * es un numero y menos de 5 digitos de longitud
+     * metodo para comprobar que es numero mayor de 0 despues de haber
+     * comprobado con el metodo esNumeroCur que el numero introducido es un
+     * numero y menos de 5 digitos de longitud
+     *
      * @param num
-     * @return boolean 
+     * @return boolean
      */
     public boolean esNumeroC(String num) {
         int n;
@@ -127,24 +134,27 @@ public class Utiles {
         }
         return false;
     }
-    
-  /**
-   * Recibe un string que sera el numero de horas para un curso , primero comprueba que ese String tiene menos de 5 carcarteres 
-   * y despues recore el String para comprobar que cada caracter sea un nidmero ( Digito ) 
-   * Si no es un digito devolvera false lo cual enviaremos al metodo de esNumeroC para comprobar que dicho numero es mayor que cero
-   * @param num
-   * @return esNumeroC
-   */  
- public boolean esNumeroCur(String num) {
+
+    /**
+     * Recibe un string que sera el numero de horas para un curso , primero
+     * comprueba que ese String tiene menos de 5 carcarteres y despues recore el
+     * String para comprobar que cada caracter sea un nidmero ( Digito ) Si no
+     * es un digito devolvera false lo cual enviaremos al metodo de esNumeroC
+     * para comprobar que dicho numero es mayor que cero
+     *
+     * @param num
+     * @return esNumeroC
+     */
+    public boolean esNumeroCur(String num) {
         boolean esNumeroC = true;
-        if ( num.length() <= 5){//compruebo que el string es mas largo de 5 caracteres 
-        for (int i = 0; i < num.length() && esNumeroC; i++) {
-            char n = num.charAt(i);
-            if (!Character.isDigit(n)) {//compruebo que cada caracter del string es un nuemero 
-                esNumeroC = false;
+        if (num.length() <= 5) {//compruebo que el string es mas largo de 5 caracteres 
+            for (int i = 0; i < num.length() && esNumeroC; i++) {
+                char n = num.charAt(i);
+                if (!Character.isDigit(n)) {//compruebo que cada caracter del string es un nuemero 
+                    esNumeroC = false;
+                }
             }
-        }
-        }else{
+        } else {
             esNumeroC = false;
         }
         return esNumeroC;

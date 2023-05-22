@@ -12,15 +12,15 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
     public PrincipalJFrame() {
         initComponents();
-        if (mensajeReadme == false) {
+        if (mensajeReadme == false) {//mostrara el siguiente mensaje 
             JOptionPane.showMessageDialog(this, "ANTES DE USAR LA APLICACION, SE RECOMIENDA LEER EL ARCHIVO README\nSITUADO EN \\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
         }
         mensajeReadme = true;
-        // Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -190,7 +190,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonGesAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGesAActionPerformed
-        // TODO add your handling code here:
+        //Boton para abrir Gestion de Alumnos
         GestionAlumnos gesA = new GestionAlumnos();
         gesA.setVisible(true);
         this.dispose();
@@ -200,39 +200,41 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
 
     private void BotonGesCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonGesCActionPerformed
+        //Boton para abrir Gestion de Cursos
         GestionCursos gesC = new GestionCursos();
         gesC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BotonGesCActionPerformed
 
     private void botonMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMatActionPerformed
-        // TODO add your handling code here:
+        // Gestion para abrir BUSACR MATRICULAR Y CALIFICAR 
         MatriculasBusquedas gesMB = new MatriculasBusquedas();
         gesMB.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonMatActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        // TODO add your handling code here:
+        //Boton para salir de este jFrame y cerrar el programa 
         this.dispose();
         System.exit(0);
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonFicherosyBBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDDActionPerformed
+        //Boton para abrir GESTION FICHEROS , COPIAS DE SEGURIDAD BBDD
         SerializacionyFicherosDeSeguridad seguridad = new SerializacionyFicherosDeSeguridad();
         seguridad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonFicherosyBBDDActionPerformed
 
     private void botonFicherosyBBDD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicherosyBBDD1ActionPerformed
-        // TODO add your handling code here:
+        //Boton para generar informe
         GestionesDeBD bd = new GestionesDeBD();
-        ArrayList<String> informe = bd.informesAlumnosNotas();
-        String archivo = "Ficheros/InformeDeAlumnosCursosyNotas.txt";
-        String archivo2 = "Ficheros/InformeDeCursosDescripcionesyAlumnos.txt";
+        ArrayList<String> informe = bd.informesAlumnosNotas();//metodo para guardar la informacion del informe a en ArrayList a traves de consultas a la base de datos
+        String archivo = "Ficheros/InformeDeAlumnosCursosyNotas.txt";//informe a
+        String archivo2 = "Ficheros/InformeDeCursosDescripcionesyAlumnos.txt";//informe b
 
         try {
-            FileWriter writer = new FileWriter(archivo);
+            FileWriter writer = new FileWriter(archivo);// escribir en el fichero Ficheros/InformeDeAlumnosCursosyNotas.txt
 
             for (String fila : informe) {
                 writer.write(fila);
@@ -240,13 +242,13 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
 
             writer.close();
-            System.out.println("Archivo generado correctamente.");
+
         } catch (IOException e) {
-            System.out.println("Error al generar el archivo");
+            //e.printStackTrace();
         }
-        informe = bd.informesCursosDescripcionesAlumnos();
+        informe = bd.informesCursosDescripcionesAlumnos();//metodo para guardar la informacion del informe b en ArrayList a traves de consultas a la base de datos
         try {
-            FileWriter writer = new FileWriter(archivo2);
+            FileWriter writer = new FileWriter(archivo2);// escribir en el fichero Ficheros/InformeDeCursosDescripcionesyAlumnos.txt
 
             for (String fila : informe) {
                 writer.write(fila);
@@ -254,9 +256,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
 
             writer.close();
-            System.out.println("Archivo generado correctamente.");
+
         } catch (IOException e) {
-            System.out.println("Error al generar el archivo2");
+            // e.printStackTrace();
         }
         JOptionPane.showMessageDialog(this, "                AMBOS INFORMES TIPO TXT CREADOS EN:            \n\\Adrian_Sergio_Practica_3erTri_Programacion_jframes\\Ficheros");
     }//GEN-LAST:event_botonFicherosyBBDD1ActionPerformed
@@ -303,22 +305,6 @@ public class PrincipalJFrame extends javax.swing.JFrame {
             }
         });
     }
-
-    /* public HashMap<String, Alumno> getListaAlumnos() {
-        return listaAlumnos;
-    }
-
-    public void setListaAlumnos(HashMap<String, Alumno> listaAlumnos) {
-        this.listaAlumnos = listaAlumnos;
-    }*/
-
- /*public HashMap<String, Curso> getListaCursos() {
-        return listaCursos;
-    }
-
-    public void setListaCursos(HashMap<String, Curso> listaCursos) {
-        this.listaCursos = listaCursos;
-    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonGesA;

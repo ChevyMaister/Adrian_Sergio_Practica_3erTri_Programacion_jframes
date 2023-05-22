@@ -1,4 +1,3 @@
-
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.util.ArrayList;
@@ -11,8 +10,6 @@ import javax.swing.JOptionPane;
  * @author Chevy
  */
 public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
-
-    
 
     /**
      * Creates new form SerializacionyFicherosDeSeguridad
@@ -200,6 +197,7 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void volcarFicheroABBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volcarFicheroABBDDActionPerformed
+        //boton para sobreescribir la base de datos con los ficheros serializados de cursos , alumnos e inscripciones
         GestionesDeBD bd = new GestionesDeBD();
         ArrayList<Curso> listaCursosS;
         int n = JOptionPane.showConfirmDialog(
@@ -227,7 +225,7 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     }//GEN-LAST:event_volcarFicheroABBDDActionPerformed
 
     private void serializarAFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_serializarAFicheroActionPerformed
-
+//boton serializar la base de datos al fichero (copia de seguridad ) , se serializa cada objeto en un fichero diferente
         GestionesDeBD bd = new GestionesDeBD();
         ArrayList<Curso> listaCursos = new ArrayList();
         ArrayList<Alumno> listaAlumnos = new ArrayList();
@@ -241,37 +239,36 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
         // SI SE CONFIRMA
         if (n == JOptionPane.OK_OPTION) {
             try {
-                listaCursos = bd.obtenerCursos();
-                System.out.println(listaCursos);
+                listaCursos = bd.obtenerCursos();//se obtienen los cursos de la base de datos para serializarlos mas tarde
+
             } catch (Exception ex) {
                 Logger.getLogger(SerializacionyFicherosDeSeguridad.class.getName()).log(Level.SEVERE, null, ex);
             }
-            bd.serializarCursos(listaCursos);
-            System.out.println("2");
+            bd.serializarCursos(listaCursos);//Se serializan los cursos en el fichero
 
             try {
-                listaAlumnos = bd.obtenerAlumnos();
-                System.out.println(listaAlumnos);
+                listaAlumnos = bd.obtenerAlumnos();//se obtienen los Alumnos de la base de datos para serializarlos mas tarde 
+
             } catch (Exception ex) {
                 Logger.getLogger(SerializacionyFicherosDeSeguridad.class.getName()).log(Level.SEVERE, null, ex);
             }
-            bd.serializarAlumnos(listaAlumnos);
+            bd.serializarAlumnos(listaAlumnos);//Se serializan los alumnos
             try {
-                listaInscripciones = bd.obtenerInscripciones();
+                listaInscripciones = bd.obtenerInscripciones();//se obtienen las Inscripciones de la base de datos para serializarlas mas tarde
+
             } catch (Exception ex) {
                 Logger.getLogger(SerializacionyFicherosDeSeguridad.class.getName()).log(Level.SEVERE, null, ex);
             }
-            bd.serializarInscripciones(listaInscripciones);
+            bd.serializarInscripciones(listaInscripciones);//se serializan las inscripciones
         }
     }//GEN-LAST:event_serializarAFicheroActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-        PrincipalJFrame volver = new PrincipalJFrame();
+        PrincipalJFrame volver = new PrincipalJFrame();//para volver al jframe anterior que es PrincipalJFrame
         volver.setVisible(true);
-        this.dispose();
+        this.dispose();// esta ventana se cierra
     }//GEN-LAST:event_volverActionPerformed
 
-   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -296,7 +293,6 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
