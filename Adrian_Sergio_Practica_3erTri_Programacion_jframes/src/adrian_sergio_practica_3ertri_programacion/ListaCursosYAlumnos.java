@@ -1,12 +1,12 @@
-
 package adrian_sergio_practica_3ertri_programacion;
 
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *Clase donde se gestionan las listas de los alumnos y los cursos en la interfaz grafica
- * 
+ * Clase donde se gestionan las listas de los alumnos y los cursos en la
+ * interfaz grafica
+ *
  */
 public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
@@ -385,7 +385,9 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         GestionesDeBD ge = new GestionesDeBD();
         String dato = "";
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
-        if (evt.getClickCount() == 1) {// Si detecta click(1 click)
+        javax.swing.ListModel<String> model = list.getModel();
+
+        if (model != null && model.getSize() > 0) {// Si detecta click(1 click)
 
             int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
             String item = list.getModel().getElementAt(index);
@@ -541,7 +543,9 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         GestionesDeBD ge = new GestionesDeBD();
 
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
-        if (evt.getClickCount() == 1) {// Si detecta click(1 click)
+        javax.swing.ListModel<String> model = list.getModel();
+
+        if (model != null && model.getSize() > 0) {// Si detecta click(1 click)
 
             int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
             String texto = list.getModel().getElementAt(index);

@@ -150,7 +150,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="serializarAFichero" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="96" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="112" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="volcarFicheroABBDD" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>

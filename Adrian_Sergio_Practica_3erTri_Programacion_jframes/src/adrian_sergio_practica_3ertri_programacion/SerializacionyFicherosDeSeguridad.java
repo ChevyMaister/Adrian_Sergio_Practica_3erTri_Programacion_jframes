@@ -5,15 +5,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Chevy
- */
 public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SerializacionyFicherosDeSeguridad
-     */
     public SerializacionyFicherosDeSeguridad() {
         initComponents();
 
@@ -199,28 +192,38 @@ public class SerializacionyFicherosDeSeguridad extends javax.swing.JFrame {
     private void volcarFicheroABBDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volcarFicheroABBDDActionPerformed
         //boton para sobreescribir la base de datos con los ficheros serializados de cursos , alumnos e inscripciones
         GestionesDeBD bd = new GestionesDeBD();
-        ArrayList<Curso> listaCursosS;
-        int n = JOptionPane.showConfirmDialog(
-                this,
-                "Al volcar el fichero, se borraran los datos actuales en la BD y se introduciran los serializados.\n¿Estas seguro de querer volcarlos?",
-                "Confirmación de borrado",
-                JOptionPane.YES_NO_OPTION);
-        // SI SE CONFIRMA
-        if (n == JOptionPane.OK_OPTION) {
-            //PRIMERO SE BORRAN LAS INSCRIPCIONES YA QUE TIENEN RELACION CON CURSO Y ALUMNOS
-            bd.borrarInscripciones("TODO", "TODO");
-            //AQUI IRIAN LOS CURSOS
-            bd.borrarCurso("TODO");
-            bd.borrarAlumno("TODO");
 
-            listaCursosS = bd.deserializarCursos();
-            bd.insertarCS(listaCursosS);
-            //Se introducen en la base de datos los alumnos
+        if (bd.existeFicheros("Ficheros/listaCursos.ser") && bd.existeFicheros("Ficheros/listaAlumnos.ser") && bd.existeFicheros("Ficheros/listaInscripciones.ser")) {
 
-            bd.deserializarAlumnos();
+            ArrayList<Curso> listaCursosS;
+            int n = JOptionPane.showConfirmDialog(
+                    this,
+                    "Al volcar el fichero, se borraran los datos actuales en la BD y se introduciran los serializados.\n¿Estas seguro de querer volcarlos?",
+                    "Confirmación de borrado",
+                    JOptionPane.YES_NO_OPTION);
+            // SI SE CONFIRMA
+            if (n == JOptionPane.OK_OPTION) {
+                //PRIMERO SE BORRAN LAS INSCRIPCIONES YA QUE TIENEN RELACION CON CURSO Y ALUMNOS
+                bd.borrarInscripciones("TODO", "TODO");
+                //AQUI IRIAN LOS CURSOS
+                bd.borrarCurso("TODO");
+                bd.borrarAlumno("TODO");
 
-            //Por ultimo se introducen las inscripciones, despues de los cursos y alumnos
-            bd.deserializarInscripciones();
+                listaCursosS = bd.deserializarCursos();
+                bd.insertarCS(listaCursosS);
+                //Se introducen en la base de datos los alumnos
+
+                bd.deserializarAlumnos();
+
+                //Por ultimo se introducen las inscripciones, despues de los cursos y alumnos
+                bd.deserializarInscripciones();
+            }
+        }else{
+            int n = JOptionPane.showConfirmDialog(
+                    this,
+                    "No se han encontrado los ficheros o estan vacios",
+                    "No ficheros o no validos",
+                    JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_volcarFicheroABBDDActionPerformed
 

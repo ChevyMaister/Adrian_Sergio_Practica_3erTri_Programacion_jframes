@@ -1,6 +1,7 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -930,7 +931,6 @@ public class GestionesDeBD {
             salida.close();
             archivo.close();
 
-            System.out.println("ArrayList serializado correctamente.");
         } catch (IOException e) {
             //e.printStackTrace();
         }
@@ -948,7 +948,6 @@ public class GestionesDeBD {
             archivoC = new FileOutputStream("Ficheros/listaCursos.ser");
             salida = new ObjectOutputStream(archivoC);
             salida.writeObject(listaCursos);
-            System.out.println("ArrayList de Cursos serializado correctamente.");
         } catch (IOException e) {
             // e.printStackTrace();
         } finally {
@@ -1000,25 +999,27 @@ public class GestionesDeBD {
      */
     public void insertarCS(ArrayList<Curso> cursos) {
         Statement stmt = null;
-        try {
-            stmt = this.conn.createStatement();
-            stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
-            for (int i = 0; i < cursos.size(); i++) {
-                stmt.executeUpdate("insert into CURSOS values ('" + cursos.get(i).getNombre() + "','" + cursos.get(i).getDescripcion() + "','" + cursos.get(i).getNumHoras() + "')");
-
-                this.conn.commit();
-            }
-            System.out.println("Cursos insertados en la base de datos");
-        } catch (SQLException ex) {
-            //ex.printStackTrace();
-        } finally {
+        if (cursos != null && cursos.size() > 0) {
             try {
-                stmt.close();
-            } catch (Exception e) {
-                //e.printStackTrace();
+                stmt = this.conn.createStatement();
+                stmt.executeUpdate("use Sergio_Adrian_centroFormacion");
+
+                for (int i = 0; i < cursos.size(); i++) {
+                    stmt.executeUpdate("insert into CURSOS values ('" + cursos.get(i).getNombre() + "','" + cursos.get(i).getDescripcion() + "','" + cursos.get(i).getNumHoras() + "')");
+
+                    this.conn.commit();
+                }
+                System.out.println("Cursos insertados en la base de datos");
+            } catch (SQLException ex) {
+                //ex.printStackTrace();
+            } finally {
+                try {
+                    stmt.close();
+                } catch (Exception e) {
+                    //e.printStackTrace();
+                }
             }
         }
-
     }
 
     /**
@@ -1070,7 +1071,6 @@ public class GestionesDeBD {
             salida.writeObject(listaInscripciones);
             salida.close();
             archivo.close();
-            System.out.println("ArrayList INSCRIPCIONES serializado correctamente.");
             this.conn.commit();
         } catch (Exception e) {
             //e.printStackTrace();
@@ -1094,7 +1094,7 @@ public class GestionesDeBD {
             // Se borra cualquier registro
             bd.borrarInscripciones("TODO", "TODO");
             // Insertar las inscripciones en la base de datos
-            System.out.println(listaInscripciones.size());
+
             if (!listaInscripciones.isEmpty()) {
 
                 for (Inscripcion inscrip : listaInscripciones) {
@@ -1117,9 +1117,44 @@ public class GestionesDeBD {
             entrada.close();
             archivo.close();
             this.conn.commit();
-            System.out.println("Inscripciones deserializadas e insertados en la base de datos correctamente.");
+
         } catch (Exception e) {
             //e.printStackTrace();
+        }
+    }
+
+    /**
+     * Verifica si un archivo está vacío o no existe.
+     *
+     * @param filePath La ruta del archivo a verificar.
+     * @return true si el archivo está vacío o no existe, false en caso
+     * contrario.
+     */
+    public boolean existeFicheros(String filePath) {
+        File file = new File(filePath);
+
+        if (file.exists() && file.length() > 0) {
+            try {
+                FileInputStream fileInputStream = new FileInputStream(file);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+                // Intenta leer un objeto del archivo
+                Object obj = objectInputStream.readObject();
+
+                objectInputStream.close();
+                fileInputStream.close();
+
+                // Si el objeto es nulo, el archivo está vacío
+                if (obj == null) {
+                    return false;
+                }
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
+
+            return true;
+        } else {
+            return false; // El archivo no existe o está vacío
         }
     }
 }

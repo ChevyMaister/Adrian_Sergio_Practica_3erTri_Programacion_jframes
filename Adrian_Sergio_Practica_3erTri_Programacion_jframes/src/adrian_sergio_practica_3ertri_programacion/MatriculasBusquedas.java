@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 
-
 /**
  * La clase MatriculasBusquedas, es un JFRAME donde se gestionan las busquedas y
  * las matriculas tanto de los cursos como de los alumnos
@@ -570,7 +569,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         GestionesDeBD ge = new GestionesDeBD();
         String dato = "";
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
-        if (evt.getClickCount() == 1) {// Si detecta click(1 click)
+        javax.swing.ListModel<String> model = list.getModel();
+
+        if (model != null && model.getSize() > 0) {// Si detecta click(1 click)
 
             int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
             String item = list.getModel().getElementAt(index);
@@ -592,8 +593,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         GestionesDeBD ge = new GestionesDeBD();
 
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
-       ListModel<String> modelo = cajaListaCursos.getModel();
-        if (evt.getClickCount() == 1) {// Si detecta click(1 click)
+        javax.swing.ListModel<String> model = list.getModel();
+
+        if (model != null && model.getSize() > 0) {// Si detecta click(1 click)
             int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
             String texto = list.getModel().getElementAt(index);
             //Extraemos el nombre
@@ -608,7 +610,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             }
 
         }
-        
+
     }//GEN-LAST:event_cajaListaCursosMouseClicked
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
@@ -661,7 +663,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         }
 
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
-            
+
             panelInfo.setText(panelInfo.getText() + " " + "Por favor, introduzca un DNI valido 8 numeros y una letra");
         } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
             panelInfo.setText(panelInfo.getText() + " " + "DNI no encontrado, por favor, introduzca uno registrado");
@@ -692,19 +694,19 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             } else {
                 panelInfo.setText("El Alumno ya está matriculado en el curso");
                 // PANEL DE CONFIRMACION
-                    int n = JOptionPane.showConfirmDialog(
-                            this,
-                            "Se desmatriculara el alumno del curso.\n¿Estas seguro de querer desmatricular?",
-                            "Confirmación de borrado",
-                            JOptionPane.YES_NO_OPTION);
-                    // SI SE CONFIRMA
-                    if (n == JOptionPane.OK_OPTION) {
+                int n = JOptionPane.showConfirmDialog(
+                        this,
+                        "Se desmatriculara el alumno del curso.\n¿Estas seguro de querer desmatricular?",
+                        "Confirmación de borrado",
+                        JOptionPane.YES_NO_OPTION);
+                // SI SE CONFIRMA
+                if (n == JOptionPane.OK_OPTION) {
                     bd.borrarInscripciones(dniAlumno, nombreCurso);
-                    }
-                    
+                }
+
             }
         } else if (opcion == 2) {//CALIFICAR
-           
+
             if (bd.existeMatricula("inscripciones", dniAlumno, nombreCurso)) {
                 float nota = util.esNotaValida(textoNota.getText().trim());
                 if (nota != -1) {
@@ -717,7 +719,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 panelInfo.setText("El Alumno no esta matriculado en el curso, selecciona una relacion valida");
             }
         }
-      
+
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void botonCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalificarActionPerformed
@@ -878,6 +880,5 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private javax.swing.JTextField textoNota;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
- 
-        
+
 }
