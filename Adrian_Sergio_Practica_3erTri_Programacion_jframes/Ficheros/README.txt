@@ -32,6 +32,9 @@ Coge los datos de conexión del fichero txt \Adrian_Sergio_Practica_3erTri_Progr
 ----PANELES DE ESCRITURA----
 	Se habilitan cada vez que el usuario vaya a hacer una acción, dependiendo de los botones pulsados.
 
+----Listas------
+	Cuando tienen algun objeto se puede interactuar con ellas haciendo clic en el objeto para coger el dato primaryKey
+
 
 --------------------------------------------------ENUNCIADO DEL TRABAJO Y COMENTARIOS SOBRE LA REALIZACION------------------------------------------------------	
 PARTE OBLIGATORIA (8 puntos)
