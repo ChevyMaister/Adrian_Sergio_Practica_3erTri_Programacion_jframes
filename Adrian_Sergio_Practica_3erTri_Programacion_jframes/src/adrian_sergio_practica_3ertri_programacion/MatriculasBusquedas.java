@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -424,7 +425,6 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEleccionLayout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -620,7 +620,12 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     }//GEN-LAST:event_volverActionPerformed
 
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
-
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        cajaListaCursos.setModel(modelo);
+        modelo.clear();
+        DefaultListModel<String> modelo1 = new DefaultListModel<>();
+        cajaListaAlumnos.setModel(modelo1);
+        modelo1.clear();
         textoCurso.setText("");
         textoAlumnos.setText("");
     }//GEN-LAST:event_borrarCamposActionPerformed
