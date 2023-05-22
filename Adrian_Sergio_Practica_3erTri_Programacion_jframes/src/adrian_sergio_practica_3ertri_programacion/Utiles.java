@@ -46,11 +46,15 @@ public class Utiles {
     // Método para validar que un String es un número
     public boolean esNumero(String num) {
         boolean esNumero = true;
+        if (num.length() <= 5){
         for (int i = 0; i < num.length() && esNumero; i++) {
             char n = num.charAt(i);
             if (!Character.isDigit(n)) {
                 esNumero = false;
             }
+        }
+        }else{
+           esNumero = false; 
         }
         return esNumero;
     }

@@ -5,6 +5,8 @@
 package adrian_sergio_practica_3ertri_programacion;
 
 import java.util.Arrays;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,12 +20,11 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
     public ListaCursosYAlumnos() {
         initComponents();
-                // Centrar la ventana en la pantalla
+        // Centrar la ventana en la pantalla
         setLocationRelativeTo(null);
 
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -366,8 +367,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
         textoCurso.setText("");
         textoAlumnos.setText("");
-        cajaListaAlumnos.removeAll();
-        cajaListaCursos.removeAll();
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        cajaListaCursos.setModel(modelo);
+        modelo.clear();
+        DefaultListModel<String> modelo1 = new DefaultListModel<>();
+        cajaListaAlumnos.setModel(modelo1);
+        modelo1.clear();
         DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
         tabla.setRowCount(0);
 
@@ -468,7 +473,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         }
         cajaListaAlumnos.setListData(datosAlumno);
         textoAlumnos.setText("");
-        panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
+        panelInfo.setText("Si pulsas en uno se rellena el campo DNI de Alumno automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_buscarTodosActionPerformed
 
     private void mostrarTodosCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodosCActionPerformed
@@ -483,7 +488,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         }
         cajaListaCursos.setListData(datos);
         textoAlumnos.setText("");
-        panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
+        panelInfo.setText("Si pulsas en uno se rellena el campo NOMBRE de Curso automaticamente\ny si buscas el NOMBRE insertado tendras detalles del curso");
     }//GEN-LAST:event_mostrarTodosCActionPerformed
 
     private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed
@@ -494,7 +499,6 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         String[] cursosAlumnoNotas = new String[0];
         String[] listaImprimir;
         if (!util.validarLongitud(textoCurso.getText().trim().toUpperCase(), 1)) {
-            System.out.println("Aqui llego");
             panelInfo.setText("Por favor, introduzca un curso que tenga al menos un caracter");
         } else if (!bd.buscar(textoCurso.getText().trim().toUpperCase(), "cursos", "Nombre")) {
             panelInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");

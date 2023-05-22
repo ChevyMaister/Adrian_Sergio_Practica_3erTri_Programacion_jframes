@@ -2,10 +2,13 @@ package adrian_sergio_practica_3ertri_programacion;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 /**
  * La clase MatriculasBusquedas, es un JFRAME donde se gestionan las busquedas y
@@ -75,6 +78,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         panelInfo = new javax.swing.JTextPane();
         botonCalificar = new javax.swing.JButton();
         textoNota = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -377,7 +381,15 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         });
 
         textoNota.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        textoNota.setText("NOTA");
+        textoNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textoNotaActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(244, 237, 113));
+        jLabel2.setText("  NOTA");
 
         javax.swing.GroupLayout panelEleccionLayout = new javax.swing.GroupLayout(panelEleccion);
         panelEleccion.setLayout(panelEleccionLayout);
@@ -397,7 +409,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEleccionLayout.createSequentialGroup()
                                 .addComponent(botonCalificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textoNota)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
                             .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -411,11 +425,16 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                     .addComponent(botonBuscarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEleccionLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -631,16 +650,14 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     nombreCurso = datosCursos[0].substring(indiceInicio, indiceFin).trim();
-                    System.out.println("Encontrado " + nombreCurso);
+                    //System.out.println("Encontrado " + nombreCurso);
                     cursoEncontrado = true;
-                } else {
-                    System.out.println("No se encontró ninguna palabra.");
                 }
             }
         }
 
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
-            System.out.println("Aqui llego");
+            
             panelInfo.setText(panelInfo.getText() + " " + "Por favor, introduzca un DNI valido 8 numeros y una letra");
         } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
             panelInfo.setText(panelInfo.getText() + " " + "DNI no encontrado, por favor, introduzca uno registrado");
@@ -656,10 +673,8 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     dniAlumno = datosAlumno[0].substring(indiceInicio, indiceFin).trim();
-                    System.out.println("Encontrado " + dniAlumno);
+                    //System.out.println("Encontrado " + dniAlumno);
                     alumnoEncontrado = true;
-                } else {
-                    System.out.println("No se encontró ninguna palabra.");
                 }
             }
         }
@@ -685,6 +700,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                     
             }
         } else if (opcion == 2) {//CALIFICAR
+           
             if (bd.existeMatricula("inscripciones", dniAlumno, nombreCurso)) {
                 float nota = util.esNotaValida(textoNota.getText().trim());
                 if (nota != -1) {
@@ -697,6 +713,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 panelInfo.setText("El Alumno no esta matriculado en el curso, selecciona una relacion valida");
             }
         }
+      
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void botonCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalificarActionPerformed
@@ -781,6 +798,10 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         opcion = 1;
     }//GEN-LAST:event_botonBuscarCursoActionPerformed
 
+    private void textoNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNotaActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -834,6 +855,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private javax.swing.JList<String> cajaListaAlumnos;
     private javax.swing.JList<String> cajaListaCursos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
@@ -852,4 +874,6 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private javax.swing.JTextField textoNota;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
+ 
+        
 }

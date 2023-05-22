@@ -319,7 +319,7 @@ public class GestionCursos extends javax.swing.JFrame {
                     textoInfo.setText("Por favor, introduzca una descripcion de 5 caracteres minimo");
                 } else if (!util.esNumeroC(NumH.getText().trim())) {
 
-                    textoInfo.setText("Debe ser un numero mayor que 0 ");
+                    textoInfo.setText("Debe ser un numero mayor que 0 y menor que 99999");
 
                 } else if (tablaCursos.buscar(Nombre.getText().trim(), "CURSOS", "Nombre")) {
                     textoInfo.setText("El Curso con el nombre " + Nombre.getText().trim().toUpperCase() + " ya existe");
@@ -350,12 +350,12 @@ public class GestionCursos extends javax.swing.JFrame {
                 } else {
                     int n = JOptionPane.showConfirmDialog(
                             this,
-                            " Estas seguro de querer borrar el curso " + Nombre.getText().trim().toUpperCase() + " ?",
+                            " Estas seguro de querer borrar el curso " + Nombre.getText().trim().toUpperCase() + " ? \n Tambien se borraran las incsripciones asociadas",
                             "Confirmación",
                             JOptionPane.YES_NO_OPTION);
                     if (n == JOptionPane.OK_OPTION) {
                         tablaCursos.borrarCurso(Nombre.getText().trim().toUpperCase());
-                        tablaCursos.borrarInscripciones("", Nombre.getText().trim().toUpperCase());
+                        tablaCursos.borrarInscripciones("TODO", Nombre.getText().trim().toUpperCase());
                         textoInfo.setText("Curso Eliminado");
                     } else {
                         textoInfo.setText("El curso no ha sido eliminado");
@@ -385,22 +385,23 @@ public class GestionCursos extends javax.swing.JFrame {
 
                 break;
             case 4:
-                String texto = "En el curso: " + auxNombre + "\n";
+                String texto = "En el curso: " + Nombre.getText().trim() + "\n";
                 textoInfo.setText("");
                 // Se comprueba cada uno de los campos rellenables, 
                 //1º si está vacío no hace nada 
                 //2ª Si hay algo realiza las comprobaciones, como si el tipo de variable es correcta.
                 //3ª Tambien determina si la clave esta dentro de la BD
                 //Se comprueba Nombre
+                if ( !Nombre.getText().equals("")){
                 if (!textoDesc.getText().equals("")) {
                     if (util.validarLongitud(textoDesc.getText().trim(), 5)) {
                         int dec = JOptionPane.showConfirmDialog(
                                 this,
-                                "Seguro que quieres cambiar la descripcion de " + auxNombre,
+                                "Seguro que quieres cambiar la descripcion de " + Nombre.getText().trim().toUpperCase(),
                                 "Confirmación",
                                 JOptionPane.YES_NO_OPTION);
                         if (dec == JOptionPane.OK_OPTION) {
-                            tablaCursos.modificar(auxNombre, "nombre", "Cursos", "descripcion", textoDesc.getText().trim().toUpperCase());
+                            tablaCursos.modificar(Nombre.getText().trim().toUpperCase(), "nombre", "Cursos", "descripcion", textoDesc.getText().trim().toUpperCase());
                             texto = texto + " Se ha modificado la descripcion por " + textoDesc.getText().trim().toUpperCase() + "\n";
                         } else {
                             texto = texto + "No se ha modificado la descripcion " + "\n";
@@ -414,16 +415,16 @@ public class GestionCursos extends javax.swing.JFrame {
                 }
 
                 textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
-
+                
                 if (!NumH.getText().equals("")) {
                     if (util.esNumeroC(NumH.getText().trim())) {
                         int dec2 = JOptionPane.showConfirmDialog(
                                 this,
-                                "Seguro que quieres cambiar las horas de " + auxNombre,
+                                "Seguro que quieres cambiar las horas de " + Nombre.getText().trim().toUpperCase(),
                                 "Confirmación",
                                 JOptionPane.YES_NO_OPTION);
                         if (dec2 == JOptionPane.OK_OPTION) {
-                            tablaCursos.modificar(auxNombre, "nombre", "Cursos", "numeroHoras", NumH.getText().trim().toUpperCase());
+                            tablaCursos.modificar(Nombre.getText().trim().toUpperCase(), "nombre", "Cursos", "numeroHoras", NumH.getText().trim().toUpperCase());
                             texto = texto + "Se ha modificado correctamente las horas a " + NumH.getText().trim().toUpperCase() + "\n";
                         } else {
                             texto = texto + "No se ha modificado las horas" + "\n";
@@ -434,9 +435,14 @@ public class GestionCursos extends javax.swing.JFrame {
                 } else {
                     texto = texto + "No se ha modificado las horas" + "\n";
                 }
+                
                 textoInfo.setText(texto);
                 textoDesc.setText("");
                 NumH.setText("");
+                }else{
+                    
+                    textoInfo.setText("No hay ningun nombre , vuelve a seleccionar  MODIFICAR CURSO para introducirlo ");
+                }
                 break;
             default:
                 textoInfo.setText("Por favor, Selecciona una opcion, NUEVO, BORRAR O MODIFICAR");
@@ -564,12 +570,5 @@ public class GestionCursos extends javax.swing.JFrame {
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
 
-    public HashMap<String, Curso> getListaCursos() {
-        return listaCursos;
-    }
-
-    public void setListaCursos(HashMap<String, Curso> listaCursos) {
-        this.listaCursos = listaCursos;
-    }
 
 }

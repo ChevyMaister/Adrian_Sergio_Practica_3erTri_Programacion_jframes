@@ -1,2 +1,4 @@
-Nombre: HOLAAAAAAAAA dniAlumno: 12345678A nombreCurso: SISTEMAS calificacion: 10.00 
-Nombre: HOLAAAAAAAAA dniAlumno: 12345678A nombreCurso: CONO calificacion: 10.00 
+Nombre: ADRI dniAlumno: 49843333X nombreCurso: MATES calificacion: null 
+Nombre: SERGIOOO dniAlumno: 98765432A nombreCurso: CONO calificacion: null 
+Nombre: SERGIOOO dniAlumno: 98765432A nombreCurso: MATES calificacion: null 
+Nombre: SERGIOOO dniAlumno: 98765432A nombreCurso: SISTEMAS calificacion: 10.00 

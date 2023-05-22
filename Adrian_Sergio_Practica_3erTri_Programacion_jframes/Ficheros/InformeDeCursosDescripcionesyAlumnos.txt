@@ -1,5 +1,7 @@
-Nombre: CONO Descripcion: 6666666666666 
+Nombre: CONO Descripcion: OOOOOOOO 
 Nombre: MATES Descripcion: AAAAAAAAAAAAAAAA 
 Nombre: SISTEMAS Descripcion: TO WAPO EL FELIX 
-nombreCurso: CONO Nombre: HOLAAAAAAAAA apellido: EEEEEE 
-nombreCurso: SISTEMAS Nombre: HOLAAAAAAAAA apellido: EEEEEE 
+nombreCurso: CONO Nombre: SERGIOOO apellido: OLACARACOLA 
+nombreCurso: MATES Nombre: ADRI apellido: MORENO 
+nombreCurso: MATES Nombre: SERGIOOO apellido: OLACARACOLA 
+nombreCurso: SISTEMAS Nombre: SERGIOOO apellido: OLACARACOLA 

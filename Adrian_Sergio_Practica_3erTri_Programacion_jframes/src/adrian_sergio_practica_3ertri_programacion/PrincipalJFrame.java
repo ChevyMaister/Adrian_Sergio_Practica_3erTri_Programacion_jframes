@@ -62,7 +62,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         botonMat.setBackground(new java.awt.Color(138, 134, 4));
         botonMat.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        botonMat.setForeground(new java.awt.Color(4, 3, 12));
+        botonMat.setForeground(new java.awt.Color(244, 237, 113));
         botonMat.setText("BUSCAR MATRICULAR Y CALIFICAR");
         botonMat.setPreferredSize(new java.awt.Dimension(1, 1));
         botonMat.addActionListener(new java.awt.event.ActionListener() {
@@ -73,8 +73,9 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         BotonGesC.setBackground(new java.awt.Color(138, 134, 4));
         BotonGesC.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        BotonGesC.setForeground(new java.awt.Color(4, 3, 12));
+        BotonGesC.setForeground(new java.awt.Color(244, 237, 113));
         BotonGesC.setText("GESTION CURSOS");
+        BotonGesC.setBorder(null);
         BotonGesC.setPreferredSize(new java.awt.Dimension(150, 80));
         BotonGesC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,7 +85,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         BotonGesA.setBackground(new java.awt.Color(138, 134, 4));
         BotonGesA.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        BotonGesA.setForeground(new java.awt.Color(4, 3, 12));
+        BotonGesA.setForeground(new java.awt.Color(244, 237, 113));
         BotonGesA.setText("GESTION ALUMNOS");
         BotonGesA.setPreferredSize(new java.awt.Dimension(150, 80));
         BotonGesA.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +99,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         botonFicherosyBBDD.setBackground(new java.awt.Color(138, 134, 4));
         botonFicherosyBBDD.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        botonFicherosyBBDD.setForeground(new java.awt.Color(4, 3, 12));
+        botonFicherosyBBDD.setForeground(new java.awt.Color(244, 237, 113));
         botonFicherosyBBDD.setText("<html><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GESTION FICHEROS</p><p>COPIAS SEGURIDAD BBDD</p></html>");
         botonFicherosyBBDD.setPreferredSize(new java.awt.Dimension(1, 1));
         botonFicherosyBBDD.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +110,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         botonFicherosyBBDD1.setBackground(new java.awt.Color(138, 134, 4));
         botonFicherosyBBDD1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        botonFicherosyBBDD1.setForeground(new java.awt.Color(4, 3, 12));
+        botonFicherosyBBDD1.setForeground(new java.awt.Color(244, 237, 113));
         botonFicherosyBBDD1.setText("<html><p>INFORMES: - ALUMNOS, CURSOS Y CALIFICACIONES</p><p>&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-CURSOS, DESCRIPCIONES Y LISTA DE ALUMNOS</p></html>");
         botonFicherosyBBDD1.setToolTipText("");
         botonFicherosyBBDD1.setActionCommand("<html><p>CREAR INFORME DE ALUMNOS</p><p>CURSOS Y CALIFICACIONES</p></html>");
@@ -122,7 +123,7 @@ public class PrincipalJFrame extends javax.swing.JFrame {
 
         BotonListas.setBackground(new java.awt.Color(138, 134, 4));
         BotonListas.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        BotonListas.setForeground(new java.awt.Color(4, 3, 12));
+        BotonListas.setForeground(new java.awt.Color(244, 237, 113));
         BotonListas.setText("LISTAS DE ALUMNOS Y CURSOS");
         BotonListas.setPreferredSize(new java.awt.Dimension(150, 80));
         BotonListas.addActionListener(new java.awt.event.ActionListener() {
@@ -143,10 +144,10 @@ public class PrincipalJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(BotonGesA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BotonGesC, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                            .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                            .addComponent(botonFicherosyBBDD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                            .addComponent(BotonListas, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
+                            .addComponent(BotonGesC, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                            .addComponent(botonMat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                            .addComponent(botonFicherosyBBDD1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+                            .addComponent(BotonListas, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                             .addComponent(botonFicherosyBBDD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(botonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
