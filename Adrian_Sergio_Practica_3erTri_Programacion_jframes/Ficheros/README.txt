@@ -1,12 +1,14 @@
 -----------------EXPLICACIÓN DEL PROGRAMA----------------------
 
------------GESTION ALUMNOS---------------
+Se hace incapie que se debe iniciar el xampp para poder utilizar correctamente el programa.
+Coge los datos de conexión del fichero txt \Adrian_Sergio_Practica_3erTri_Programacion_jframes\DatosDeBBDD..
+..que se pueden modificar para adaptarlo al usuario.
 
 ----BOTONES----
-	NUEVO ALUMNO - habilita todos los campos para rellenarlos, cada campo tiene su comprobacion,
+	NUEVO ALUMNO/CURSO - habilita todos los campos para rellenarlos, cada campo tiene su comprobacion,
 		una vez puestos todos los datos correctamente pulsar HACER GESTION, realiza la acción.
 	
-	BORRAR ALUMNO - habilita el campo clave DNI para introducir el alumno a borrar,
+	BORRAR ALUMNO/CURSO - habilita el campo clave DNI para introducir el alumno a borrar,
 		una vez puesto el dato correctamente pulsar HACER GESTION, realiza la acción.
 	
 	MODIFICAR - habilita el campo clave DNI para introducir el alumno a borrar,
@@ -18,7 +20,11 @@
 
 	BORRAR DATOS: Pone todos los campos rellenables en blanco.
 
-	VOLVER ATRAS: Vuelve al jframe anterior en este caso el menu principal
+	VOLVER ATRAS: Vuelve al jframe anterior en este caso el menu principal.
+
+	MOSTRAR TODOS: Muestra todos los registros de los objetos selecccionados.
+	
+	Buscar DNI/NOMBRE: Muestra detalles del objeto que esta escrito en el campo.
 
 ----PANEL----
 	PANEL: Interactua con el usuario dependiendo de la selección para informarle.
