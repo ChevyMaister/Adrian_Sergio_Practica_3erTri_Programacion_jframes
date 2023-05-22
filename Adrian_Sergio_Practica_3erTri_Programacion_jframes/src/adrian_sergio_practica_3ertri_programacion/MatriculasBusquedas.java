@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
 
 /**
  * La clase MatriculasBusquedas, es un JFRAME donde se gestionan las busquedas y
@@ -77,6 +76,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         botonCalificar = new javax.swing.JButton();
         textoNota = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        verInscripciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -389,6 +389,17 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(244, 237, 113));
         jLabel2.setText("  NOTA");
 
+        verInscripciones.setBackground(new java.awt.Color(4, 3, 12));
+        verInscripciones.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        verInscripciones.setForeground(new java.awt.Color(244, 237, 113));
+        verInscripciones.setText("VER INSCRIPCIONES");
+        verInscripciones.setPreferredSize(new java.awt.Dimension(140, 80));
+        verInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verInscripcionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelEleccionLayout = new javax.swing.GroupLayout(panelEleccion);
         panelEleccion.setLayout(panelEleccionLayout);
         panelEleccionLayout.setHorizontalGroup(
@@ -397,11 +408,10 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
                     .addGroup(panelEleccionLayout.createSequentialGroup()
-                        .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(botonMatricular, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                            .addComponent(botonBuscarCurso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botonBuscarCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(botonMatricular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEleccionLayout.createSequentialGroup()
@@ -410,7 +420,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                                 .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(textoNota)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
-                            .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(botonBuscarAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEleccionLayout.createSequentialGroup()
+                        .addComponent(verInscripciones, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         panelEleccionLayout.setVerticalGroup(
@@ -427,13 +441,18 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
                         .addGap(2, 2, 2)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textoNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5))
+                    .addGroup(panelEleccionLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonCalificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGroup(panelEleccionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(verInscripciones, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -454,7 +473,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelEleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelEleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -468,35 +487,39 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private void textoCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoCursoActionPerformed
-
+    /**
+     * Realiza la búsqueda de un alumno en la base de datos utilizando el DNI
+     * ingresado, y muestra los datos del alumno y los cursos en los que está
+     * inscrito en una lista.
+     */
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
 
         String[] datosAlumno = new String[0];
         String[] cursosAlumno = new String[0];
         String[] listaImprimir;
         String imprimir = "";
-        if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
-            System.out.println("Aqui llego");
+        if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {//valida que el texto introducido para el dni
             panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
-        } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
+        } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {//Comprueba si no esta el alumno con el dni introducido
             panelInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
         } else {
             if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
 
-                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
-                cursosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "nombreCurso");
+                datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");// Obtener los datos del alumno de la base de datos
+                cursosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "nombreCurso");// Obtener los nombres de los cursos del alumno de la base de datos
 
             }
-            listaImprimir = new String[datosAlumno.length + cursosAlumno.length + 1];
+            listaImprimir = new String[datosAlumno.length + cursosAlumno.length + 1];// Array para almacenar los datos a imprimir
             listaImprimir[0] = datosAlumno[0];
             if (cursosAlumno.length != 0) {
-                for (int i = 0, j = 1; i < cursosAlumno.length; i++, j++) {
+                for (int i = 0, j = 1; i < cursosAlumno.length; i++, j++) {// Almacenar los nombres de los cursos en el Array a imprimir
+                    // Almacenar el primer dato del alumno en el Array a imprimir
                     listaImprimir[j] = cursosAlumno[i];
                 }
             } else {
                 panelInfo.setText("EL ALUMNO NO ESTA MATRICULADO EN NINGUN CURSO");
             }
-
+            // Imprime en la lista
             cajaListaAlumnos.setListData(listaImprimir);
 
         }
@@ -508,6 +531,13 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoAlumnosActionPerformed
 
+    /**
+     * Boton para mostrar todos los Alumnos Actualiza los componentes de lista y
+     * otros elementos de la interfaz gráfica después de realizar una búsqueda
+     * de alumnos
+     *
+     * @param evt
+     */
     private void buscarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarTodosActionPerformed
         cajaListaAlumnos.setListData(limpiar);
         cajaListaCursos.setListData(limpiar);
@@ -518,6 +548,13 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         panelInfo.setText("Si pulsas en uno se rellena el campo DNI automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_buscarTodosActionPerformed
 
+    /**
+     * Boton para mostrar todos los cursos Actualiza los componentes de lista y
+     * otros elementos de la interfaz gráfica después de realizar una búsqueda
+     * de Cursos
+     *
+     * @param evt
+     */
     private void mostrarTodosCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodosCActionPerformed
         cajaListaAlumnos.setListData(limpiar);
         cajaListaCursos.setListData(limpiar);
@@ -530,7 +567,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         textoAlumnos.setText("");
         panelInfo.setText("Si pulsas en uno se rellena el campo NOMBRE DE CURSO automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_mostrarTodosCActionPerformed
-
+    /**
+     * Boton buscar curso insertado Realiza la búsqueda de un curso en la base
+     * de datos , y muestra los datos del curso y los alumnos inscritos en un
+     * componente de lista.
+     */
     private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed
         // TODO add your handling code here:
 
@@ -564,7 +605,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_buscarCursoInsertadoActionPerformed
-
+    /**
+     * Extrae el dato seleccionado y actualiza el campo de texto correspondiente
+     *
+     * @param evt
+     */
     private void cajaListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaAlumnosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
         String dato = "";
@@ -589,8 +634,13 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cajaListaAlumnosMouseClicked
 
+    /**
+     * Clic en un elemento de la lista de cursos. Extrae el nombre del curso
+     * seleccionado y lo muestra en el campo de texto correspondiente.
+     *
+     * @param evt
+     */
     private void cajaListaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaCursosMouseClicked
-        GestionesDeBD ge = new GestionesDeBD();
 
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
         javax.swing.ListModel<String> model = list.getModel();
@@ -619,7 +669,11 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         principal.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_volverActionPerformed
-
+    /**
+     * Boton para dejarlo todo vacio sin texto
+     *
+     * @param evt
+     */
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
         DefaultListModel<String> modelo = new DefaultListModel<>();
         cajaListaCursos.setModel(modelo);
@@ -631,6 +685,12 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         textoAlumnos.setText("");
     }//GEN-LAST:event_borrarCamposActionPerformed
 
+    /**
+     * Recoge los datos introducidos y gestiona la accion correspondiente (
+     * MATRICULAR , DESMATRICULAR y CALIFICAR )
+     *
+     * @param evt
+     */
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         String[] datosAlumno;
         String[] datosCursos;
@@ -639,35 +699,37 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         String nombreCurso = "";
         String dniAlumno = "";
         panelInfo.setText("");
+        //verifica el nombre del curso
         if (!util.validarLongitud(textoCurso.getText().trim().toUpperCase(), 1)) {
             System.out.println("Aqui llego");
             panelInfo.setText("Por favor, introduzca un curso que tenga al menos un caracter");
         } else if (!bd.buscar(textoCurso.getText().trim().toUpperCase(), "cursos", "Nombre")) {
             panelInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
         } else {
+            //si estan todas las comprobaciones bien los busca en la base de datos
             if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
 
                 datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE", "");
                 panelInfo.setText("CURSO ENCONTRADO");
                 cajaListaCursos.setListData(datosCursos);
-
+//variables para guardar la posicion exacta de los datos 
                 int indiceInicio = datosCursos[0].indexOf(":") + 1;
                 int indiceFin = datosCursos[0].indexOf("Descripcion", indiceInicio);
 
                 if (indiceInicio != -1 && indiceFin != -1) {
                     nombreCurso = datosCursos[0].substring(indiceInicio, indiceFin).trim();
-                    //System.out.println("Encontrado " + nombreCurso);
                     cursoEncontrado = true;
                 }
             }
         }
-
+//verifica el dni del Alumno
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
 
             panelInfo.setText(panelInfo.getText() + " " + "Por favor, introduzca un DNI valido 8 numeros y una letra");
         } else if (!bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
             panelInfo.setText(panelInfo.getText() + " " + "DNI no encontrado, por favor, introduzca uno registrado");
         } else {
+            //verifica el dni del Alumno
             if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
 
                 datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
@@ -685,7 +747,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
             }
         }
         if (opcion == 1) {//MATRICULAR/DESMATRICULAR
+            // Verificar si no existe una matrícula previa para el alumno y el curso seleccionados
             if (!bd.existeMatricula("inscripciones", dniAlumno, nombreCurso)) {
+                //si son encontrados tanto el alumno como el curso crea una inscrpcion
                 if (alumnoEncontrado && cursoEncontrado) {
                     bd.insertarInscripcion(nombreCurso, dniAlumno);
                     aceptar.setEnabled(false);
@@ -706,8 +770,9 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
             }
         } else if (opcion == 2) {//CALIFICAR
-
+            //comprueba si existe la inscripcion
             if (bd.existeMatricula("inscripciones", dniAlumno, nombreCurso)) {
+                //comprueba que la nota introducida sea un valor valido 
                 float nota = util.esNotaValida(textoNota.getText().trim());
                 if (nota != -1) {
                     bd.calificar(dniAlumno, nombreCurso, nota);
@@ -722,21 +787,32 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
     }//GEN-LAST:event_aceptarActionPerformed
 
+    /**
+     * Boton Calificar para elegir el alumno y el curso donde quieres
+     * calificarle
+     *
+     * @param evt
+     */
     private void botonCalificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCalificarActionPerformed
+        // Establece los datos de lista como vacíos en la caja de lista de alumnos y cursos
         cajaListaAlumnos.setListData(limpiar);
         cajaListaCursos.setListData(limpiar);
+        //vaciar campos
         textoCurso.setText("");
         textoAlumnos.setText("");
         String[] datosAlumno;
         String[] datosCurso;
+        // Obtiene los datos de los alumnos de la base de datos para establecerlos en la caja de lista de alumnos
         datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI", "");
+        // Obtiene los datos de los Cursosde la base de datos para establecerlos en la caja de lista de Cursos
         datosCurso = bd.imprimir("*", "CURSOS", "NOMBRE", "");
         cajaListaAlumnos.setListData(datosAlumno);
         cajaListaCursos.setListData(datosCurso);
+        // Habilita todos los componentes del panel de Cursos
         for (Component component : panelCurso.getComponents()) {
             component.setEnabled(true);
         }
-
+        // Habilita todos los componentes del panel de alumnos
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(true);
         }
@@ -747,19 +823,26 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         aceptar.setEnabled(true);
     }//GEN-LAST:event_botonCalificarActionPerformed
 
+    /**
+     * Boton para matricular al alumno seleccionado en el curso seleccionado
+     *
+     * @param evt
+     */
     private void botonMatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMatricularActionPerformed
 
         textoCurso.setText("");
         textoAlumnos.setText("");
+        // Habilita todos los componentes del panel de Cursos
         for (Component component : panelCurso.getComponents()) {
             component.setEnabled(true);
         }
-
+        // Habilita todos los componentes del panel de Alumnos
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(true);
         }
         String[] datosAlumno;
         String[] datosCurso;
+        // Obtiene los datos de los Cursos y alumnos de la base de datos para establecerlos en la caja de lista de Cursos y en la de alumnos
         datosAlumno = bd.imprimir("*", "ALUMNOS", "DNI", "");
         datosCurso = bd.imprimir("*", "CURSOS", "NOMBRE", "");
         cajaListaAlumnos.setListData(datosAlumno);
@@ -771,15 +854,23 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         aceptar.setEnabled(true);
     }//GEN-LAST:event_botonMatricularActionPerformed
 
+    /**
+     * Prepara la interfaz para la busqueda de alumnos
+     *
+     * @param evt
+     */
     private void botonBuscarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarAlumnoActionPerformed
+        // Establece los datos de lista como vacíos en la caja de lista de alumnos y cursos
         cajaListaAlumnos.setListData(limpiar);
         cajaListaCursos.setListData(limpiar);
+        //vacia los campos
         textoCurso.setText("");
         textoAlumnos.setText("");
+        // Deshabilita todos los componentes del panel de Cursos
         for (Component component : panelCurso.getComponents()) {
             component.setEnabled(false);
         }
-
+        // Habilita todos los componentes del panel de Alumnos
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(true);
         }
@@ -788,15 +879,23 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
         opcion = 2;
     }//GEN-LAST:event_botonBuscarAlumnoActionPerformed
 
+    /**
+     * Prepara la interfaz para la busqueda de Cursos
+     *
+     * @param evt
+     */
     private void botonBuscarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarCursoActionPerformed
+        // Establece los datos de lista como vacíos en la caja de lista de alumnos y cursos
         cajaListaAlumnos.setListData(limpiar);
         cajaListaCursos.setListData(limpiar);
+        //vacia los campos
         textoCurso.setText("");
         textoAlumnos.setText("");
-
+        // Deshabilita todos los componentes del panel de Alumnos
         for (Component component : panelAlumno.getComponents()) {
             component.setEnabled(false);
         }
+        // Habilita todos los componentes del panel de Cursos
         for (Component component : panelCurso.getComponents()) {
             component.setEnabled(true);
         }
@@ -807,6 +906,17 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private void textoNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNotaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNotaActionPerformed
+
+    private void verInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verInscripcionesActionPerformed
+        // TODO add your handling code here:
+        GestionesDeBD ge = new GestionesDeBD();
+        String imprimir[] = ge.imprimir("*", "Inscripciones", "", "");
+        panelInfo.setText("");
+        for (String imp : imprimir) {
+
+            panelInfo.setText(panelInfo.getText() + "\n" + imp);
+        }
+    }//GEN-LAST:event_verInscripcionesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -878,6 +988,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
     private javax.swing.JTextField textoAlumnos;
     private javax.swing.JTextField textoCurso;
     private javax.swing.JTextField textoNota;
+    private javax.swing.JButton verInscripciones;
     private javax.swing.JButton volver;
     // End of variables declaration//GEN-END:variables
 

@@ -518,7 +518,6 @@ public class GestionesDeBD {
      */
     public void calificar(String claveAlumno, String claveCurso, float nuevoValor) {
         Statement stmt = null;
-        ResultSet rs = null;
         try {
             stmt = this.conn.createStatement();
             stmt.executeUpdate("USE Sergio_Adrian_centroFormacion");
@@ -531,7 +530,7 @@ public class GestionesDeBD {
         } finally {
             try {
                 stmt.close();
-                rs.close();
+               
             } catch (SQLException e) {
                 // e.printStackTrace();
             }
