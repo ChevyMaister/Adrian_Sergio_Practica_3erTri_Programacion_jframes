@@ -916,6 +916,7 @@ public class MatriculasBusquedas extends javax.swing.JFrame {
 
             panelInfo.setText(panelInfo.getText() + "\n" + imp);
         }
+
     }//GEN-LAST:event_verInscripcionesActionPerformed
 
     public static void main(String args[]) {
