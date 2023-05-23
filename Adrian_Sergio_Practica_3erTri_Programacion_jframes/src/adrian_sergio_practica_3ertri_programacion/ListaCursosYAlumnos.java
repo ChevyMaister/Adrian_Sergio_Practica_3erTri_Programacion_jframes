@@ -356,11 +356,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-  /**
- * Boton para borrarlo todo y dejarlo vacio
- * @param evt 
- */
+
+    /**
+     * Boton para borrarlo todo y dejarlo vacio
+     *
+     * @param evt
+     */
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
 
         textoCurso.setText("");
@@ -383,10 +384,11 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
     }//GEN-LAST:event_borrarCamposActionPerformed
 
-  /**
- * Boton para volver
- * @param evt 
- */
+    /**
+     * Boton para volver
+     *
+     * @param evt
+     */
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         // TODO add your handling code here:
         PrincipalJFrame principal = new PrincipalJFrame();
@@ -394,40 +396,46 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_volverActionPerformed
 
- /**
- * Este método se activa cuando el usuario hace clic en un elemento de la lista de alumnos.
- * Extrae el DNI del elemento seleccionado y actualiza el campo de texto de alumnos si es necesario.
- * @param evt 
- */
+    /**
+     * Este método se activa cuando el usuario hace clic en un elemento de la
+     * lista de alumnos. Extrae el DNI del elemento seleccionado y actualiza el
+     * campo de texto de alumnos si es necesario.
+     *
+     * @param evt
+     */
     private void cajaListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaAlumnosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
         String dato = "";
         javax.swing.JList<String> list = (javax.swing.JList) evt.getSource();
         javax.swing.ListModel<String> model = list.getModel();
+        try {
+            if (model != null && model.getSize() > 0) {// Si detecta click(1 click)
 
-        if (model != null && model.getSize() > 0) {// Si detecta click(1 click)
+                int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
+                String item = list.getModel().getElementAt(index);
+                //Extraemos el nombre
+                String campos[] = item.split(": ");
+                if (campos[0].equals("dni")) {
+                    String camposAux[] = campos[1].split("nombre");
+                    dato = camposAux[0].trim();
+                }
 
-            int index = list.locationToIndex(evt.getPoint());//Extraemos la posicion del elemento seleccionado
-            String item = list.getModel().getElementAt(index);
-            //Extraemos el nombre
-            String campos[] = item.split(": ");
-            if (campos[0].equals("dni")) {
-                String camposAux[] = campos[1].split("nombre");
-                dato = camposAux[0].trim();
+                if (dato.length() == 9 && !textoAlumnos.getText().equals(dato)) {
+                    textoAlumnos.setText(dato);
+                }
+
             }
-
-            if (dato.length() == 9 && !textoAlumnos.getText().equals(dato)) {
-                textoAlumnos.setText(dato);
-            }
+        } catch (Exception e) {
 
         }
     }//GEN-LAST:event_cajaListaAlumnosMouseClicked
-    
-  /**
- * Realiza una búsqueda del alumno ingresado y muestra sus datos en una tabla.
- * 
- * @param evt 
- */
+
+    /**
+     * Realiza una búsqueda del alumno ingresado y muestra sus datos en una
+     * tabla.
+     *
+     * @param evt
+     */
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
         DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
         String[] datosAlumno = new String[0];
@@ -481,9 +489,11 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarAlumnoInsertadoActionPerformed
 
     /**
- * Realiza una búsqueda de todos los alumnos registrados y muestra sus DNIs y nombres en una lista.
- * @param evt 
- */
+     * Realiza una búsqueda de todos los alumnos registrados y muestra sus DNIs
+     * y nombres en una lista.
+     *
+     * @param evt
+     */
     private void textoAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoAlumnosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoAlumnosActionPerformed
@@ -505,10 +515,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         panelInfo.setText("Si pulsas en uno se rellena el campo DNI de Alumno automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_buscarTodosActionPerformed
 
-  /**
- * Realiza una búsqueda de todos los Cursos registrados y muestra sus Nombres y descripcion en una lista.
- * @param evt 
- */
+    /**
+     * Realiza una búsqueda de todos los Cursos registrados y muestra sus
+     * Nombres y descripcion en una lista.
+     *
+     * @param evt
+     */
     private void mostrarTodosCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodosCActionPerformed
         String[] datosCursoNombre;
         String[] datosDescripcion;
@@ -524,11 +536,13 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         textoAlumnos.setText("");
         panelInfo.setText("Si pulsas en uno se rellena el campo NOMBRE de Curso automaticamente\ny si buscas el NOMBRE insertado tendras detalles del curso");
     }//GEN-LAST:event_mostrarTodosCActionPerformed
-                                                
-/**
- * Realiza una búsqueda del curso insertado y muestra los alumnos inscritos en dicho curso en una tabla.
- * @param evt 
- */
+
+    /**
+     * Realiza una búsqueda del curso insertado y muestra los alumnos inscritos
+     * en dicho curso en una tabla.
+     *
+     * @param evt
+     */
     private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
@@ -583,10 +597,11 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoCursoActionPerformed
 
-  /**
- * Maneja el evento de clic en la lista de cursos.
- * @param evt 
- */
+    /**
+     * Maneja el evento de clic en la lista de cursos.
+     *
+     * @param evt
+     */
     private void cajaListaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaCursosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
 
