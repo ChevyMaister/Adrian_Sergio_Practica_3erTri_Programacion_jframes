@@ -356,23 +356,37 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+  /**
+ * Boton para borrarlo todo y dejarlo vacio
+ * @param evt 
+ */
     private void borrarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarCamposActionPerformed
 
         textoCurso.setText("");
         textoAlumnos.setText("");
+        // Crea un nuevo modelo de lista para la lista de cursos y establecerlo en la caja de lista de cursos
         DefaultListModel<String> modelo = new DefaultListModel<>();
         cajaListaCursos.setModel(modelo);
+        // Limpia el modelo de lista de cursos
         modelo.clear();
+        // Crea un nuevo modelo de lista para la lista de cursos y establecerlo en la caja de lista de Alumnos
         DefaultListModel<String> modelo1 = new DefaultListModel<>();
         cajaListaAlumnos.setModel(modelo1);
+        // Limpia el modelo de lista de Alumnos
         modelo1.clear();
+        // Crea un nuevo modelo de tabla 
         DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
+        // Limpia el modelo de tabla
         tabla.setRowCount(0);
 
 
     }//GEN-LAST:event_borrarCamposActionPerformed
 
+  /**
+ * Boton para volver
+ * @param evt 
+ */
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         // TODO add your handling code here:
         PrincipalJFrame principal = new PrincipalJFrame();
@@ -380,6 +394,11 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_volverActionPerformed
 
+ /**
+ * Este método se activa cuando el usuario hace clic en un elemento de la lista de alumnos.
+ * Extrae el DNI del elemento seleccionado y actualiza el campo de texto de alumnos si es necesario.
+ * @param evt 
+ */
     private void cajaListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaAlumnosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
         String dato = "";
@@ -403,7 +422,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_cajaListaAlumnosMouseClicked
-
+    
+  /**
+ * Realiza una búsqueda del alumno ingresado y muestra sus datos en una tabla.
+ * 
+ * @param evt 
+ */
     private void buscarAlumnoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoInsertadoActionPerformed
         DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
         String[] datosAlumno = new String[0];
@@ -411,6 +435,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         String[] cursosAlumnoNotas = new String[0];
         String[] listaImprimir;
         String imprimir = "";
+        //Comprueba si el dni del Alumno es valido
         if (!util.validarDNI(textoAlumnos.getText().trim().toUpperCase())) {
             System.out.println("Aqui llego");
             panelInfo.setText("Por favor, introduzca un DNI valido 8 numeros y una letra");
@@ -418,7 +443,8 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             panelInfo.setText("DNI no encontrado, por favor, introduzca uno registrado");
         } else {
             if (bd.buscar(textoAlumnos.getText().trim().toUpperCase(), "ALUMNOS", "dni")) {
-
+                //busca el dni del alumno en la base de datos
+                //Almacena los datos correspondientes del Alumno mediante consultas en la base de datos
                 datosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Alumnos", "dni", "");
                 cursosAlumno = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "nombreCurso");
                 cursosAlumnoNotas = bd.imprimir(textoAlumnos.getText().trim().toUpperCase(), "Inscripciones", "dniAlumno", "calificacion");
@@ -432,26 +458,32 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 tabla.setRowCount(0);
                 String nomCurso = "";
                 int i = 0;
+                //Recorrer los datos de los cursos inscritos por los alumnos
                 for (String curso : cursosAlumno) {
                     int indice = curso.indexOf(":");
                     nomCurso = curso.substring(indice + 1).trim();
                     Object[] fila = new Object[3];
-                    fila[1] = textoAlumnos.getText().trim().toUpperCase();
-                    fila[0] = nomCurso;
+                    fila[1] = textoAlumnos.getText().trim().toUpperCase();// Asigna el DNI del alumno a la columna 1
+                    fila[0] = nomCurso;// Asigna el nombre del curso a la columna 0
 
-                    fila[2] = cursosAlumnoNotas[i];
+                    fila[2] = cursosAlumnoNotas[i];// Asigna la nota del curso a la columna 2
                     tabla.addRow(fila);
                     i++;
                 }
             } else {
                 panelInfo.setText("El alumno no tiene cursos");
             }
+            //muestra la lista a inprimir con los datos
             cajaListaAlumnos.setListData(listaImprimir);
 
         }
 
     }//GEN-LAST:event_buscarAlumnoInsertadoActionPerformed
 
+    /**
+ * Realiza una búsqueda de todos los alumnos registrados y muestra sus DNIs y nombres en una lista.
+ * @param evt 
+ */
     private void textoAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoAlumnosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoAlumnosActionPerformed
@@ -460,33 +492,43 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
         String[] datosAlumnoDni;
         String[] datosAlumnoNombre;
-
+        //almacena la informacion de los alumnos para mostrarla en la lista
         datosAlumnoDni = bd.imprimir("*", "ALUMNOS", "DNI", "dni");
         datosAlumnoNombre = bd.imprimir("*", "ALUMNOS", "DNI", "nombre");
         String[] datosAlumno = new String[datosAlumnoDni.length];
         for (int i = 0; i < datosAlumnoDni.length; i++) {
             datosAlumno[i] = datosAlumnoDni[i] + datosAlumnoNombre[i];
         }
+        //muestra la informacion 
         cajaListaAlumnos.setListData(datosAlumno);
         textoAlumnos.setText("");
         panelInfo.setText("Si pulsas en uno se rellena el campo DNI de Alumno automaticamente\ny si buscas el DNI insertado tendras detalles del alumno");
     }//GEN-LAST:event_buscarTodosActionPerformed
 
+  /**
+ * Realiza una búsqueda de todos los Cursos registrados y muestra sus Nombres y descripcion en una lista.
+ * @param evt 
+ */
     private void mostrarTodosCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTodosCActionPerformed
         String[] datosCursoNombre;
         String[] datosDescripcion;
-
+        //almacena la informacion de los Cursos para mostrarla en la lista
         datosCursoNombre = bd.imprimir("*", "Cursos", "Nombre", "Nombre");
         datosDescripcion = bd.imprimir("*", "Cursos", "Nombre", "Descripcion");
-        String[] datos = new String[datosCursoNombre.length];
+        String[] datos = new String[datosCursoNombre.length];//lo guarda en una lista igual de larga que la cantidad de nombres que contiene el Array de nombres
         for (int i = 0; i < datos.length; i++) {
-            datos[i] = datosCursoNombre[i] + datosDescripcion[i];
+            datos[i] = datosCursoNombre[i] + datosDescripcion[i];//junta la informacion en la lista que imprimira 
         }
+        //muestra la informacion
         cajaListaCursos.setListData(datos);
         textoAlumnos.setText("");
         panelInfo.setText("Si pulsas en uno se rellena el campo NOMBRE de Curso automaticamente\ny si buscas el NOMBRE insertado tendras detalles del curso");
     }//GEN-LAST:event_mostrarTodosCActionPerformed
-
+                                                
+/**
+ * Realiza una búsqueda del curso insertado y muestra los alumnos inscritos en dicho curso en una tabla.
+ * @param evt 
+ */
     private void buscarCursoInsertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarCursoInsertadoActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tabla = (DefaultTableModel) tablaMostrar.getModel();
@@ -494,20 +536,21 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         String[] cursosAlumno = new String[0];
         String[] cursosAlumnoNotas = new String[0];
         String[] listaImprimir;
+        //comprueba si el campo de texto es valido 
         if (!util.validarLongitud(textoCurso.getText().trim().toUpperCase(), 1)) {
             panelInfo.setText("Por favor, introduzca un curso que tenga al menos un caracter");
         } else if (!bd.buscar(textoCurso.getText().trim().toUpperCase(), "cursos", "Nombre")) {
             panelInfo.setText("Curso no encontrado, por favor, introduzca uno registrado");
         } else {
             if (bd.buscar(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE")) {
-
+                //si es valido y existe el curso introducido almacena los datos 
                 datosCursos = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "CURSOS", "NOMBRE", "");
                 cursosAlumno = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "Inscripciones", "nombreCurso", "dniAlumno");
                 cursosAlumnoNotas = bd.imprimir(textoCurso.getText().trim().toUpperCase(), "Inscripciones", "nombreCurso", "calificacion");
                 panelInfo.setText("CURSO ENCONTRADO");
 
             }
-
+            //actualizar la tabla con los datos de los alumnos inscritos
             listaImprimir = new String[datosCursos.length + cursosAlumno.length + 1];
             listaImprimir[0] = datosCursos[0];
 
@@ -515,11 +558,12 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
                 tabla.setRowCount(0);
                 String dniAlumno = "";
                 int i = 0;
+                //Recorrer los datos de los cursos inscritos por los alumnos
                 for (String curso : cursosAlumno) {
-                    int indice = curso.indexOf(":");
-                    dniAlumno = curso.substring(indice + 1).trim();
+                    int indice = curso.indexOf(":");//guarda posicion
+                    dniAlumno = curso.substring(indice + 1).trim();//Extrae el DNI del alumno del dato del curso
                     Object[] fila = new Object[3];
-                    fila[0] = textoCurso.getText().trim().toUpperCase();
+                    fila[0] = textoCurso.getText().trim().toUpperCase();// Asigna el nombre del curso a la columna 0
                     fila[1] = dniAlumno;
 
                     fila[2] = cursosAlumnoNotas[i];
@@ -529,6 +573,7 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
             } else {
                 panelInfo.setText("El Curso no tiene alumnos");
             }
+            //imprime los datos
             cajaListaCursos.setListData(datosCursos);
 
         }
@@ -538,6 +583,10 @@ public class ListaCursosYAlumnos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textoCursoActionPerformed
 
+  /**
+ * Maneja el evento de clic en la lista de cursos.
+ * @param evt 
+ */
     private void cajaListaCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cajaListaCursosMouseClicked
         GestionesDeBD ge = new GestionesDeBD();
 

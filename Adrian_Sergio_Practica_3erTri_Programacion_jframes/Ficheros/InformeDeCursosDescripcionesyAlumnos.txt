@@ -1,7 +1,0 @@
-Nombre: AAAA Descripcion: ASDFSDAFSDFA 
-Nombre: ASDF Descripcion: 2222222 
-Nombre: WEEEE Descripcion: 23234234 
-nombreCurso: AAAA Nombre: AD Apellido: AD 
-nombreCurso: AAAA Nombre: EEEE Apellido: EEEEE 
-nombreCurso: ASDF Nombre: AD Apellido: AD 
-nombreCurso: ASDF Nombre: EEEE Apellido: EEEEE 

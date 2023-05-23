@@ -1,4 +1,0 @@
-Nombre: AD dniAlumno: 98765432A nombreCurso: AAAA calificacion: null 
-Nombre: AD dniAlumno: 98765432A nombreCurso: ASDF calificacion: 7.00 
-Nombre: EEEE dniAlumno: 12345678A nombreCurso: AAAA calificacion: 6.00 
-Nombre: EEEE dniAlumno: 12345678A nombreCurso: ASDF calificacion: null 
